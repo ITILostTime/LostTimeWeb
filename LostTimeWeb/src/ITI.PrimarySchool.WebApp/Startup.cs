@@ -120,7 +120,7 @@ namespace ITI.PrimarySchool.WebApp
                 };
                 c.AccessType = "offline";
             } );
-
+                        
             app.UseMvc( routes =>
             {
                 routes.MapRoute(
