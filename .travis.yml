@@ -1,0 +1,85 @@
+git:
+  depth: 3
+
+#switch to node as default next time
+language: csharp
+solution: NetCoreSample.sln
+sudo: required
+dist: trusty
+env:
+  matrix:
+  - DOTNET_BUILD=1 CLI_VERSION=latest DOTNET_INSTALL_DIR="$PWD/.dotnetcli" PATH="$DOTNET_INSTALL_DIR:$PATH"
+  - NODE_BUILD=1
+  
+mono:
+- 4.2.3
+os:
+- linux
+
+branches:
+  only:
+  - release
+  - dev
+
+before_install:
+#check if we are not not a TAG or not on Branch : release or dev : leave the build
+#- if [ -z "$TRAVIS_TAG" ]; then if [ "$TRAVIS_BRANCH" != "release" ]; then if [ "$TRAVIS_BRANCH" != "dev" ]; then exit 0; fi fi fi
+- chmod +x ./scripts/dotnetbuild.sh
+- chmod +x ./scripts/pack_dist.sh
+- chmod +x ./scripts/set_tags.sh
+- |
+  if [[ "${DOTNET_BUILD+x}" ]]; then
+    sudo apt-get install -y gettext libcurl4-openssl-dev libicu-dev libssl-dev libunwind8 zlib1g
+  fi
+
+install:
+- |
+  if [[ "${DOTNET_BUILD+x}" ]]; then
+    curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version "$CLI_VERSION" --install-dir "$DOTNET_INSTALL_DIR"
+  fi
+- |
+  if [[ "${NODE_BUILD+x}" ]]; then
+    nvm install stable
+    nvm use stable
+    pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn && popd
+  fi
+
+script:
+- |
+  if [[ "${DOTNET_BUILD+x}" ]]; then
+    ./scripts/dotnetbuild.sh
+  fi
+- |
+  if [[ "${NODE_BUILD+x}" ]]; then
+    pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn build && popd
+    #js test
+  fi
+
+#set tag version based on the file at the root of the system
+after_success:
+- ./scripts/set_tags.sh
+- ./scripts/pack_dist.sh
+
+before_deploy:
+- echo "deploying to GitHub releases"
+
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: $GITHUBKEY
+  file_glob: true
+  file: 
+  - "$TRAVIS_BUILD_DIR/artifacts/*"
+  on:
+    #tags: true
+    branch: release
+    repo: ITILostTime/LostTimeWeb
+    
+notifications:
+  email:
+    recipients:
+    - kore@intechinfo.fr
+    - vanbutsele@intechinfo.fr
+    on_success: always
+    on_failure: always
