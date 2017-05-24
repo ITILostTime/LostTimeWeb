@@ -42,6 +42,7 @@ dlldata.c
 
 # DNX
 project.lock.json
+project.fragment.lock.json
 artifacts/
 
 *_i.c
@@ -250,3 +251,16 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# CodeRush
+.cr/
+
+#mac Finder hidden file
+.DS_Store
+
+# PrimarySchool project
+src/ITI.PrimarySchool.WebApp/wwwroot/assets/
+src/ITI.PrimarySchool.WebApp/wwwroot/dist/
+src/ITI.PrimarySchool.DAL.Tests/appsettings.json
+src/ITI.PrimarySchool.WebApp/appsettings.json
+src/ITI.PrimarySchool.DB/appsettings.json
