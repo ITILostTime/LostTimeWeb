@@ -12,6 +12,8 @@ import Logout from './components/Logout.vue'
 
 import Support from './components/Support.vue'
 import Forum from './components/Forum.vue'
+import About from './components/About.vue'
+import Download from './components/Download.vue'
 
 import ClassList from './components/Classes/ClassList.vue'
 import ClassEdit from './components/Classes/ClassEdit.vue'
@@ -22,6 +24,8 @@ import StudentEdit from './components/Students/StudentEdit.vue'
 import TeacherList from './components/Teachers/TeacherList.vue'
 import TeacherEdit from './components/Teachers/TeacherEdit.vue'
 import TeacherAssign from './components/Teachers/TeacherAssign.vue'
+
+import Admin from './components/Admin.vue'
 
 import FollowingList from './components/GitHub/FollowingList.vue'
 
@@ -65,8 +69,10 @@ const router = new VueRouter({
     { path: '/logout', component: Logout/*, beforeEnter: requireAuth */},
     { path: '/support', component: Support },
     { path: '/forum', component: Forum },
+    { path: '/about', component: About },
+    { path: '/download', component: Download },
 
-    { path: '', component: Home/*, beforeEnter: requireAuth*/ },
+    { path: '/admin', component: Admin/*, beforeEnter: requireAuth */},
 
     { path: '/classes', component: ClassList/*, beforeEnter: requireAuth*/ },
     { path: '/classes/:mode([create|edit]+)/:id?', component: ClassEdit/*, beforeEnter: requireAuth*/ },
@@ -78,7 +84,9 @@ const router = new VueRouter({
     { path: '/teachers/:mode([create|edit]+)/:id?', component: TeacherEdit/*, beforeEnter: requireAuth*/ },
     { path: '/teachers/assign/:id', component: TeacherAssign/*, beforeEnter: requireAuth*/ },
 
-    { path: '/github/following', component: FollowingList, beforeEnter: requireAuth, meta: { requiredProviders: ['GitHub'] } }
+    { path: '/github/following', component: FollowingList, beforeEnter: requireAuth, meta: { requiredProviders: ['GitHub'] } }, 
+    
+    { path: '', component: Home/*, beforeEnter: requireAuth*/ }
   ]
 })
 

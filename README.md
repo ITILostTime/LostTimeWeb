@@ -2,7 +2,7 @@
 
 IT project @IN'TECH 2017mS5
 
-## Launch
+## Build & Launch 
 
 Using a PowerShell or Shell inside the base folder :
 
@@ -29,6 +29,10 @@ yarn
 yarn run dev
 ```
 The dotnet application is called on http://localhost:5000 and the SPA is called by the dotnet application at http://localhost:8080 (and hot served, no need to reload) 
+
+## Deploy
+
+Use the NuGet package and the dist folder (respectivly the .Net application and the .js SPA)
 
 ## Technology
 
