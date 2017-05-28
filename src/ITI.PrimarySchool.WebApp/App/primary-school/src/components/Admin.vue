@@ -1,17 +1,15 @@
 <template>
-
+<div id="admin">
+  {{ message }}
+</div>
 </template>
 
 <script>
     export default {
         data () {
             return {
-                message: 'I am the home page !'
+                message: 'I am the Admin page !'
             }
         }
     }
 </script>
-
-<style lang="less">
-
-</style>
