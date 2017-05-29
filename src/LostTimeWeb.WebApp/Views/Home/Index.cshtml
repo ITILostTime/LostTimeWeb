@@ -1,4 +1,4 @@
-﻿﻿@using ITLostTimeWebebApp.Services;
+﻿﻿@using LostTimeWeb.WebApp.Services;
 @{
     Token token = ( Token )ViewData[ "Token" ];
     string email = ( string )ViewData[ "Email" ];
@@ -58,11 +58,11 @@
     }
 
     <environment names="Development">
-        <script type="text/javascript" src="http://localhost:8080/dist/primary-school.js"></script>
+        <script type="text/javascript" src="http://localhost:8080/dist/losttimeweb.js"></script>
     </environment>
 
     <environment names="Staging,Production">
-        <script type="text/javascript" src="~/dist/primary-school.js"></script>
+        <script type="text/javascript" src="~/dist/losttimeweb.js"></script>
     </environment>
 </body>
 </html>
