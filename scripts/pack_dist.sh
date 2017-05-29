@@ -4,7 +4,7 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
 done < $TRAVIS_BUILD_DIR/version.txt
 VERSION="v$SEMVER-${TRAVIS_BUILD_NUMBER}"
 
-zip -r dist $TRAVIS_BUILD_DIR/src/ITI.PrimarySchool.WebApp/wwwroot/dist
+zip -r dist $TRAVIS_BUILD_DIR/src/LostTimeWeb.WebApp/wwwroot/dist
 echo -e "zipped dist"
 ls
 mkdir artifacts

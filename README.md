@@ -14,7 +14,7 @@ $Env:ASPNETCORE_ENVIRONMENT = "Development"
 ```
 To change the environnement variable. We have to solve the bug on the launchconfig.json then run,
 ```
-cd ./src/ITI.PrimarySchool.WebApp/
+cd ./src/LostTimeWeb.WebApp/
 
 dotnet restore
 
