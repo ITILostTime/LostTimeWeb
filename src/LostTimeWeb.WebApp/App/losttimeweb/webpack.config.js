@@ -4,6 +4,10 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 var wwwroot = "../../wwwroot";
 
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 module.exports = {
   entry: './src/main.js',
 
@@ -16,7 +20,8 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       '@': resolve('src')
-    },
+    }
+  },
   module: {
     loaders: [
       {

@@ -1,8 +1,7 @@
 <template>
-    <footer>
-      <div>
+    <footer class="row">
         <router-link to="/about">A-propos</router-link>
-      </div>
+        <router-link to="/about">Credit</router-link>
     </footer>
 </template>
 <script>

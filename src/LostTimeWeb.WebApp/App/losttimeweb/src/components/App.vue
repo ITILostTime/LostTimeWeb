@@ -44,4 +44,5 @@ export default {
 
 <style lang="less">
   @import "../styles/global.less";
+
 </style>
