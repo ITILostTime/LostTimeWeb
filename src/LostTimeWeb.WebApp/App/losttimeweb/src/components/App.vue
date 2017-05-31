@@ -1,42 +1,31 @@
 <template>
-  <div>
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">
-            <i class="fa fa-laptop"></i>
-            LostTimeWeb
-          </a>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-          <li><router-link to="/">Home</router-link></li>
-          <li><router-link to="/support">Support</router-link></li>
-          <li><router-link to="/download">Download</router-link></li>
-          <li><router-link to="/forum">Forum</router-link></li>
-          <li><router-link to="/login">Login</router-link></li>
-        </ul>
-      </div>
-    </nav>
-
-      <div class="container">
-        <router-view class="child"></router-view>
-      </div>
-      <div>
-        <router-link to="/about">A-propos</router-link>
-      </div>
+  <div id="app">
+    <app-header></app-header>
+    <div class="container">
+      <router-view class="child"></router-view>
+    </div>
+    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
+import Header from './Header.vue'
+import Footer from './Footer.vue'
 
 import AuthService from '../services/AuthService'
 import { mapGetters, mapActions } from 'vuex'
 import '../directives/requiredProviders'
 
 export default {
+  name: 'app',
+  components: {
+      'app-header': Header,
+      'app-footer': Footer,
+    },
   computed: {   
     auth: () => AuthService
-  }
+  },
+  
 }
 </script>
 

@@ -12,7 +12,11 @@ module.exports = {
     publicPath: 'http://localhost:8080/dist/',
     filename: 'losttimeweb.js'
   },
-
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      '@': resolve('src')
+    },
   module: {
     loaders: [
       {
