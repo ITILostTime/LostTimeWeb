@@ -4,6 +4,10 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 var wwwroot = "../../wwwroot";
 
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 module.exports = {
   entry: './src/main.js',
 
@@ -12,7 +16,12 @@ module.exports = {
     publicPath: 'http://localhost:8080/dist/',
     filename: 'losttimeweb.js'
   },
-
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      '@': resolve('src')
+    }
+  },
   module: {
     loaders: [
       {
