@@ -15,6 +15,8 @@ import Forum from './components/Forum.vue'
 import About from './components/About.vue'
 import Download from './components/Download.vue'
 
+import UserEdit from './components/Users/UserEdit.vue'
+
 /*
 import ClassList from './components/Classes/ClassList.vue'
 import ClassEdit from './components/Classes/ClassEdit.vue'
@@ -75,6 +77,7 @@ const router = new VueRouter({
 
     { path: '/admin', component: Admin/*, beforeEnter: requireAuth */},
 
+    { path: '/usersettings', component: UserEdit/*, beforeEnter: requireAuth*/ },
     //{ path: '/classes', component: ClassList/*, beforeEnter: requireAuth*/ },
     //{ path: '/classes/:mode([create|edit]+)/:id?', component: ClassEdit/*, beforeEnter: requireAuth*/ },
 

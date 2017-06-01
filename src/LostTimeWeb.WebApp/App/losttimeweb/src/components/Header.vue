@@ -1,6 +1,5 @@
 <template>
     <header>
-        
         <nav class="navbar navbar-default ">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -12,12 +11,12 @@
                     <li><router-link to="/">Home</router-link></li>
                     <li><router-link to="/support">Support</router-link></li>
                     <li><router-link to="/download">Download</router-link></li>
-                    <li><router-link to="/forum">Forum</router-link></li>
+                    <!--<li><router-link to="/forum">Forum</router-link></li>-->
+                    <li><router-link to="/usersettings">Profil</router-link></li>
                     <li><router-link to="/login">Login</router-link></li>
                 </ul>
             </div>
         </nav>
-
     </header>
 </template>
 <script>
