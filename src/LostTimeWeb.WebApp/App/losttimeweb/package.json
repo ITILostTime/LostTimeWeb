@@ -13,6 +13,7 @@
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "jquery": "^3.1.1",
     "vue": "^2.2.4",
+    "vue-easy-slider": "^3.1.0",
     "vue-router": "^2.3.0",
     "vuex": "^2.2.1"
   },
