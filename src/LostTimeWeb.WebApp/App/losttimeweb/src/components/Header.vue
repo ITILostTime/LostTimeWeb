@@ -15,6 +15,7 @@
                     <li><router-link to="/usersettings">Profil</router-link></li>
                     <li><router-link to="/login">Login</router-link></li>
                 </ul>
+                <div class="col-xs-6">user profile/connexion</div>
             </div>
         </nav>
     </header>
