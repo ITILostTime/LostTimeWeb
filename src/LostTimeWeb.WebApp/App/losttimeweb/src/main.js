@@ -60,7 +60,6 @@ function requireAuth (to, from, next)  {
 
   next();
 }
-
 /**
  * Declaration of the different routes of our application, and the corresponding components
  */
