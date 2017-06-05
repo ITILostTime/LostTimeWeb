@@ -1,10 +1,11 @@
 <template>
-    <section class="carrousel col-md-8">
+    <section class="col-md-8" id="carrousel">
         <slider animation="fade"
             width="100%"
             height="400px"
             :init-index="0"
-            :auto=false
+            :auto="true"
+            :interval="3000"
             >
             <slider-item v-for="(i, index) in itemList" :key="index">
                 <article
@@ -19,7 +20,6 @@
 
 <script>
 import { Slider, SliderItem } from 'vue-easy-slider'
-
     export default {
         data () {
             return {
@@ -58,21 +58,25 @@ import { Slider, SliderItem } from 'vue-easy-slider'
 {
     outline:0;
 }
-.carrousel article
+#carrousel
+{
+    max-width:562px;
+}
+#carrousel article
 {
     position:relative;
     height:634px;
     max-height:634px;
-    max-width:891px;
+    
 }
-.carrousel img
+#carrousel img
 {
     width: auto; 
     max-height:400px;
     position:relative;
     z-index:0;
 }
-.carrousel h1
+#carrousel h1
 {
     color:white;
     padding:10px;
@@ -82,10 +86,11 @@ import { Slider, SliderItem } from 'vue-easy-slider'
     bottom:0px;
     z-index:1;
     width:100%;
-    background-color:pink;
-    background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 77%, rgba(0,0,0,0.6) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.6) 77%,rgba(0,0,0,0.6) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.6) 77%,rgba(0,0,0,0.6) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#99000000',GradientType=0 ); /* IE6-9 */
+    text-shadow: 4px 4px 6px black;
+    //background-color:pink;
+    //background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 77%, rgba(0,0,0,0.6) 100%); /* FF3.6-15 */
+    //background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.6) 77%,rgba(0,0,0,0.6) 100%); /* Chrome10-25,Safari5.1-6 */
+    //background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.6) 77%,rgba(0,0,0,0.6) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#99000000',GradientType=0 ); /* IE6-9 */
 }
 </style>

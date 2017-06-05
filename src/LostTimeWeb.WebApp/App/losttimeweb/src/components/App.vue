@@ -44,5 +44,11 @@ export default {
 
 <style lang="less">
   @import "../styles/global.less";
-
+body{
+  background:#382f24;
+}
+.row
+{
+  background-color:brown;
+}
 </style>

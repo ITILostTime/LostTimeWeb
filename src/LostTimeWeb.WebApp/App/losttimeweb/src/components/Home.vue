@@ -1,5 +1,5 @@
 <template>
-    <div class="home row">
+    <div class="row" id="home">
         <carrousel></carrousel>
         <news></news>
     </div>
@@ -23,7 +23,7 @@ import News from './News.vue'
 </script>
 
 <style lang="less">
-.home
+#home
 {
     background-color:brown;
 }
