@@ -7,7 +7,6 @@
             <div class="page-header">
                 <h1>Editer son profil</h1>
             </div>
-
             <form @submit="onSubmit($event)">
                 <div class="alert alert-danger" v-if="errors.length > 0">
                     <b>Les champs suivants semblent invalides : </b>

@@ -17,6 +17,7 @@
                 <div class="collapse navbar-collapse"  v-if="auth.isConnected"><!--IF CONNECTED -->
                     <ul class="nav navbar-nav">
                         <li><router-link to="/usersettings">Profil</router-link></li>
+                        <li><router-link to="/usersettings">Tchat</router-link></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
@@ -43,7 +44,7 @@ import '../directives/requiredProviders'
 
 export default {
     name: 'header',
-  computed: {
+    computed: {
     auth: () => AuthService,
     //...mapGetters(['isLoading'])
   }

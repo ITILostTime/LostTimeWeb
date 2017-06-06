@@ -76,7 +76,8 @@ const router = new VueRouter({
 
     { path: '/admin', component: Admin/*, beforeEnter: requireAuth */},
 
-    { path: '/usersettings', component: UserEdit/*, beforeEnter: requireAuth*/ },
+    { path: '/usersettings', component: UserEdit, beforeEnter: requireAuth },
+    
     //{ path: '/classes', component: ClassList/*, beforeEnter: requireAuth*/ },
     //{ path: '/classes/:mode([create|edit]+)/:id?', component: ClassEdit/*, beforeEnter: requireAuth*/ },
 

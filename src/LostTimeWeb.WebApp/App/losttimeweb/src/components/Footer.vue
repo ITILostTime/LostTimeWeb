@@ -17,7 +17,6 @@
     margin: 10px 0px 0px 0px;//top right bottom left
     padding :10px;
     text-align:center;
-    //background:brown;
-    background-image:url('../../dist/img/wood-diff.jpg');//bug cause : file loader resolving url
+    background:brown;
 }
 </style>

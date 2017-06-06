@@ -5,7 +5,7 @@
             height="400px"
             :init-index="0"
             :auto="true"
-            :interval="3000"
+            :interval="4000"
             >
             <slider-item v-for="(i, index) in itemList" :key="index">
                 <article
@@ -55,7 +55,11 @@ import { Slider, SliderItem } from 'vue-easy-slider'
 }
 .slider button:focus 
 {
-    outline:0;
+    outline:none;
+}
+.slider button:active
+{
+    outline:none;
 }
 #carrousel
 {
