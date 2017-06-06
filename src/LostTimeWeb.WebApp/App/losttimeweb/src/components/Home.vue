@@ -14,11 +14,6 @@ import News from './News.vue'
       'carrousel': Carrousel,
       'news': News,
     },
-        data () {
-            return {
-                message: 'I am the home page !'
-            }
-        }
     }
 </script>
 

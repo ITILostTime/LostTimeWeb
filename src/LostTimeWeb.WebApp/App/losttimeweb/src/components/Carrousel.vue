@@ -24,10 +24,10 @@ import { Slider, SliderItem } from 'vue-easy-slider'
         data () {
             return {
                 itemList: [
-                    { title: 'LostTime c\'est cool !', pictureName: 'screen1.png' },
-                    { title: 'LostTime c\'est super !', pictureName: 'screen2.png' },
-                    { title: 'LostTime c\'est génial !', pictureName: 'screen3.png' },
-                    { title: 'LostTime c\'est top moumoute !', pictureName: 'screen4.png' },
+                    { title: 'Incarnez Astrid !', pictureName: 'screen1.png' },
+                    { title: 'Résolvez des énigmes !', pictureName: 'screen2.png' },
+                    { title: 'Explorez la Ville !', pictureName: 'screen3.png' },
+                    { title: 'Soyez maître de votre destin !', pictureName: 'screen4.png' },
                 ]
             }
         },
