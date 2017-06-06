@@ -1,44 +1,49 @@
 <template>
-    <div>
-        <div class="page-header">
-            <h1>Editer son profil</h1>
+   <div id="usersettings" class="row">
+        <div class="col-md-3" id="avatar">
+            <img src="img/userSteam.png"/>
         </div>
-
-        <form @submit="onSubmit($event)">
-            <div class="alert alert-danger" v-if="errors.length > 0">
-                <b>Les champs suivants semblent invalides : </b>
-
-                <ul>
-                    <li v-for="e of errors">{{e}}</li>
-                </ul>
+        <div class="col-md-9">
+            <div class="page-header">
+                <h1>Editer son profil</h1>
             </div>
 
-            <div class="form-group">
-                <label class="required">Pseudo</label>
-                <input type="text" v-model="item.pseudo" class="form-control" required>
-            </div>
+            <form @submit="onSubmit($event)">
+                <div class="alert alert-danger" v-if="errors.length > 0">
+                    <b>Les champs suivants semblent invalides : </b>
 
-            <div class="form-group">
-                <label class="required">E-mail</label>
-                <input type="text" v-model="item.email" class="form-control" required>
-            </div>
-<!--
-            <div class="form-group">
-                <label class="required">Date de naissance</label>
-                <input type="date" v-model="item.birthDate" class="form-control" required>
-            </div>
--->
-            <div class="form-group">
-                <p>Editer son mot de passe</p>
-                <label class="required">Ancien mot de passe</label>
-                <input type="password" v-model="item.oldpassword" class="form-control" required>
-                <label class="required">Nouveau mot de passe</label>
-                <input type="password" v-model="item.password" class="form-control" required>
-                <label class="required">comfirmer nouveau mot de passe</label>
-                <input type="password" v-model="item.passwordComfirm" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Sauvegarder</button>
-        </form>
+                    <ul>
+                        <li v-for="e of errors">{{e}}</li>
+                    </ul>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Pseudo</label>
+                    <input type="text" v-model="item.pseudo" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">E-mail</label>
+                    <input type="text" v-model="item.email" class="form-control" required>
+                </div>
+    <!--
+                <div class="form-group">
+                    <label class="required">Date de naissance</label>
+                    <input type="date" v-model="item.birthDate" class="form-control" required>
+                </div>
+    -->
+                <div class="form-group">
+                    <p>Editer son mot de passe</p>
+                    <label class="required">Ancien mot de passe</label>
+                    <input type="password" v-model="item.oldpassword" class="form-control" required>
+                    <label class="required">Nouveau mot de passe</label>
+                    <input type="password" v-model="item.password" class="form-control" required>
+                    <label class="required">comfirmer nouveau mot de passe</label>
+                    <input type="password" v-model="item.passwordComfirm" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary" disabled>Sauvegarder</button>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -56,22 +61,22 @@
         },
 
         async mounted() {
-            this.id = this.$route.params.id;//get the ID from the auth data
-            
-            try {
-                // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
-                // It is useful when we have to know if an error occurred, in order to adapt the user experience.
-                //this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));
+            //this.id = this.$route.params.id;//get the ID from the auth data
                 this.item.pseudo = "toto"
                 this.item.email = "toto@tata.fr"
                 this.item.oldpassword = ""
                 this.item.password = ""
                 this.item.passwordComfirm =""
+            /*try {
+                // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
+                // It is useful when we have to know if an error occurred, in order to adapt the user experience.
+                //this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));
+                
             }
             catch(error) {
                 // So if an exception occurred, we redirect the user to the students list.
                 this.$router.replace('/usersettings');
-            }
+            }*/
         },
 
         methods: {
@@ -82,8 +87,8 @@
 
                 var errors = [];
 
-                if(!this.item.lastName) errors.push("Nom")
-                if(!this.item.firstName) errors.push("Prénom")
+                if(!this.item.pseudo) errors.push("Nom")
+                if(!this.item.email) errors.push("Prénom")
                 if(!this.item.birthDate) errors.push("Date de naissance")
 
                 this.errors = errors;
@@ -112,5 +117,8 @@
 </script>
 
 <style lang="less">
-
+#avatar
+{
+    margin-top:100px;
+}
 </style>
