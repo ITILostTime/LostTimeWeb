@@ -2,7 +2,7 @@
   <div id="download" class="row">
         <div class="col-md-5 col-md-offset-3">
             <h1>Télécharger la dernière version</h1>
-            <p><a href="#"><img src="img/en_badge_web_generic.png"/></a></p>
+            <p><a href="#"><img src="../../dist/img/en_badge_web_generic.png"/></a></p>
         </div>
         <div class="col-md-4">
             <h2>Changelog V{{version}}</h2>

@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <router-link to="/">
-                        <img src="/img/logo_noParticle.png" alt="brand"/> 
+                        <img src="../../dist/img/logo_noParticle.png" alt="brand"/> 
                         LostTime
                     </router-link>
                 </div>

@@ -1,7 +1,7 @@
 <template>
    <div id="usersettings" class="row">
         <div class="col-md-3" id="avatar">
-            <img src="img/userSteam.png"/>
+            <img src="../../../dist/img/userSteam.png"/>
         </div>
         <div class="col-md-9">
             <div class="page-header">

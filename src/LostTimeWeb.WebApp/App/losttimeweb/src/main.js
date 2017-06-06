@@ -98,7 +98,7 @@ const router = new VueRouter({
  */
 
 // Allowed urls to access the application (if your website is http://mywebsite.com, you have to add it)
-AuthService.allowedOrigins = ['http://localhost:5000', /* 'http://mywebsite.com' */];
+AuthService.allowedOrigins = ['http://localhost:5000', 'http://localhost:8080',/* 'http://mywebsite.com' */];
 
 // Server-side endpoint to logout
 AuthService.logoutEndpoint = '/Account/LogOff';

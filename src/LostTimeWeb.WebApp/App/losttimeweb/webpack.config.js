@@ -13,7 +13,7 @@ module.exports = {
 
   output: {
     path: path.resolve(wwwroot, './dist'),
-    publicPath: 'http://localhost:8080/dist/',
+    publicPath: process.env.NODE_ENV === 'production' ? './dist' : 'http://localhost:8080/dist/',
     filename: 'losttimeweb.js'
   },
   resolve: {
@@ -29,7 +29,7 @@ module.exports = {
         loader: 'vue-loader',
         options: {
           loaders: {
-            css: ExtractTextPlugin.extract("css-lodaer"),
+            css: ExtractTextPlugin.extract("css-loader"),
             less: ExtractTextPlugin.extract("css-loader!less-loader")
           }
         }
