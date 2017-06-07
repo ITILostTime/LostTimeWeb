@@ -1,7 +1,10 @@
 <template>
-<div id="tchat">
-  {{ message }}
-</div>
+    <div id="tchat">
+        <div class="col-md-6 col-md-offset-3">
+                <h1>Pas de Tchat, mais un Chat oui</h1>
+                <img src="../../dist/img/chat-hyperesthsie.jpg"/>
+        </div>
+    </div>
 </template>
 
 <script>

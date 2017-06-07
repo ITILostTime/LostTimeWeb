@@ -17,6 +17,8 @@ import Download from './components/Download.vue'
 
 import UserEdit from './components/Users/UserEdit.vue'
 
+import Tchat from './components/Tchat.vue'
+
 /*
 import ClassList from './components/Classes/ClassList.vue'
 import ClassEdit from './components/Classes/ClassEdit.vue'
@@ -68,11 +70,12 @@ const router = new VueRouter({
   base: '',
   routes: [
     { path: '/login' , component: Login },
-    { path: '/logout', component: Logout/*, beforeEnter: requireAuth */},
+    { path: '/logout', component: Logout, beforeEnter: requireAuth },
     { path: '/support', component: Support },
     { path: '/forum', component: Forum },
     { path: '/about', component: About },
     { path: '/download', component: Download },
+    { path: '/tchat', component: Tchat },
 
     { path: '/admin', component: Admin/*, beforeEnter: requireAuth */},
 
