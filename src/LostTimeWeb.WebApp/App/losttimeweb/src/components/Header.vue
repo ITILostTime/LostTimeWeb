@@ -1,33 +1,97 @@
 <template>
     <header>
-        <nav class="navbar navbar-default ">
+        <nav class="navbar navbar-default " id="head">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">
-                        <img src="/img/logo_noParticle.png" alt="brand"/> LostTime
-                    </a>
+                    <router-link to="/">
+                        <img src="../../dist/img/logo_noParticle.png" alt="brand"/> 
+                        LostTime
+                    </router-link>
                 </div>
                 <ul class="nav navbar-nav navbar-center ">
-                    <li><router-link to="/">Home</router-link></li>
-                    <li><router-link to="/support">Support</router-link></li>
-                    <li><router-link to="/download">Download</router-link></li>
+                    <li><router-link to="/">Accueil</router-link></li>
+                    <li><router-link to="/download">Téléchargement</router-link></li>                    
+                    <li><router-link to="/support">Support technique</router-link></li>
                     <!--<li><router-link to="/forum">Forum</router-link></li>-->
-                    <li><router-link to="/usersettings">Profil</router-link></li>
-                    <li><router-link to="/login">Login</router-link></li>
                 </ul>
-                <div class="col-xs-6">user profile/connexion</div>
-            </div>
+                <div class="collapse navbar-collapse"  v-if="auth.isConnected"><!--IF CONNECTED -->
+                    <ul class="nav navbar-nav">
+                        <li><router-link to="/usersettings">Profil</router-link></li>
+                        <li><router-link to="/tchat">Tchat</router-link></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth.email }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><router-link to="/logout">Se déconnecter</router-link></li>
+                        </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="collapse navbar-collapse"  v-else><!-- IF NOT CONNECTED -->
+                    <ul class="nav navbar-nav">
+                        <li><router-link to="/login">Se connecter</router-link></li>
+                    </ul>
+                </div>
+            </div> <!--div contaier fluid-->
         </nav>
     </header>
 </template>
 <script>
-    export default {
-        name: 'header',
-    }
+import AuthService from '../services/AuthService'
+import { mapGetters, mapActions } from 'vuex'
+import '../directives/requiredProviders'
+
+export default {
+    name: 'header',
+    computed: {
+    auth: () => AuthService,
+    //...mapGetters(['isLoading'])
+  }
+}
 </script>
 <style lang="less">
-.navbar-brand
+
+.navbar
 {
-    min-height:150px;
+    background-color:grey;
+    border:darkgrey;
+    max-height:50px;
+    font-color:black;
+}
+#head a
+{
+  color:white;
+}
+#head img
+{
+     max-height:150px;
+
+}
+#head .navbar-header
+{
+    position:absolute;
+    z-index:2000;
+    background-color:#9f9080;
+    width:300px; 
+    //border: 2px solid;
+    border-bottom-left-radius: 2em;
+    border-bottom-right-radius: 2em;
+    padding:10px;
+    box-shadow:2px 2px 6px black;
+}
+#head .navbar-header a
+{
+    font-family:"The Goldsmith Vintage", "Impact", serif;
+    font-size:3em;
+    text-decoration:none;
+    color:#493836;
+    background: -webkit-linear-gradient(#c6823c, #483e2f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.navbar-center
+{
+    margin-left:310px;
 }
 </style>

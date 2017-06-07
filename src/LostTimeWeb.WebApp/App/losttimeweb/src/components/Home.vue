@@ -1,5 +1,5 @@
 <template>
-    <div class="home row">
+    <div class="row" id="home">
         <carrousel></carrousel>
         <news></news>
     </div>
@@ -14,16 +14,11 @@ import News from './News.vue'
       'carrousel': Carrousel,
       'news': News,
     },
-        data () {
-            return {
-                message: 'I am the home page !'
-            }
-        }
     }
 </script>
 
 <style lang="less">
-.home
+#home
 {
     background-color:brown;
 }

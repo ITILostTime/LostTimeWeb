@@ -39,10 +39,21 @@ export default {
   a.router-link-active {
     font-weight: bold;
   }
-
 </style>
-
 <style lang="less">
   @import "../styles/global.less";
-
+body{
+  background:#382f24;
+  background-image:url('../../dist/img/wood-diff.jpg');
+  color:black;
+}
+.row
+{
+  background-color:brown;
+  
+}
+a
+{
+  color:darkgrey;
+}
 </style>
