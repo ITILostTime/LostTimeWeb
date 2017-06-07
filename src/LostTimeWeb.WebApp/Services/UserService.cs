@@ -1,64 +1,65 @@
 ﻿using System;
 using System.Collections.Generic;
 using LostTimeWeb.DAL;
+using LostTimeDB;
 
 namespace LostTimeWeb.WebApp.Services
 {
     public class UserService
     {
-        readonly UserGateway _userGateway;
+        readonly UserAccountGateaway _userAccountGateway;
         readonly PasswordHasher _passwordHasher;
 
-        public UserService( UserGateway userGateway, PasswordHasher passwordHasher )
+        public UserService( UserAccountGateaway userAccountGateway, PasswordHasher passwordHasher )
         {
-            _userGateway = userGateway;
+            _userAccountGateway = userAccountGateway;
             _passwordHasher = passwordHasher;
         }
 
         public bool CreatePasswordUser( string email, string password )
         {
-            if( _userGateway.FindByEmail( email ) != null ) return false;
-            _userGateway.CreatePasswordUser( email, _passwordHasher.HashPassword( password ) );
+            if( _userAccountGateway.FindByEmail( email ) != null ) return false;
+            _userAccountGateway.CreatePasswordUser( email, _passwordHasher.HashPassword( password ) );
             return true;
         }
 
         public bool CreateOrUpdateGithubUser( string email, int githubId, string accessToken )
         {
-            if( _userGateway.FindByGithubId( githubId ) != null )
+            if( _userAccountGateway.FindByGithubId( githubId ) != null )
             {
-                _userGateway.UpdateGithubToken( githubId, accessToken );
+                _userAccountGateway.UpdateGithubToken( githubId, accessToken );
                 return false;
             }
-            User user = _userGateway.FindByEmail( email );
+            User user = _userAccountGateway.FindByEmail( email );
             if( user != null )
             {
-                _userGateway.AddGithubToken( user.UserId, githubId, accessToken );
+                _userAccountGateway.AddGithubToken( user.UserId, githubId, accessToken );
                 return false;
             }
-            _userGateway.CreateGithubUser( email, githubId, accessToken );
+            _userAccountGateway.CreateGithubUser( email, githubId, accessToken );
             return true;
         }
 
         public bool CreateOrUpdateGoogleUser( string email, string googleId, string refreshToken )
         {
-            if( _userGateway.FindByGoogleId( googleId ) != null )
+            if( _userAccountGateway.FindByGoogleId( googleId ) != null )
             {
-                _userGateway.UpdateGoogleToken( googleId, refreshToken );
+                _userAccountGateway.UpdateGoogleToken( googleId, refreshToken );
                 return false;
             }
-            User user = _userGateway.FindByEmail( email );
+            User user = _userAccountGateway.FindByEmail( email );
             if( user != null )
             {
-                _userGateway.AddGoogleToken( user.UserId, googleId, refreshToken );
+                _userAccountGateway.AddGoogleToken( user.UserId, googleId, refreshToken );
                 return false;
             }
-            _userGateway.CreateGoogleUser( email, googleId, refreshToken );
+            _userAccountGateway.CreateGoogleUser( email, googleId, refreshToken );
             return true;
         }
 
         public User FindUser( string email, string password )
         {
-            User user = _userGateway.FindByEmail( email );
+            User user = _userAccountGateway.FindByEmail( email );
             if( user != null && _passwordHasher.VerifyHashedPassword( user.Password, password ) == PasswordVerificationResult.Success )
             {
                 return user;
@@ -69,22 +70,22 @@ namespace LostTimeWeb.WebApp.Services
 
         public User FindUser( string email )
         {
-            return _userGateway.FindByEmail( email );
+            return _userAccountGateway.FindByEmail( email );
         }
 
         public User FindGoogleUser( string googleId )
         {
-            return _userGateway.FindByGoogleId( googleId );
+            return _userAccountGateway.FindByGoogleId( googleId );
         }
 
-        public User FindGithubUser( int githubId )
+        /*public User FindGithubUser( int githubId )
         {
-            return _userGateway.FindByGithubId( githubId );
-        }
+            return _userAccountGateway.FindByGithubId( githubId );
+        }*/
 
         public IEnumerable<string> GetAuthenticationProviders( string userId )
         {
-            return _userGateway.GetAuthenticationProviders( userId );
+            return _userAccountGateway.GetAuthenticationProviders( userId );
         }
     }
 }

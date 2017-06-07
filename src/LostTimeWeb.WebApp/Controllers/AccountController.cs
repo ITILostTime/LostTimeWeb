@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Mvc.Client.Extensions;
+using LostTimeDB;
 
 namespace LostTimeWeb.WebApp.Controllers
 {

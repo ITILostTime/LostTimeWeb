@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Text;
 using LostTimeWeb.DAL;
+using LostTimeDB;
 using LostTimeWeb.WebApp.Authentication;
 using LostTimeWeb.WebApp.Services;
 using Microsoft.AspNetCore.Authentication.OAuth;
@@ -39,12 +40,16 @@ namespace LostTimeWeb.WebApp
                 o.Issuer = Configuration[ "JwtBearer:Issuer" ];
                 o.SigningCredentials = new SigningCredentials( signingKey, SecurityAlgorithms.HmacSha256 );
             } );
-
+            
             services.AddMvc();
-            services.AddSingleton( _ => new UserGateway( Configuration[ "ConnectionStrings:PrimarySchoolDB" ] ) );
-            services.AddSingleton( _ => new ClassGateway( Configuration[ "ConnectionStrings:PrimarySchoolDB" ] ) );
-            services.AddSingleton( _ => new StudentGateway( Configuration[ "ConnectionStrings:PrimarySchoolDB" ] ) );
-            services.AddSingleton( _ => new TeacherGateway( Configuration[ "ConnectionStrings:PrimarySchoolDB" ] ) );
+            services.AddSingleton( _ => new UserAccountGateaway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
+            services.AddSingleton( _ => new GoogleAccountGateaway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
+            
+            
+            /*services.AddSingleton( _ => new UserGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
+            services.AddSingleton( _ => new ClassGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
+            services.AddSingleton( _ => new StudentGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
+            services.AddSingleton( _ => new TeacherGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );*/
             services.AddSingleton<PasswordHasher>();
             services.AddSingleton<UserService>();
             services.AddSingleton<TokenService>();
