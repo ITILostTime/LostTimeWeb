@@ -4,9 +4,9 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 var wwwroot = "../../wwwroot";
 
-function resolve (dir) {
+function resolve  (dir) {
   var out = path.join(__dirname, '..', dir)
-  console.log(out)
+  
   return out
 }
 
@@ -15,7 +15,6 @@ module.exports = {
 
   output: {
     path: path.resolve(wwwroot, './dist'),
-    //publicPath: './dist/',
     publicPath: process.env.NODE_ENV === 'production' ? '../dist/' : 'http://localhost:8080/dist/',
     filename: 'losttimeweb.js'
   },
@@ -65,7 +64,7 @@ module.exports = {
     noInfo: true
   },
 
-  //watch: true,
+  watch: process.env.NODE_ENV === 'production' ? false : true,
 
   devtool: process.env.NODE_ENV === 'production' ? '#source-map' : '#eval-source-map',
 
