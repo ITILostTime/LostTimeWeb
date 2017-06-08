@@ -7,7 +7,7 @@
 
 <script>
 import Carrousel from './Carrousel.vue'
-import News from './News.vue'
+import News from './News/News.vue'
 
     export default {
         components: {

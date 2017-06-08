@@ -1,15 +1,15 @@
 var path = require('path')
 var webpack = require('webpack')
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var wwwroot = "../../wwwroot";
-
-function resolve  (dir) {
+/*
+function resolution (dir) {
   var out = path.join(__dirname, '..', dir)
-  
   return out
 }
-
+*/
 module.exports = {
   entry: './src/main.js',
 
@@ -18,12 +18,12 @@ module.exports = {
     publicPath: process.env.NODE_ENV === 'production' ? '../dist/' : 'http://localhost:8080/dist/',
     filename: 'losttimeweb.js'
   },
-  resolve: {
+  /*resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      '@': resolve('src')
+      '@': resolution('src')
     }
-  },
+  },*/
   module: {
     loaders: [
       {
@@ -80,7 +80,14 @@ module.exports = {
       jquery: 'jquery'
     }),
 
-    new ExtractTextPlugin("style.css")
+    new ExtractTextPlugin("style.css"),
+
+    new CopyWebpackPlugin([
+            // Copy directory contents to {output}/to/directory/
+            { from: 'dist/img/carrousel/' }, 
+      ], {
+      copyUnmodified: true
+    })
   ]
 }
 
