@@ -17,6 +17,8 @@ import Download from './components/Download.vue'
 
 import UserEdit from './components/Users/UserEdit.vue'
 
+import Tchat from './components/Tchat.vue'
+
 /*
 import ClassList from './components/Classes/ClassList.vue'
 import ClassEdit from './components/Classes/ClassEdit.vue'
@@ -60,7 +62,6 @@ function requireAuth (to, from, next)  {
 
   next();
 }
-
 /**
  * Declaration of the different routes of our application, and the corresponding components
  */
@@ -69,15 +70,17 @@ const router = new VueRouter({
   base: '',
   routes: [
     { path: '/login' , component: Login },
-    { path: '/logout', component: Logout/*, beforeEnter: requireAuth */},
+    { path: '/logout', component: Logout, beforeEnter: requireAuth },
     { path: '/support', component: Support },
     { path: '/forum', component: Forum },
     { path: '/about', component: About },
     { path: '/download', component: Download },
+    { path: '/tchat', component: Tchat },
 
     { path: '/admin', component: Admin/*, beforeEnter: requireAuth */},
 
-    { path: '/usersettings', component: UserEdit/*, beforeEnter: requireAuth*/ },
+    { path: '/usersettings', component: UserEdit, beforeEnter: requireAuth },
+    
     //{ path: '/classes', component: ClassList/*, beforeEnter: requireAuth*/ },
     //{ path: '/classes/:mode([create|edit]+)/:id?', component: ClassEdit/*, beforeEnter: requireAuth*/ },
 
@@ -90,7 +93,7 @@ const router = new VueRouter({
 
     //{ path: '/github/following', component: FollowingList, beforeEnter: requireAuth, meta: { requiredProviders: ['GitHub'] } }, 
     
-    { path: '', component: Home/*, beforeEnter: requireAuth*/ }
+    { path: '', component: Home }
   ]
 })
 
@@ -99,7 +102,7 @@ const router = new VueRouter({
  */
 
 // Allowed urls to access the application (if your website is http://mywebsite.com, you have to add it)
-AuthService.allowedOrigins = ['http://localhost:5000', /* 'http://mywebsite.com' */];
+AuthService.allowedOrigins = ['http://localhost:5000', 'http://localhost:8080',/* 'http://mywebsite.com' */];
 
 // Server-side endpoint to logout
 AuthService.logoutEndpoint = '/Account/LogOff';

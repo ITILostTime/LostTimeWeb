@@ -82,7 +82,7 @@ class AuthService {
     }
 
     logout() {
-        var popup = window.open(this.logoutEndpoint, "Déconnexion d'LostTimeWeb", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=600");        
+        var popup = window.open(this.logoutEndpoint, "Déconnexion de LostTimeWeb", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=600");        
     }
 
     registerSignedOutCallback(cb) {
@@ -90,6 +90,7 @@ class AuthService {
     }
 
     removeSignedOutCallback(cb) {
+        console.log("bla")
         this.signedOutCallbacks.splice(this.signedOutCallbacks.indexOf(cb), 1);
     }
 

@@ -2,12 +2,12 @@
     <div>
         <div class="text-center">
             <div class="page-header">
-                <h1>Bienvenue sur LostTimeWeb</h1>
+                <h1>Connectez vous à votre compte.</h1>
             </div>
 
-            <button type="button" @click="login('Google')" class="btn btn-lg btn-block btn-primary"><i class="fa fa-google" aria-hidden="true"></i> Se connecter via Google</button>
+            <button type="button" @click="login('Google')" class="btn btn-lg btn-block btn-primary" disabled><i class="fa fa-google" aria-hidden="true"></i> Se connecter via Google</button>
             <!--<button type="button" @click="login('GitHub')" class="btn btn-lg btn-block btn-primary"><i class="fa fa-github" aria-hidden="true"></i> Se connecter via GitHub</button>-->
-            <button type="button" @click="login('Base')" class="btn btn-lg btn-block btn-default">Se connecter via LostTimeWeb</button>
+            <button type="button" @click="login('Base')" class="btn btn-lg btn-block btn-default">Se connecter</button>
         </div>
     </div>
 </template>
