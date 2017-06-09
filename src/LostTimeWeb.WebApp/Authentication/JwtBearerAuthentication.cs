@@ -2,7 +2,7 @@
 {
     public static class JwtBearerAuthentication
     {
-        public const string AuthenticationScheme = "PrimarySchoolJwtBearer";
-        public const string AuthenticationType = "PrimarySchoolJwtBearer";
+        public const string AuthenticationScheme = "LostTimeWebJwtBearer";
+        public const string AuthenticationType = "LostTimeWebJwtBearer";
     }
 }

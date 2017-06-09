@@ -44,20 +44,10 @@ namespace LostTimeWeb.WebApp
             services.AddMvc();
             services.AddSingleton( _ => new UserAccountGateaway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
             services.AddSingleton( _ => new GoogleAccountGateaway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
-            
-            
-            /*services.AddSingleton( _ => new UserGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
-            services.AddSingleton( _ => new ClassGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
-            services.AddSingleton( _ => new StudentGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
-            services.AddSingleton( _ => new TeacherGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );*/
+
             services.AddSingleton<PasswordHasher>();
             services.AddSingleton<UserService>();
             services.AddSingleton<TokenService>();
-            //services.AddSingleton<ClassService>();
-            //services.AddSingleton<StudentService>();
-            //services.AddSingleton<TeacherService>();
-            //services.AddSingleton<GitHubService>();
-            //services.AddSingleton<GitHubClient>();
         }
 
         public void Configure( IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory )
@@ -98,19 +88,6 @@ namespace LostTimeWeb.WebApp
 
             ExternalAuthenticationEvents googleAuthenticationEvents = new ExternalAuthenticationEvents(
                 new GoogleExternalAuthenticationManager( app.ApplicationServices.GetRequiredService<UserService>() ) );
-
-            app.UseGitHubAuthentication( o =>
-            {
-                o.SignInScheme = CookieAuthentication.AuthenticationScheme;
-                o.ClientId = Configuration[ "Authentication:Github:ClientId" ];
-                o.ClientSecret = Configuration[ "Authentication:Github:ClientSecret" ];
-                o.Scope.Add( "user" );
-                o.Scope.Add( "user:email" );
-                o.Events = new OAuthEvents
-                {
-                    OnCreatingTicket = githubAuthenticationEvents.OnCreatingTicket
-                };
-            } );
 
             app.UseGoogleAuthentication( c =>
             {

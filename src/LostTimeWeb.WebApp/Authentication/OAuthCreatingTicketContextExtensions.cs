@@ -14,12 +14,7 @@ namespace LostTimeWeb.WebApp.Authentication
         {
             return @this.GetNameIdentifier();
         }
-
-        public static int GetGithubId( this OAuthCreatingTicketContext @this )
-        {
-            return int.Parse( @this.GetNameIdentifier() );
-        }
-
+        
         static string GetNameIdentifier( this OAuthCreatingTicketContext @this )
         {
             return @this.Identity.FindFirst( c => c.Type == ClaimTypes.NameIdentifier ).Value;
