@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using LostTimeWeb.DAL;
+//using LostTimeWeb.DAL;
 using LostTimeWeb.WebApp.Authentication;
 using LostTimeWeb.WebApp.Models.AccountViewModels;
 using LostTimeWeb.WebApp.Services;
@@ -42,13 +42,13 @@ namespace LostTimeWeb.WebApp.Controllers
         {
             if( ModelState.IsValid )
             {
-                User user = _userService.FindUser( model.Email, model.Password );
+                UserAccount user = _userService.FindUser( model.Email, model.Password );
                 if( user == null )
                 {
                     ModelState.AddModelError( string.Empty, "Invalid login attempt." );
                     return View( model );
                 }
-                await SignIn( user.Email, user.UserId.ToString() );
+                await SignIn( user.UserEmail, user.UserID.ToString() );
                 return RedirectToAction( nameof( Authenticated ) );
             }
 
@@ -74,8 +74,8 @@ namespace LostTimeWeb.WebApp.Controllers
                     ModelState.AddModelError( string.Empty, "An account with this email already exists." );
                     return View( model );
                 }
-                User user = _userService.FindUser( model.Email );
-                await SignIn( user.Email, user.UserId.ToString() );
+                UserAccount user = _userService.FindUser( model.Email );
+                await SignIn( user.UserEmail, user.UserID.ToString() );
                 return RedirectToAction( nameof( Authenticated ) );
             }
 

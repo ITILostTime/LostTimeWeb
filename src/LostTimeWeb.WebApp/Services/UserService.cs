@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using LostTimeWeb.DAL;
+//using LostTimeWeb.DAL;
 using LostTimeDB;
 
 namespace LostTimeWeb.WebApp.Services
@@ -9,7 +9,6 @@ namespace LostTimeWeb.WebApp.Services
     {
         readonly UserAccountGateaway _userAccountGateway;
         readonly PasswordHasher _passwordHasher;
-
         public UserService( UserAccountGateaway userAccountGateway, PasswordHasher passwordHasher )
         {
             _userAccountGateway = userAccountGateway;
@@ -30,7 +29,7 @@ namespace LostTimeWeb.WebApp.Services
                 _userAccountGateway.UpdateGithubToken( githubId, accessToken );
                 return false;
             }
-            User user = _userAccountGateway.FindByEmail( email );
+            UserAccount user = _userAccountGateway.FindByEmail( email );
             if( user != null )
             {
                 _userAccountGateway.AddGithubToken( user.UserId, githubId, accessToken );
@@ -42,12 +41,12 @@ namespace LostTimeWeb.WebApp.Services
 
         public bool CreateOrUpdateGoogleUser( string email, string googleId, string refreshToken )
         {
-            if( _userAccountGateway.FindByGoogleId( googleId ) != null )
+            if( _userAccountGateway.FindByGoogleID( googleId ) != null )
             {
                 _userAccountGateway.UpdateGoogleToken( googleId, refreshToken );
                 return false;
             }
-            User user = _userAccountGateway.FindByEmail( email );
+            UserAccount user = _userAccountGateway.FindByEmail( email );
             if( user != null )
             {
                 _userAccountGateway.AddGoogleToken( user.UserId, googleId, refreshToken );
@@ -57,9 +56,9 @@ namespace LostTimeWeb.WebApp.Services
             return true;
         }
 
-        public User FindUser( string email, string password )
+        public UserAccount FindUser( string email, string password )
         {
-            User user = _userAccountGateway.FindByEmail( email );
+            UserAccount user = _userAccountGateway.FindByEmail( email );
             if( user != null && _passwordHasher.VerifyHashedPassword( user.Password, password ) == PasswordVerificationResult.Success )
             {
                 return user;
@@ -68,12 +67,12 @@ namespace LostTimeWeb.WebApp.Services
             return null;
         }
 
-        public User FindUser( string email )
+        public UserAccount FindUser( string email )
         {
             return _userAccountGateway.FindByEmail( email );
         }
 
-        public User FindGoogleUser( string googleId )
+        public UserAccount FindGoogleUser( string googleId )
         {
             return _userAccountGateway.FindByGoogleId( googleId );
         }
