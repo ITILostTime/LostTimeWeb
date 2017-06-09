@@ -12,4 +12,4 @@ II. Attribut  à Mofifier
 Int UserGoogleID ==> String UserGoogleID :  public String UserGoogleID { get; set; }
 string UserPassword ==> byte[] UserPassword : public byte[] UserPassword { get; set; }
 
-!!!!!! pour crée les Methode jete un coup d'oeil sur le netcoreSample UserGateWay !!!!!!
+!!!!!! pour crée les Methode jete un coup d'oeil sur le netcoreSample UserGateWay !!!!!!`
