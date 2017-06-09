@@ -22,23 +22,6 @@ namespace LostTimeWeb.WebApp.Services
             return true;
         }
 
-        public bool CreateOrUpdateGithubUser( string email, int githubId, string accessToken )
-        {
-            if( _userAccountGateway.FindByGithubId( githubId ) != null )
-            {
-                _userAccountGateway.UpdateGithubToken( githubId, accessToken );
-                return false;
-            }
-            UserAccount user = _userAccountGateway.FindByEmail( email );
-            if( user != null )
-            {
-                _userAccountGateway.AddGithubToken( user.UserId, githubId, accessToken );
-                return false;
-            }
-            _userAccountGateway.CreateGithubUser( email, githubId, accessToken );
-            return true;
-        }
-
         public bool CreateOrUpdateGoogleUser( string email, string googleId, string refreshToken )
         {
             if( _userAccountGateway.FindByGoogleID( googleId ) != null )
@@ -59,7 +42,7 @@ namespace LostTimeWeb.WebApp.Services
         public UserAccount FindUser( string email, string password )
         {
             UserAccount user = _userAccountGateway.FindByEmail( email );
-            if( user != null && _passwordHasher.VerifyHashedPassword( user.Password, password ) == PasswordVerificationResult.Success )
+            if( user != null && _passwordHasher.VerifyHashedPassword( user.UserPassword, password ) == PasswordVerificationResult.Success )
             {
                 return user;
             }
@@ -74,13 +57,8 @@ namespace LostTimeWeb.WebApp.Services
 
         public UserAccount FindGoogleUser( string googleId )
         {
-            return _userAccountGateway.FindByGoogleId( googleId );
+            return _userAccountGateway.FindByGoogleID( googleId );
         }
-
-        /*public User FindGithubUser( int githubId )
-        {
-            return _userAccountGateway.FindByGithubId( githubId );
-        }*/
 
         public IEnumerable<string> GetAuthenticationProviders( string userId )
         {

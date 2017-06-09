@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Text;
-using LostTimeWeb.DAL;
+//using LostTimeWeb.DAL;
 using LostTimeDB;
 using LostTimeWeb.WebApp.Authentication;
 using LostTimeWeb.WebApp.Services;
@@ -53,11 +53,11 @@ namespace LostTimeWeb.WebApp
             services.AddSingleton<PasswordHasher>();
             services.AddSingleton<UserService>();
             services.AddSingleton<TokenService>();
-            services.AddSingleton<ClassService>();
-            services.AddSingleton<StudentService>();
-            services.AddSingleton<TeacherService>();
-            services.AddSingleton<GitHubService>();
-            services.AddSingleton<GitHubClient>();
+            //services.AddSingleton<ClassService>();
+            //services.AddSingleton<StudentService>();
+            //services.AddSingleton<TeacherService>();
+            //services.AddSingleton<GitHubService>();
+            //services.AddSingleton<GitHubClient>();
         }
 
         public void Configure( IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory )
@@ -96,8 +96,6 @@ namespace LostTimeWeb.WebApp
                 AuthenticationScheme = CookieAuthentication.AuthenticationScheme
             } );
 
-            ExternalAuthenticationEvents githubAuthenticationEvents = new ExternalAuthenticationEvents(
-                new GithubExternalAuthenticationManager( app.ApplicationServices.GetRequiredService<UserService>() ) );
             ExternalAuthenticationEvents googleAuthenticationEvents = new ExternalAuthenticationEvents(
                 new GoogleExternalAuthenticationManager( app.ApplicationServices.GetRequiredService<UserService>() ) );
 
