@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-//using LostTimeWeb.DAL;
 using LostTimeWeb.WebApp.Authentication;
 using LostTimeWeb.WebApp.Models.AccountViewModels;
 using LostTimeWeb.WebApp.Services;
