@@ -9,7 +9,7 @@
             >
             <slider-item v-for="(i, index) in itemList" :key="index">
                 <article
-                    <img :src="'../../dist/img/'+i.pictureName" alt="screen"/>
+                    <img :src="'dist/'+i.pictureName" alt="screen"/>
                     <h1>{{i.title}}</h1>
                 </article>
             </slider-item>
@@ -34,11 +34,6 @@ import { Slider, SliderItem } from 'vue-easy-slider'
             Slider,
             SliderItem
             },
-        mounted () {           
-            /*setTimeout(() => 
-                this.itemList
-            , 1000)*/
-        },
         methods: {
             test () {
                 console.log(1)

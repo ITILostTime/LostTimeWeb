@@ -93,7 +93,7 @@ const router = new VueRouter({
 
     //{ path: '/github/following', component: FollowingList, beforeEnter: requireAuth, meta: { requiredProviders: ['GitHub'] } }, 
     
-    { path: '', component: Home/*, beforeEnter: requireAuth*/ }
+    { path: '', component: Home }
   ]
 })
 
