@@ -10,7 +10,6 @@
             <form @submit="onSubmit($event)">
                 <div class="alert alert-danger" v-if="errors.length > 0">
                     <b>Les champs suivants semblent invalides : </b>
-
                     <ul>
                         <li v-for="e of errors">{{e}}</li>
                     </ul>
@@ -49,33 +48,34 @@
 <script>
     import { mapActions } from 'vuex'
     import UserApiService from '../../services/UserApiService'
+    import AuthService from '../../services/AuthService'
 
     export default {
         data () {
             return {
                 item: {},
                 id: null,
-                errors: []
+                errors: []  
             }
         },
 
-        async mounted() {
-            //this.id = this.$route.params.id;//get the ID from the auth data
-                this.item.pseudo = "toto"
-                this.item.email = "toto@tata.fr"
+        async beforeMount() {
+                this.id = AuthService.email;//get the ID from the auth data
+                console.log(this.item.pseudo)
+            try {
+                this.item.pseudo = ""
+                this.item.email = AuthService.email
                 this.item.oldpassword = ""
                 this.item.password = ""
-                this.item.passwordComfirm =""
-            /*try {
+                this.item.passwordComfirm = ""
                 // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                 // It is useful when we have to know if an error occurred, in order to adapt the user experience.
-                //this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));
-                
+                this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));
             }
             catch(error) {
                 // So if an exception occurred, we redirect the user to the students list.
                 this.$router.replace('/usersettings');
-            }*/
+            }
         },
 
         methods: {

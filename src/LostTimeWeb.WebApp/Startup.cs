@@ -130,7 +130,7 @@ namespace LostTimeWeb.WebApp
 
                 routes.MapRoute(
                     name: "spa-fallback",
-                    template: "Home/{*anything}",
+                    template: "app/{*anything}",
                     defaults: new { controller = "Home", action = "Index" } );
             } );
 

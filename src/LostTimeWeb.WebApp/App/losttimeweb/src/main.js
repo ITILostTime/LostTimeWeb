@@ -67,7 +67,7 @@ function requireAuth (to, from, next)  {
  */
 const router = new VueRouter({
   mode: 'history',
-  base: '',
+  base: 'app',
   routes: [
     { path: '/login' , component: Login },
     { path: '/logout', component: Logout, beforeEnter: requireAuth },
