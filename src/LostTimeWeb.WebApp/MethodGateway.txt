@@ -1,4 +1,6 @@
-I. Methode a crée 
+##I. Method a crée 
+
+Class: UserAccountGateaway.cs
 
 FindByEmail  : UserAccount FindByEmail( string email );
 CreatePasswordUser : void CreatePasswordUser( string email, byte[] password );
@@ -7,9 +9,15 @@ AddGoogleToken : void AddGoogleToken( int userId, string googleId, string refres
 CreateGoogleUser : void CreateGoogleUser( string email, string googleId, string refreshToken );
 GetAuthenticationProviders : IEnumerable<string> GetAuthenticationProviders( string userId );
 
-II. Attribut  à Mofifier
+##II. Attribut  à Modifier
+
+Class: UserAccount.cs
 
 Int UserGoogleID ==> String UserGoogleID :  public String UserGoogleID { get; set; }
 string UserPassword ==> byte[] UserPassword : public byte[] UserPassword { get; set; }
 
-!!!!!! pour crée les Methode jete un coup d'oeil sur le netcoreSample UserGateWay !!!!!!`
+
+!!!!!! pour crée les Method jète un coup d'oeil sur le NetCoreSample
+Class: UserGateWay.cs
+
+

@@ -23,7 +23,7 @@ namespace LostTimeWeb.WebApp.Services
 
         public bool CreateOrUpdateGoogleUser( string email, string googleId, string refreshToken )
         {
-            if( _userAccountGateway.FindByGoogleID( googleId ) != null )// String to Int
+            if( _userAccountGateway.FindByGoogleID( googleId ) != null )
             {
                 _userAccountGateway.UpdateGoogleToken( googleId, refreshToken );
                 return false;
