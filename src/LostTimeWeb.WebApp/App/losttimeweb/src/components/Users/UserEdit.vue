@@ -1,7 +1,8 @@
 <template>
    <div id="usersettings" class="row">
         <div class="col-md-3" id="avatar">
-            <img src="../../../dist/img/userSteam.png"/>
+            <img src="../../../dist/img/userSteam.png"/><br/>
+            <button type="button" @click="goDelete" class="btn btn-warning">Supprimer le compte</button>
         </div>
         <div class="col-md-9">
             <div class="page-header">
@@ -79,6 +80,10 @@
         },
 
         methods: {
+            goDelete: function () {
+                this.$router.replace('/deleteaccount');
+            },
+
             ...mapActions(['executeAsyncRequest']),
 
             async onSubmit(e) {
