@@ -64,11 +64,11 @@
                 this.id = AuthService.email;//get the ID from the auth data
                 console.log(this.item.pseudo)
             try {
-                this.item.pseudo = ""
+                /*this.item.pseudo = ""
                 this.item.email = AuthService.email
                 this.item.oldpassword = ""
                 this.item.password = ""
-                this.item.passwordComfirm = ""
+                this.item.passwordComfirm = ""*/
                 // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                 // It is useful when we have to know if an error occurred, in order to adapt the user experience.
                 this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));

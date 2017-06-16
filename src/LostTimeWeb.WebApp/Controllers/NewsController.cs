@@ -18,7 +18,7 @@ namespace LostTimeWeb.WebApp.Controllers
 
         public NewsController(NewsService newsServices)
         {
-            _newsServices=newsServices;
+            _newsServices = newsServices;
         }
 
         [HttpGet]

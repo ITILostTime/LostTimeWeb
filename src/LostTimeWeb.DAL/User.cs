@@ -15,5 +15,7 @@
         public string GoogleId { get; set; }
 
         public int GithubId { get; set; }
+
+        public string Role {get; set; }
     }
 }
