@@ -43,7 +43,8 @@ namespace LostTimeWeb.WebApp.Controllers
             if( ModelState.IsValid )
             {
                 //User user = _userService.FindUser( model.Email, model.Password );
-                User user = Poco.checkModel(model.Email, model.Password);
+                ModelPoco poco = new ModelPoco();
+                User user = poco.checkModel(model.Email, model.Password);
                 if( user == null )
                 {
                     ModelState.AddModelError( string.Empty, "Invalid login attempt." );
@@ -75,7 +76,8 @@ namespace LostTimeWeb.WebApp.Controllers
                     return View( model );
                 }
                 //User user = _userService.FindUser( model.Email );
-                User user = Poco.checkModel(model.Email, model.Password);
+                ModelPoco poco = new ModelPoco();
+                User user = poco.checkModel(model.Email, model.Password);
                 await SignIn( user.Email, user.UserId.ToString() );
                 return RedirectToAction( nameof( Authenticated ) );
             }
@@ -129,12 +131,20 @@ namespace LostTimeWeb.WebApp.Controllers
             string userId = User.FindFirst( ClaimTypes.NameIdentifier ).Value;
             string email = User.FindFirst( ClaimTypes.Email ).Value;
             Token token = _tokenService.GenerateToken( userId, email );
-            IEnumerable<string> providers = _userService.GetAuthenticationProviders( userId );
+            //
+            /*IEnumerable<string> providers= Enumerable.Empty<string>();
+            providers = providers.Concat(new[] { "PrimarySchool" });*/
+            /*Console.WriteLine(providers);*/
+            //
+            string providers = "PrimarySchool";
+            //IEnumerable<string> providers = _userService.GetAuthenticationProviders( userId );
             ViewData[ "BreachPadding" ] = GetBreachPadding(); // Mitigate BREACH attack. See http://www.breachattack.com/
             ViewData[ "Token" ] = token;
             ViewData[ "Email" ] = email;
             ViewData[ "NoLayout" ] = true;
             ViewData[ "Providers" ] = providers;
+            //ViewData[ "Providers" ] = null;
+            Console.WriteLine("Authenticated() : provider = " + providers);
             return View();
         }
 
