@@ -4,6 +4,7 @@ import 'bootstrap/dist/js/bootstrap'
 import Vue from 'vue'
 import store from './vuex/store'
 import VueRouter from 'vue-router'
+import moment from 'moment'
 
 import App from './components/App.vue'
 import Home from './components/Home.vue'
@@ -38,6 +39,13 @@ import Admin from './components/Admin.vue'
 import AuthService from './services/AuthService'
 
 Vue.use(VueRouter)
+
+moment.locale('fr');
+Vue.filter('formatDate', function(value) {
+  if (value) { 
+    return moment(String(value)).format('lll')
+  }
+})
 
 /**
  * Filter for routes requiring an authenticated user
