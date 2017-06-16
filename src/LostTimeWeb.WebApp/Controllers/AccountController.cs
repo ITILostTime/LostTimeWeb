@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Mvc.Client.Extensions;
+using LostTimeWeb.WebApp.Poco;
 
 namespace LostTimeWeb.WebApp.Controllers
 {
@@ -41,7 +42,8 @@ namespace LostTimeWeb.WebApp.Controllers
         {
             if( ModelState.IsValid )
             {
-                User user = _userService.FindUser( model.Email, model.Password );
+                //User user = _userService.FindUser( model.Email, model.Password );
+                User user = Poco.checkModel(model.Email, model.Password);
                 if( user == null )
                 {
                     ModelState.AddModelError( string.Empty, "Invalid login attempt." );
@@ -50,7 +52,6 @@ namespace LostTimeWeb.WebApp.Controllers
                 await SignIn( user.Email, user.UserId.ToString() );
                 return RedirectToAction( nameof( Authenticated ) );
             }
-
             return View( model );
         }
 
@@ -73,7 +74,8 @@ namespace LostTimeWeb.WebApp.Controllers
                     ModelState.AddModelError( string.Empty, "An account with this email already exists." );
                     return View( model );
                 }
-                User user = _userService.FindUser( model.Email );
+                //User user = _userService.FindUser( model.Email );
+                User user = Poco.checkModel(model.Email, model.Password);
                 await SignIn( user.Email, user.UserId.ToString() );
                 return RedirectToAction( nameof( Authenticated ) );
             }
