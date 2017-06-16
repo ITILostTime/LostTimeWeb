@@ -24,15 +24,15 @@ dotnet restore
 # dotnet test ./test/TEST_PROJECT_NAME -c Release -f netcoreapp1.0
 
 # Instead, run directly with mono for the full .net version 
-#dotnet build ./src/ITI.PrimarySchool.DAL.Test -c Release -f net451
+#dotnet build ./src/LostTimeWeb.DAL.Test -c Release -f net451
 
 #mono \  
-#./src/ITI.PrimarySchool.DAL.Test/bin/Release/net451/*/dotnet-test-xunit.exe \
-#./src/ITI.PrimarySchool.DAL.Test/bin/Release/net451/*/TEST_PROJECT_NAME.dll
+#./src/LostTimeWeb.DAL.Test/bin/Release/net451/*/dotnet-test-xunit.exe \
+#./src/LostTimeWeb.DAL.Test/bin/Release/net451/*/TEST_PROJECT_NAME.dll
 
 #switch release
 
-dotnet pack ./src/ITI.PrimarySchool.WebApp -c Release -o $TRAVIS_BUILD_DIR/artifacts --version-suffix=$VERSION 
+dotnet pack ./src/LostTimeWeb.WebApp -c Release -o $TRAVIS_BUILD_DIR/artifacts --version-suffix=$VERSION 
 
 # look for empty dir 
 if [ "$(ls -A $TRAVIS_BUILD_DIR/artifacts)" ]; then

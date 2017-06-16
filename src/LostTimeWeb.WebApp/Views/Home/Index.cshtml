@@ -1,0 +1,69 @@
+﻿@using LostTimeWeb.WebApp.Services;
+@{
+    Token token = ( Token )ViewData[ "Token" ];
+    string email = ( string )ViewData[ "Email" ];
+    <!--IEnumerable<string> providers = ( IEnumerable<string> )ViewData[ "Providers" ];
+    string providerNames = providers == null ? string.Empty : string.Join( ",", providers.Select( p => string.Format( "'{0}'", p ) ) );-->
+    string providerNames = ( string )ViewData[ "Providers" ];
+    providerNames = string.Format( "'{0}'", providerNames);
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LostTime</title>
+
+    @Html.Partial("_AppStyles")
+</head>
+<body>
+    <div id="app"></div>
+    
+    <script>
+        (function () {
+            var webapp = (function () {
+                var identity = null;
+
+                var getIdentity = function () {
+                    return identity;
+                };
+
+                var setIdentity = function (i) {
+                    identity = i;
+                };
+
+                return {
+                    getIdentity: getIdentity,
+                    setIdentity: setIdentity
+                };
+            })();
+
+            this.LostTimeWeb = webapp;
+        })();
+    </script>
+
+    @if( token != null && email != null )
+    {
+        <script>
+            (function () {
+                LostTimeWeb.setIdentity({
+                    bearer: {
+                        access_token: '@token.AccessToken',
+                        expires_in: @token.ExpiresIn
+                    },
+                    email: '@email',
+                    boundProviders: [@Html.Raw( providerNames )]
+                });
+            })();
+        </script>
+    }
+
+    <environment names="Development">
+        <script type="text/javascript" src="http://localhost:8080/dist/losttimeweb.js"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script type="text/javascript" src="~/dist/losttimeweb.js"></script>
+    </environment>
+</body>
+</html>
