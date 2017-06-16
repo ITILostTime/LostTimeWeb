@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Security.Claims;
 using LostTimeWeb.WebApp.Authentication;
@@ -27,10 +28,12 @@ namespace LostTimeWeb.WebApp.Controllers
                 string userId = identity.FindFirst( ClaimTypes.NameIdentifier ).Value;
                 string email = identity.FindFirst( ClaimTypes.Email ).Value;
                 Token token = _tokenService.GenerateToken( userId, email );
-                IEnumerable<string> providers = _userService.GetAuthenticationProviders( userId );
+                string providers = "PrimarySchool";
+                //IEnumerable<string> providers = _userService.GetAuthenticationProviders( userId );
                 ViewData[ "Token" ] = token;
                 ViewData[ "Email" ] = email;
                 ViewData[ "Providers" ] = providers;
+                Console.WriteLine("Index() : provider = " + providers);
             }
             else
             {
