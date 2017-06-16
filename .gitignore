@@ -259,8 +259,8 @@ paket-files/
 .DS_Store
 
 # PrimarySchool project
-src/ITI.PrimarySchool.WebApp/wwwroot/assets/
-src/ITI.PrimarySchool.WebApp/wwwroot/dist/
-src/ITI.PrimarySchool.DAL.Tests/appsettings.json
-src/ITI.PrimarySchool.WebApp/appsettings.json
-src/ITI.PrimarySchool.DB/appsettings.json
+src/LostTimeWeb.WebApp/wwwroot/assets/
+src/LostTimeWeb.WebApp/wwwroot/dist/
+src/LostTimeWeb.DAL.Tests/appsettings.json
+src/LostTimeWeb.WebApp/appsettings.json
+src/LostTimeWeb.DB/appsettings.json
