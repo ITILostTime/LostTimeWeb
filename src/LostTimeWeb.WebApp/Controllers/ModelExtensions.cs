@@ -2,6 +2,7 @@
 using LostTimeWeb.WebApp.Models.ClassViewModels;
 using LostTimeWeb.WebApp.Models.StudentViewModels;
 using LostTimeWeb.WebApp.Models.TeacherViewModels;
+using LostTimeWeb.WebApp.Models.NewsViewModels;
 
 namespace LostTimeWeb.WebApp.Controllers
 {
@@ -57,6 +58,20 @@ namespace LostTimeWeb.WebApp.Controllers
             {
                 ClassId = @this.ClassId,
                 Name = @this.Name
+            };
+        }
+        public static ArticleViewModel ToArticleViewModel(this Article @this)
+        {
+            return new ArticleViewModel
+            {
+                ArticleId = @this.ArticleId,
+                Title = @this.Title,
+                Content = @this.Content,
+                DateLastEdit = @this.DateLastEdit,
+                DatePost = @this.DatePost,
+                AuthorId = @this.AuthorId,
+                Popularity = @this.Popularity,
+                Editions = @this.Editions
             };
         }
     }

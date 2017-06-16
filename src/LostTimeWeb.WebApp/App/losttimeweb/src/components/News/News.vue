@@ -11,7 +11,7 @@
 
 <script>
     import { mapActions } from 'vuex'
-    import NewsApiService from '../../services/NewsApiService'
+    import NewsApiService from '../../services/NewsApiServices'
     
     export default {
         data () {
