@@ -30,6 +30,7 @@
 
         beforeDestroy() {
             AuthService.removeAuthenticatedCallback(() => this.onAuthenticated());
+            
         },
 
         methods: {

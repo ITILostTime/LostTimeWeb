@@ -51,6 +51,7 @@ namespace LostTimeWeb.WebApp
             services.AddSingleton<ClassService>();
             services.AddSingleton<StudentService>();
             services.AddSingleton<TeacherService>();
+            services.AddSingleton<NewsService>();
             services.AddSingleton<GitHubService>();
             services.AddSingleton<GitHubClient>();
         }
