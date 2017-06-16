@@ -1,16 +1,48 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using LostTimeWeb.DAL;
+using LostTimeWeb.WebApp.Models.NewsViewModels;
 
 namespace LostTimeWeb.WebApp.Services
 {
     public class NewsService
     {
         readonly StudentGateway _studentGateway;
-
+        public List<Article> _pocoArticles; 
         public NewsService(StudentGateway studentGateway)
         {
-            _studentGateway = studentGateway;
+            _studentGateway = studentGateway; 
+            _pocoArticles = SetPoco();
+        }
+        
+        public List<Article> SetPoco()
+        {
+            List<Article> pocoArticles = new List<Article>();
+
+            Article a1 = new Article();
+            a1.ArticleId = 0;
+            a1.Title = "Next gen of title";
+            a1.Content = "Lorem Ipsum";
+            a1.DateLastEdit = DateTime.Now;
+            a1.DatePost = DateTime.Now;
+            a1.AuthorId = 1;
+            a1.Popularity = 0;
+            a1.Editions = 0;
+            pocoArticles.Add(a1);
+
+            Article a2 = new Article();
+            a2.ArticleId = 1;
+            a2.Title = "Another title";
+            a2.Content = "Lorem Ipsum  Again";
+            a2.DateLastEdit = DateTime.Now;
+            a2.DatePost = DateTime.Now;
+            a2.AuthorId = 1;
+            a2.Popularity = 10;
+            a2.Editions = 0;
+            pocoArticles.Add(a2);
+
+            return pocoArticles;
         }
         /*
         public Result<Student> CreateStudent( string firstName, string lastName, DateTime birthDate, string photo, string gitHubLogin )
@@ -64,38 +96,33 @@ namespace LostTimeWeb.WebApp.Services
             return Result.Success( Status.Ok, classId );
         }
         */
+        public Result<Article> Create( string title, int  authorId,  string content, DateTime datePost)
+        {
+            Article model = new Article();
+            if( !IsNameValid( title ) ) return Result.Failure<Article>( Status.BadRequest, "The title is not valid." );
+            if( !IsNameValid( content ) ) return Result.Failure<Article>( Status.BadRequest, "The content is not valid." );
+            model.Title = title;
+            model.AuthorId = authorId;
+            model.Content = content;
+            model.DatePost = model.DateLastEdit = datePost;
+            model.ArticleId = _pocoArticles.Last().ArticleId++; 
+            _pocoArticles.Add(model);
+            //verifier si le contenue existe deja 
+            
+            return Result.Success( Status.Created, model);
+        }
+
+        public Result<Article> Create()
+        {
+
+            return null;
+        }
         public Result<IEnumerable<Article>> GetAll()
         {
             //BIG POCO !!!
-            List<Article> pocoArticle = new List<Article>();
-
-            Article a1 = new Article();
-            a1.ArticleId = 0;
-            a1.Title = "Next gen of title";
-            a1.Content = "Lorem Ipsum";
-            a1.DateLastEdit = DateTime.Now;
-            a1.DatePost = DateTime.Now;
-            a1.AuthorId = 1;
-            a1.Popularity = 0;
-            a1.Editions = 0;
-            pocoArticle.Add(a1);
-
-            Article a2 = new Article();
-            a2.ArticleId = 1;
-            a2.Title = "Another title";
-            a2.Content = "Lorem Ipsum  Again";
-            a2.DateLastEdit = DateTime.Now;
-            a2.DatePost = DateTime.Now;
-            a2.AuthorId = 1;
-            a2.Popularity = 10;
-            a2.Editions = 0;
-            pocoArticle.Add(a2);
-
-            IEnumerable<Article> poco = pocoArticle;
-
+            IEnumerable<Article> poco = _pocoArticles;
             return Result.Success( Status.Ok, poco);
         }
-
         bool IsNameValid( string name ) => !string.IsNullOrWhiteSpace( name );
     }
 }
