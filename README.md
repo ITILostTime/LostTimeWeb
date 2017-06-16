@@ -36,9 +36,9 @@ You can also use the launch_dev.bat batch file if you are on a windows env :wink
 
 ## Deploy
 
-Use the NuGet package and the dist folder (respectivly the .Net application and the .js SPA) a bath will be added soon to deploy auto-magicaley the project
+Use the NuGet package and the dist folder (respectivly the .Net application and the .js SPA) a batch will be added soon to deploy auto-magically the project
 
-## Technology
+## Technologies
 
 .NET, C#, vue.js, node.js, Travis-CI, git, coffee, blood and tears
 
@@ -46,5 +46,5 @@ Readme writed with [markdown](https://github.com/adam-p/markdown-here/wiki/Markd
 
 ## Members
 Based on DotNetSample, following developpement of the webapp by
-Pierre Koré, Quentin Vanbutsele
+Pierre Koré & Quentin Vanbutsele
 
