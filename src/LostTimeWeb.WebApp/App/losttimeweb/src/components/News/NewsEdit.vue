@@ -8,40 +8,30 @@
         <form @submit="onSubmit($event)">
             <div class="alert alert-danger" v-if="errors.length > 0">
                 <b>Les champs suivants semblent invalides : </b>
-
                 <ul>
                     <li v-for="e of errors">{{e}}</li>
                 </ul>
             </div>
 
             <div class="form-group">
-                <label class="required">Nom</label>
-                <input type="text" v-model="item.lastName" class="form-control" required>
+                <label class="required">Titre</label>
+                <input type="text" v-model="item.title" class="form-control" required>
             </div>
+
 
             <div class="form-group">
-                <label class="required">Prénom</label>
-                <input type="text" v-model="item.firstName" class="form-control" required>
+                <label>Contenu :</label>
+                <textarea v-model="item.content" placeholder="Rédiger la news" class="form-control"></textarea>
             </div>
 
-            <div class="form-group">
-                <label class="required">Date de naissance</label>
-                <input type="date" v-model="item.birthDate" class="form-control" required>
-            </div>
-
-            <div class="form-group">
-                <label>Login GitHub</label>
-                <input type="text" v-model="item.gitHubLogin" class="form-control">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Sauvegarder</button>
+            <button type="submit" class="btn btn-primary">Poster</button>
         </form>
     </div>
 </template>
 
 <script>
     import { mapActions } from 'vuex'
-    import StudentApiService from '../../services/StudentApiService'
+    import NewsApiService from '../../services/NewsApiService'
 
     export default {
         data () {
@@ -61,11 +51,11 @@
                 try {
                     // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                     // It is useful when we have to know if an error occurred, in order to adapt the user experience.
-                    this.item = await this.executeAsyncRequest(() => StudentApiService.getStudentAsync(this.id));
+                    this.item = await this.executeAsyncRequest(() => NewsApiService.getNewsAsync(this.id));
                 }
                 catch(error) {
                     // So if an exception occurred, we redirect the user to the students list.
-                    this.$router.replace('/students');
+                    this.$router.replace('/');
                 }
             }
         },
@@ -78,22 +68,21 @@
 
                 var errors = [];
 
-                if(!this.item.lastName) errors.push("Nom")
-                if(!this.item.firstName) errors.push("Prénom")
-                if(!this.item.birthDate) errors.push("Date de naissance")
+                if(!this.item.title) errors.push("Titre")
+                if(!this.item.content) errors.push("Contenu")
 
                 this.errors = errors;
 
                 if(errors.length == 0) {
                     try {
                         if(this.mode == 'create') {
-                            await this.executeAsyncRequest(() => StudentApiService.createStudentAsync(this.item));
+                            await this.executeAsyncRequest(() => NewsApiService.createNewsAsync(this.item));
                         }
                         else {
-                            await this.executeAsyncRequest(() => StudentApiService.updateStudentAsync(this.item));
+                            await this.executeAsyncRequest(() => NewsApiService.updateNewsAsync(this.item));
                         }
 
-                        this.$router.replace('/students');
+                        this.$router.replace('/');
                     }
                     catch(error) {
                         // Custom error management here.
