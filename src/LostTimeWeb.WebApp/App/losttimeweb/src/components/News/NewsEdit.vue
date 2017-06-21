@@ -18,7 +18,7 @@
                 </div>
                 <div class="form-group">
                     <label>Contenu</label> <!--ADD THE MARKDOWN EDITOR HERE-->
-                    <markdown-editor v-model="item.content" ref="markdownEditor"  placeholder="Rédiger la news" class="form-control"></markdown-editor>
+                <textarea v-model="item.content" placeholder="Rédiger la news" class="form-control"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Poster</button>
                 <router-link class="btn btn-primary" :to="`/news`"> Annuler</router-link>
@@ -26,12 +26,10 @@
         </div>
     </div>
 </template>
-
 <script>
     import { mapActions } from 'vuex'
     import NewsApiService from '../../services/NewsApiServices'
-    import { markdownEditor } from 'vue-simplemde'
-
+    
     export default {
         data () {
             return {
@@ -40,9 +38,6 @@
                 id: null,
                 errors: []
             }
-        },
-        components: {
-            markdownEditor
         },
         async mounted() {
             this.mode = this.$route.params.mode;
