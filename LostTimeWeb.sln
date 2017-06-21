@@ -12,8 +12,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LostTimeWeb.WebApp", "src\L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LostTimeWeb.DAL", "src\LostTimeWeb.DAL\LostTimeWeb.DAL.csproj", "{24619790-03C8-4CAB-95A5-08B07E374375}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LostTimeWeb.DAL.Tests", "src\LostTimeWeb.DAL.Tests\LostTimeWeb.DAL.Tests.csproj", "{B171111E-5720-473B-B98F-155A8512B6A1}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LostTimeWeb.DB", "src\LostTimeWeb.DB\LostTimeWeb.DB.csproj", "{6EBF83EF-DE88-4C34-A121-B4E38427B792}"
 EndProject
 Global
@@ -30,10 +28,6 @@ Global
 		{24619790-03C8-4CAB-95A5-08B07E374375}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24619790-03C8-4CAB-95A5-08B07E374375}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24619790-03C8-4CAB-95A5-08B07E374375}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B171111E-5720-473B-B98F-155A8512B6A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B171111E-5720-473B-B98F-155A8512B6A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B171111E-5720-473B-B98F-155A8512B6A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B171111E-5720-473B-B98F-155A8512B6A1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6EBF83EF-DE88-4C34-A121-B4E38427B792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6EBF83EF-DE88-4C34-A121-B4E38427B792}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EBF83EF-DE88-4C34-A121-B4E38427B792}.Release|Any CPU.ActiveCfg = Release|Any CPU

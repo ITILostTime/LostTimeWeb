@@ -18,6 +18,7 @@
                     <ul class="nav navbar-nav">
                         <li><router-link to="/usersettings">Profil</router-link></li>
                         <li><router-link to="/tchat">Tchat</router-link></li>
+                        <li><router-link to="/admin">Administration</router-link></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">

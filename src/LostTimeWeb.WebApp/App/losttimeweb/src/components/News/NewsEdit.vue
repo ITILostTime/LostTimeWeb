@@ -17,10 +17,8 @@
                 <label class="required">Titre</label>
                 <input type="text" v-model="item.title" class="form-control" required>
             </div>
-
-
             <div class="form-group">
-                <label>Contenu :</label>
+                <label>Contenu</label> <!--ADD THE MARKDOWN EDITOR HERE-->
                 <textarea v-model="item.content" placeholder="Rédiger la news" class="form-control"></textarea>
             </div>
 
@@ -81,8 +79,7 @@
                         else {
                             await this.executeAsyncRequest(() => NewsApiService.updateNewsAsync(this.item));
                         }
-
-                        this.$router.replace('/');
+                        this.$router.replace('/news');
                     }
                     catch(error) {
                         // Custom error management here.
