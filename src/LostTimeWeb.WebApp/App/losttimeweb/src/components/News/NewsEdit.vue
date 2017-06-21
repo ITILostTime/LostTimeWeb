@@ -22,7 +22,6 @@
             </div>
             <button type="submit" class="btn btn-primary">Poster</button>
             <router-link class="btn btn-primary" :to="`/news`"> Annuler</router-link>
-
         </form>
     </div>
 </template>

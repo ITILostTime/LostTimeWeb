@@ -1,5 +1,5 @@
 <template>
-    <div class="text-center">
+    <div class="text-center row">
         <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
         <br />
         <h1>Déconnexion en cours...</h1>
@@ -26,7 +26,8 @@
 
         methods: {
             onSignedOut() {
-                this.$router.replace('/');
+               this.$router.replace('/');
+                location.reload(true);
             }
         }
     }
