@@ -1,5 +1,10 @@
 <template>
-        <router-link to="/news">Gestion des News</router-link>
+    <div id="admin" class="row">
+        <div class="col-md-5 col-md-offset-3">
+            <h1>Page d'administration</h1>
+            <router-link to="/news">Gestion des News</router-link>
+        </div>
+    </div>
 </template>
 <script>
 import AuthService from '../services/AuthService'

@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="page-header">
+    <div id="News" >
+        <div class="page-header row" >
             <h1 v-if="mode == 'create'">Rédiger un news</h1>
             <h1 v-else>Editer une news</h1>
         </div>
@@ -12,7 +12,6 @@
                     <li v-for="e of errors">{{e}}</li>
                 </ul>
             </div>
-
             <div class="form-group">
                 <label class="required">Titre</label>
                 <input type="text" v-model="item.title" class="form-control" required>
@@ -21,15 +20,16 @@
                 <label>Contenu</label> <!--ADD THE MARKDOWN EDITOR HERE-->
                 <textarea v-model="item.content" placeholder="Rédiger la news" class="form-control"></textarea>
             </div>
-
             <button type="submit" class="btn btn-primary">Poster</button>
+            <router-link class="btn btn-primary" :to="`/news`"> Annuler</router-link>
+
         </form>
     </div>
 </template>
 
 <script>
     import { mapActions } from 'vuex'
-    import NewsApiService from '../../services/NewsApiService'
+    import NewsApiService from '../../services/NewsApiServices'
 
     export default {
         data () {

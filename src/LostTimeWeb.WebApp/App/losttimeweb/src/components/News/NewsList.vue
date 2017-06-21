@@ -1,5 +1,13 @@
 <template>
-        <table class="table">
+    <div id="News" class="row">
+        <div class="col-md-5 col-md-offset-3">
+            <h1>Articles postés</h1>
+            <p>Rappel : tout les articles postés seront publics ! N'hésitez pas à relire les règles de rédaction.</p>
+        </div>
+        <div class="panel-body text-right">
+                <router-link class="btn btn-primary" :to="`news/create`"><i class="glyphicon glyphicon-plus"></i> Rédiger une News</router-link>
+            </div>
+        <table class="table table-striped">
             <thead>
                 <tr>
                 <th>#</th>
@@ -15,8 +23,8 @@
                     <th scope="row">{{i.id}}</th>
                     <td>{{i.title}}</td>
                     <td>{{i.authorId}}</td>
+                    <td>{{i.datePost | formatDate}}</td>                    
                     <td>{{i.popularity}}</td>
-                    <td> {{i.datePost | formatDate}}</td>
                     <td>
                         <router-link :to="`news/edit/${i.id}`"><i class="glyphicon glyphicon-pencil"></i></router-link>
                         <a href="#" @click="deleteNews(i.id)"><i class="glyphicon glyphicon-remove"></i></a>
@@ -24,6 +32,7 @@
                 </tr>
             </tbody>
         </table>
+    </div>
 </template>
 <script>
     import { mapActions } from 'vuex'
