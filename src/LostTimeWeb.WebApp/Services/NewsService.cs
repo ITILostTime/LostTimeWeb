@@ -72,7 +72,7 @@ namespace LostTimeWeb.WebApp.Services
             Article a1 = new Article();
             a1.ArticleId = 0;
             a1.Title = "Next-gen of title";
-            a1.Content = "Ex proident elit ullamco consectetur tempor consectetur id. Sit aliquip deserunt nostrud excepteur occaecat commodo non dolore cupidatat est. Velit id sunt amet duis magna magna amet exercitation consequat sit nisi. Ex consequat elit culpa ullamco adipisicing reprehenderit dolore aliqua nisi proident magna mollit ad.";
+            a1.Content = "**Ex proident** elit ullamco consectetur tempor consectetur id. Sit aliquip deserunt nostrud excepteur occaecat commodo non dolore cupidatat est. Velit id sunt amet duis magna magna amet exercitation consequat sit nisi. Ex consequat elit culpa ullamco adipisicing reprehenderit dolore aliqua nisi proident magna mollit ad.";
             a1.DateLastEdit = DateTime.Now;
             a1.DatePost = DateTime.Now;
             a1.AuthorId = 1;

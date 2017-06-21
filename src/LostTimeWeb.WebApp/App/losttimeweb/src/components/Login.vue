@@ -39,7 +39,7 @@
             },
 
             onAuthenticated() {
-                 this.$router.replace('/');;
+                 this.$router.replace('/');
                  location.reload(true);
             }
         }

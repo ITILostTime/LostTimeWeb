@@ -3,7 +3,7 @@
         <div v-for="(i, index) in newsList" :key="index">
             <article>
                 <h3>{{i.title}} <small>par {{i.authorId}}</small></h3>
-                <p>{{i.content}}</p>
+                <vue-markdown>{{i.content}}</vue-markdown>
                 <footer>{{i.popularity}} likes - Posté le {{i.datePost | formatDate}}</footer>
             </article>
         </div>
@@ -14,7 +14,7 @@
     import { mapActions } from 'vuex'
     import NewsApiService from '../../services/NewsApiServices'
     import moment from 'moment'
-
+    import VueMarkdown from 'vue-markdown'
     export default {
         data () {
             return {
@@ -22,6 +22,9 @@
                 currentPage: 0,
                 limitPage: 5
             }
+        },
+        components: {
+            VueMarkdown
         },
         async mounted() {
             await this.refreshList();

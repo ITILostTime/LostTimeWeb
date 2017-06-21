@@ -20,14 +20,14 @@
             </thead>
             <tbody v-for="(i, index) in newsList" :key="index">
                 <tr>
-                    <th scope="row">{{i.id}}</th>
+                    <th scope="row">{{i.articleId}}</th>
                     <td>{{i.title}}</td>
                     <td>{{i.authorId}}</td>
                     <td>{{i.datePost | formatDate}}</td>                    
                     <td>{{i.popularity}}</td>
                     <td>
-                        <router-link :to="`news/edit/${i.id}`"><i class="glyphicon glyphicon-pencil"></i></router-link>
-                        <a href="#" @click="deleteNews(i.id)"><i class="glyphicon glyphicon-remove"></i></a>
+                        <router-link :to="`news/edit/${i.articleId}`"><i class="glyphicon glyphicon-pencil"></i></router-link>
+                        <a href="#" @click="deleteNews(i.articleId)"><i class="glyphicon glyphicon-remove"></i></a>
                     </td>
                 </tr>
             </tbody>

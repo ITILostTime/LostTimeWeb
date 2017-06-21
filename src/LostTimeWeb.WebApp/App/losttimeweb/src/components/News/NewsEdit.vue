@@ -1,34 +1,36 @@
 <template>
-    <div id="News" >
-        <div class="page-header row" >
+    <div id="News" class="row">
+        <div class="col-md-5 col-md-offset-3">
             <h1 v-if="mode == 'create'">Rédiger un news</h1>
             <h1 v-else>Editer une news</h1>
         </div>
-
-        <form @submit="onSubmit($event)">
-            <div class="alert alert-danger" v-if="errors.length > 0">
-                <b>Les champs suivants semblent invalides : </b>
-                <ul>
-                    <li v-for="e of errors">{{e}}</li>
-                </ul>
-            </div>
-            <div class="form-group">
-                <label class="required">Titre</label>
-                <input type="text" v-model="item.title" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label>Contenu</label> <!--ADD THE MARKDOWN EDITOR HERE-->
-                <textarea v-model="item.content" placeholder="Rédiger la news" class="form-control"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Poster</button>
-            <router-link class="btn btn-primary" :to="`/news`"> Annuler</router-link>
-        </form>
+        <div class="col-md-9 col-md-offset-3">
+            <form @submit="onSubmit($event)">
+                <div class="alert alert-danger" v-if="errors.length > 0">
+                    <b>Les champs suivants semblent invalides : </b>
+                    <ul>
+                        <li v-for="e of errors">{{e}}</li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label class="required">Titre</label>
+                    <input type="text" v-model="item.title" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Contenu</label> <!--ADD THE MARKDOWN EDITOR HERE-->
+                    <markdown-editor v-model="item.content" ref="markdownEditor"  placeholder="Rédiger la news" class="form-control"></markdown-editor>
+                </div>
+                <button type="submit" class="btn btn-primary">Poster</button>
+                <router-link class="btn btn-primary" :to="`/news`"> Annuler</router-link>
+            </form>
+        </div>
     </div>
 </template>
 
 <script>
     import { mapActions } from 'vuex'
     import NewsApiService from '../../services/NewsApiServices'
+    import { markdownEditor } from 'vue-simplemde'
 
     export default {
         data () {
@@ -39,7 +41,9 @@
                 errors: []
             }
         },
-
+        components: {
+            markdownEditor
+        },
         async mounted() {
             this.mode = this.$route.params.mode;
             this.id = this.$route.params.id;
@@ -52,7 +56,7 @@
                 }
                 catch(error) {
                     // So if an exception occurred, we redirect the user to the students list.
-                    this.$router.replace('/');
+                    this.$router.replace('/news');
                 }
             }
         },
