@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using LostTimeWeb.DAL;
+using LostTimeDB;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
 
@@ -19,13 +19,13 @@ namespace LostTimeWeb.WebApp.Authentication
         public Task OnCreatingTicket( OAuthCreatingTicketContext context )
         {
             _authenticationManager.CreateOrUpdateUser( context );
-            User user = _authenticationManager.FindUser( context );
+            UserAccount user = _authenticationManager.FindUser( context );
             ClaimsPrincipal principal = CreatePrincipal( user );
             context.Ticket = new AuthenticationTicket( principal, context.Ticket.Properties, CookieAuthentication.AuthenticationScheme );
             return Task.CompletedTask;
         }
 
-        ClaimsPrincipal CreatePrincipal( User user )
+        ClaimsPrincipal CreatePrincipal( UserAccount user )
         {
             List<Claim> claims = new List<Claim>
             {

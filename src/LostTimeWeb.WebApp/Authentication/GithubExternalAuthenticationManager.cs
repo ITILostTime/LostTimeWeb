@@ -1,4 +1,4 @@
-﻿using LostTimeWeb.DAL;
+﻿using LostTimeDB;
 using LostTimeWeb.WebApp.Services;
 using Microsoft.AspNetCore.Authentication.OAuth;
 
@@ -18,7 +18,7 @@ namespace LostTimeWeb.WebApp.Authentication
             _userService.CreateOrUpdateGithubUser( context.GetEmail(), context.GetGithubId(), context.AccessToken );
         }
 
-        public User FindUser( OAuthCreatingTicketContext context )
+        public UserAccount FindUser( OAuthCreatingTicketContext context )
         {
             return _userService.FindGithubUser( context.GetGithubId() );
         }

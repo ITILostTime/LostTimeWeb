@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Text;
-using LostTimeWeb.DAL;
+using LostTimeDB;
 using LostTimeWeb.WebApp.Authentication;
 using LostTimeWeb.WebApp.Services;
 using Microsoft.AspNetCore.Authentication.OAuth;
@@ -41,18 +41,11 @@ namespace LostTimeWeb.WebApp
             } );
 
             services.AddMvc();
-            services.AddSingleton( _ => new UserGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
-            services.AddSingleton( _ => new ClassGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
-            services.AddSingleton( _ => new StudentGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
-            services.AddSingleton( _ => new TeacherGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
-            services.AddSingleton<PasswordHasher>();
+            services.AddSingleton( _ => new UserAccountGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
+              services.AddSingleton<PasswordHasher>();
             services.AddSingleton<UserService>();
             services.AddSingleton<TokenService>();
-            services.AddSingleton<ClassService>();
-            services.AddSingleton<StudentService>();
-            services.AddSingleton<TeacherService>();
             services.AddSingleton<NewsService>();
-            services.AddSingleton<GitHubService>();
             services.AddSingleton<GitHubClient>();
         }
 
