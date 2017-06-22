@@ -38,7 +38,6 @@
     import { mapActions } from 'vuex'
     import NewsApiService from '../../services/NewsApiServices'
     import moment from 'moment'
-
     export default {
         data () {
             return {
@@ -52,7 +51,6 @@
         },
         methods: {
             ...mapActions(['executeAsyncRequestOrDefault', 'executeAsyncRequest']),
-            
             async refreshList() {
                 this.newsList = await this.executeAsyncRequestOrDefault(() => NewsApiService.getNewsListAsync());
             },

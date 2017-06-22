@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <router-link to="/">
-                        <img src="../../dist/img/logo_noParticle.png" alt="brand"/> 
+                        <img src="../../../dist/img/logo_noParticle.png" alt="brand"/> 
                         LostTime
                     </router-link>
                 </div>
@@ -39,9 +39,9 @@
     </header>
 </template>
 <script>
-import AuthService from '../services/AuthService'
+import AuthService from '../../services/AuthService'
 import { mapGetters, mapActions } from 'vuex'
-import '../directives/requiredProviders'
+import '../../directives/requiredProviders'
 
 export default {
     name: 'header',

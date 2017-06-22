@@ -41,10 +41,10 @@ namespace LostTimeWeb.WebApp
             } );
 
             services.AddMvc();
-            services.AddSingleton( _ => new UserGateway( Configuration[ "ConnectionStrings:PrimarySchoolDB" ] ) );
-            services.AddSingleton( _ => new ClassGateway( Configuration[ "ConnectionStrings:PrimarySchoolDB" ] ) );
-            services.AddSingleton( _ => new StudentGateway( Configuration[ "ConnectionStrings:PrimarySchoolDB" ] ) );
-            services.AddSingleton( _ => new TeacherGateway( Configuration[ "ConnectionStrings:PrimarySchoolDB" ] ) );
+            services.AddSingleton( _ => new UserGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
+            services.AddSingleton( _ => new ClassGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
+            services.AddSingleton( _ => new StudentGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
+            services.AddSingleton( _ => new TeacherGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
             services.AddSingleton<PasswordHasher>();
             services.AddSingleton<UserService>();
             services.AddSingleton<TokenService>();
