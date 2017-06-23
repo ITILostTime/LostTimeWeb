@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <router-link to="/">
-                        <img src="../../dist/img/logo_noParticle.png" alt="brand"/> 
+                        <img src="../../../dist/img/logo_noParticle.png" alt="brand"/> 
                         LostTime
                     </router-link>
                 </div>
@@ -18,6 +18,7 @@
                     <ul class="nav navbar-nav">
                         <li><router-link to="/usersettings">Profil</router-link></li>
                         <li><router-link to="/tchat">Tchat</router-link></li>
+                        <li><router-link to="/admin">Administration</router-link></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
@@ -38,9 +39,9 @@
     </header>
 </template>
 <script>
-import AuthService from '../services/AuthService'
+import AuthService from '../../services/AuthService'
 import { mapGetters, mapActions } from 'vuex'
-import '../directives/requiredProviders'
+import '../../directives/requiredProviders'
 
 export default {
     name: 'header',

@@ -1,38 +1,35 @@
 <template>
-    <div>
-        <div class="page-header">
+    <div id="News" class="row">
+        <div class="col-md-5 col-md-offset-3">
             <h1 v-if="mode == 'create'">Rédiger un news</h1>
             <h1 v-else>Editer une news</h1>
         </div>
-
-        <form @submit="onSubmit($event)">
-            <div class="alert alert-danger" v-if="errors.length > 0">
-                <b>Les champs suivants semblent invalides : </b>
-                <ul>
-                    <li v-for="e of errors">{{e}}</li>
-                </ul>
-            </div>
-
-            <div class="form-group">
-                <label class="required">Titre</label>
-                <input type="text" v-model="item.title" class="form-control" required>
-            </div>
-
-
-            <div class="form-group">
-                <label>Contenu :</label>
-                <textarea v-model="item.content" placeholder="Rédiger la news" class="form-control"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Poster</button>
-        </form>
+        <div class="col-md-9 col-md-offset-3">
+            <form @submit="onSubmit($event)">
+                <div class="alert alert-danger" v-if="errors.length > 0">
+                    <b>Les champs suivants semblent invalides : </b>
+                    <ul>
+                        <li v-for="e of errors">{{e}}</li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label class="required">Titre</label>
+                    <input type="text" v-model="item.title" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Contenu</label> <!--ADD THE MARKDOWN EDITOR HERE-->
+                    <textarea v-model="item.content" placeholder="Rédiger la news" class="form-control"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Poster</button>
+                <router-link class="btn btn-primary" :to="`/news`"> Annuler</router-link>
+            </form>
+        </div>
     </div>
 </template>
-
 <script>
     import { mapActions } from 'vuex'
-    import NewsApiService from '../../services/NewsApiService'
-
+    import NewsApiService from '../../services/NewsApiServices'
+    
     export default {
         data () {
             return {
@@ -42,7 +39,6 @@
                 errors: []
             }
         },
-
         async mounted() {
             this.mode = this.$route.params.mode;
             this.id = this.$route.params.id;
@@ -51,11 +47,13 @@
                 try {
                     // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                     // It is useful when we have to know if an error occurred, in order to adapt the user experience.
-                    this.item = await this.executeAsyncRequest(() => NewsApiService.getNewsAsync(this.id));
+                    //this.item = await this.executeAsyncRequest(() => NewsApiService.getNewsAsync(this.id));
+                    item.title="hey this is a title"
+                    item.content="Enim minim ex enim anim proident qui ad adipisicing occaecat anim sint consequat. Ullamco adipisicing id irure qui laboris nisi. Commodo exercitation quis eiusmod labore quis. Tempor nulla eu aliqua quis. Mollit aliqua velit aliquip eu ad officia ad aute irure officia voluptate. Aliquip laborum tempor nulla cupidatat. Sunt quis nulla enim aliquip incididunt."
                 }
                 catch(error) {
                     // So if an exception occurred, we redirect the user to the students list.
-                    this.$router.replace('/');
+                    this.$router.replace('/news');
                 }
             }
         },
@@ -81,8 +79,7 @@
                         else {
                             await this.executeAsyncRequest(() => NewsApiService.updateNewsAsync(this.item));
                         }
-
-                        this.$router.replace('/');
+                        this.$router.replace('/news');
                     }
                     catch(error) {
                         // Custom error management here.

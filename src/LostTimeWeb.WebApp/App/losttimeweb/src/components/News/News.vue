@@ -2,17 +2,18 @@
     <section class="news col-md-6">
         <div v-for="(i, index) in newsList" :key="index">
             <article>
-                <h3>{{i.title}} <small>{{i.date}} par {{i.authorName}}</small></h3>
-                <p>{{i.content}}</p>
+                <h3>{{i.title}}<small> par {{i.authorId}}</small></h3>
+                <vue-markdown>{{i.content}}</vue-markdown>
+                <footer>{{i.UpVote}} <i class="glyphicon glyphicon-menu-up"></i> {{i.DownVote}} <i class="glyphicon glyphicon-menu-down"></i>    - Posté le {{i.datePost | formatDate}}</footer>
             </article>
         </div>
     </section>
 </template>
-
 <script>
     import { mapActions } from 'vuex'
     import NewsApiService from '../../services/NewsApiServices'
-    
+    import moment from 'moment'
+    import VueMarkdown from 'vue-markdown'
     export default {
         data () {
             return {
@@ -21,7 +22,9 @@
                 limitPage: 5
             }
         },
-
+        components: {
+            VueMarkdown
+        },
         async mounted() {
             await this.refreshList();
         },
@@ -31,7 +34,8 @@
             
             async refreshList() {
                 this.newsList = await this.executeAsyncRequestOrDefault(() => NewsApiService.getNewsListAsync());
-            }
+            },
+            
         }
     }
 </script>

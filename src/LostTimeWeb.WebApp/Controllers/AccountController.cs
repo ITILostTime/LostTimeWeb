@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using LostTimeWeb.DAL;
+using LostTimeDB;
 using LostTimeWeb.WebApp.Authentication;
 using LostTimeWeb.WebApp.Models.AccountViewModels;
 using LostTimeWeb.WebApp.Services;
@@ -44,7 +44,7 @@ namespace LostTimeWeb.WebApp.Controllers
             {
                 //User user = _userService.FindUser( model.Email, model.Password );
                 ModelPoco poco = new ModelPoco();
-                User user = poco.checkModel(model.Email, model.Password);
+                UserAccount user = poco.checkModel(model.Email, model.Password);
                 if( user == null )
                 {
                     ModelState.AddModelError( string.Empty, "Invalid login attempt." );
@@ -77,7 +77,7 @@ namespace LostTimeWeb.WebApp.Controllers
                 }
                 //User user = _userService.FindUser( model.Email );
                 ModelPoco poco = new ModelPoco();
-                User user = poco.checkModel(model.Email, model.Password);
+                UserAccount user = poco.checkModel(model.Email, model.Password);
                 await SignIn( user.Email, user.UserId.ToString() );
                 return RedirectToAction( nameof( Authenticated ) );
             }

@@ -1,4 +1,4 @@
-using LostTimeWeb.DAL;
+using LostTimeDB;
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 namespace LostTimeWeb.WebApp.Poco
 {
@@ -10,13 +10,13 @@ namespace LostTimeWeb.WebApp.Poco
         private string _password = "QWERTY012345";
         private string _role = "Admin";
         
-        public User checkModel(string email, string password )
+        public UserAccount checkModel(string email, string password )
         {
             PasswordHasher _passwordHasher = new PasswordHasher();
-            User user = new User();
-            user.UserId = _userId;
-            user.Password = _passwordHasher.HashPassword( _password );
-            user.Email = _email;
+            UserAccount user = new UserAccount();
+            user.UserID = _userId;
+            user.UserPassword = _passwordHasher.HashPassword( _password );
+            user.UserEmail = _email;
             user.Role = _role;
             if( user.Email == email && _passwordHasher.VerifyHashedPassword( user.Password, password ) == PasswordVerificationResult.Success )
             {
