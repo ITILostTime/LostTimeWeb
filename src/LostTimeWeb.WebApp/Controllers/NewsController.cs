@@ -31,5 +31,19 @@ namespace LostTimeWeb.WebApp.Controllers
                 o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );
             } );
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(string title, int  authorId,  string content, DateTime datePost)
+        {
+            Result<Article> result = _newsServices.Create( title, authorId, content, datePost); 
+            return this.CreateResult<Article , ArticleViewModel>( result, o =>
+            {
+                o.ToViewModel = s => s.ToArticleViewModel();
+                o.RouteName = "GetArticle";
+                o.RouteValues = s => new { id = s.ArticleId };
+            } );
+        }
+
     }
 }
