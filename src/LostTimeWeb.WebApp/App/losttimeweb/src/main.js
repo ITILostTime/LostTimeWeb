@@ -4,6 +4,7 @@ import 'bootstrap/dist/js/bootstrap'
 import Vue from 'vue'
 import store from './vuex/store'
 import VueRouter from 'vue-router'
+import moment from 'moment'
 
 import App from './components/App.vue'
 import Home from './components/Home.vue'
@@ -20,6 +21,10 @@ import UserDelete from './components/Users/UserDelete.vue'
 
 import Tchat from './components/Tchat.vue'
 
+import Admin from './components/Admin.vue'
+import NewsList from './components//News/NewsList.vue'
+import NewsEdit from './components//News/NewsEdit.vue'
+
 /*
 import ClassList from './components/Classes/ClassList.vue'
 import ClassEdit from './components/Classes/ClassEdit.vue'
@@ -31,13 +36,20 @@ import TeacherList from './components/Teachers/TeacherList.vue'
 import TeacherEdit from './components/Teachers/TeacherEdit.vue'
 import TeacherAssign from './components/Teachers/TeacherAssign.vue'
 */
-import Admin from './components/Admin.vue'
+
 
 //import FollowingList from './components/GitHub/FollowingList.vue'
 
 import AuthService from './services/AuthService'
 
 Vue.use(VueRouter)
+
+moment.locale('fr');
+Vue.filter('formatDate', function(value) {
+  if (value) { 
+    return moment(String(value)).format('lll')
+  }
+})
 
 /**
  * Filter for routes requiring an authenticated user
@@ -79,6 +91,9 @@ const router = new VueRouter({
     { path: '/tchat', component: Tchat },
 
     { path: '/admin', component: Admin/*, beforeEnter: requireAuth */},
+    { path: '/news', component: NewsList/*, beforeEnter: requireAuth*/ },
+    { path: '/news/:mode([create|edit]+)/:id?', component: NewsEdit/*, beforeEnter: requireAuth*/ },
+
 
     { path: '/usersettings', component: UserEdit, beforeEnter: requireAuth },
     { path: '/deleteaccount', component: UserDelete, beforeEnter: requireAuth },

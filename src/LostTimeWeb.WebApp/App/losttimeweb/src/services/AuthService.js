@@ -75,7 +75,6 @@ class AuthService {
 
     onAuthenticated(i) {
         this.identity = i;
-
         for(var cb of this.authenticatedCallbacks) {
             cb();
         }
@@ -90,7 +89,7 @@ class AuthService {
     }
 
     removeSignedOutCallback(cb) {
-        console.log("bla")
+        
         this.signedOutCallbacks.splice(this.signedOutCallbacks.indexOf(cb), 1);
     }
 

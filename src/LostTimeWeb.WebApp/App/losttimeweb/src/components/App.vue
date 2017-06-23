@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import Header from './Header.vue'
-import Footer from './Footer.vue'
+import Header from './Includes/Header.vue'
+import Footer from './Includes/Footer.vue'
 
 import AuthService from '../services/AuthService'
 import { mapGetters, mapActions } from 'vuex'

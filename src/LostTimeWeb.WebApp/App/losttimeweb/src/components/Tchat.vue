@@ -1,5 +1,5 @@
 <template>
-    <div id="tchat">
+    <div id="tchat" class="row">
         <div class="col-md-6 col-md-offset-3">
                 <h1>Pas de Tchat, mais un Chat oui</h1>
                 <img src="../../dist/img/chat-hyperesthsie.jpg"/>

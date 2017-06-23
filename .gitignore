@@ -261,6 +261,6 @@ paket-files/
 # PrimarySchool project
 src/LostTimeWeb.WebApp/wwwroot/assets/
 src/LostTimeWeb.WebApp/wwwroot/dist/
-src/LostTimeWeb.DAL.Tests/appsettings.json
+src/.Tests/appsettings.json
 src/LostTimeWeb.WebApp/appsettings.json
 src/LostTimeWeb.DB/appsettings.json

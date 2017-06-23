@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using LostTimeWeb.DAL;
+using LostTimeDB;
 using LostTimeWeb.WebApp.Authentication;
 using LostTimeWeb.WebApp.Models.NewsViewModels;
 using LostTimeWeb.WebApp.Services;
@@ -24,26 +24,36 @@ namespace LostTimeWeb.WebApp.Controllers
         [HttpGet]
         public IActionResult GetNewsList()
         {
-            Console.WriteLine("NEWSLIST CALLED");
-            Result<IEnumerable<Article>> result = _newsServices.GetAll();
-            return this.CreateResult<IEnumerable<Article>, IEnumerable<ArticleViewModel>>( result, o =>
+            //Console.WriteLine("NEWSLIST CALLED");
+            Result<IEnumerable<News>> result = _newsServices.GetAll();
+            //Console.WriteLine(result.Content.First().NewsGoodVote);
+            return this.CreateResult<IEnumerable<News>, IEnumerable<ArticleViewModel>>( result, o =>
             {
                 o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );
             } );
         }
 
         [HttpPost]
+<<<<<<< HEAD
         public IActionResult Create( [FromBody] ArticleViewModel model )
         {
             Result<Article> result = _newsServices.Create( model.Title, model.AuthorId, model.Content, model.DatePost); 
             return this.CreateResult<Article , ArticleViewModel>( result, o =>
+=======
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(string title, int authorId,  string content)
+        {
+            Result<News> result = _newsServices.Create( title, authorId, content); 
+            return this.CreateResult<News , ArticleViewModel>( result, o =>
+>>>>>>> 80f5a2debaa9e0986f9d6844c35820ba0866b725
             {
                 o.ToViewModel = s => s.ToArticleViewModel();
                 o.RouteName = "GetArticle";
-                o.RouteValues = s => new { id = s.ArticleId };
+                o.RouteValues = s => new { id = s.NewsID };
             } );
         }
 
+<<<<<<< HEAD
         [HttpPut( "{id}" )]
         public IActionResult Update( int id, [FromBody] ArticleViewModel model )
         {
@@ -101,5 +111,7 @@ namespace LostTimeWeb.WebApp.Controllers
             return this.CreateResult( result );
         }
         */
+=======
+>>>>>>> 80f5a2debaa9e0986f9d6844c35820ba0866b725
     }
 }
