@@ -33,16 +33,32 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(string title, int  authorId,  string content, DateTime datePost)
+        public IActionResult Create( [FromBody] ArticleViewModel model )
         {
-            Result<Article> result = _newsServices.Create( title, authorId, content, datePost); 
+            Result<Article> result = _newsServices.Create( model.Title, model.AuthorId, model.Content, model.DatePost); 
             return this.CreateResult<Article , ArticleViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToArticleViewModel();
                 o.RouteName = "GetArticle";
                 o.RouteValues = s => new { id = s.ArticleId };
             } );
+        }
+
+        [HttpPut( "{id}" )]
+        public IActionResult Update( int id, [FromBody] ArticleViewModel model )
+        {
+            Result<Article> result = _newsServices.Update(id, model.Title, model.AuthorId, model.Content, model.DatePost);
+            return this.CreateResult<Article, ArticleViewModel>( result, o =>
+            {
+                o.ToViewModel = s => s.ToArticleViewModel();
+            } );
+        }
+
+        [HttpDelete( "{id}" )]
+        public IActionResult Delete( int id )
+        {
+            Result<int> result =  _newsServices.Delete( id );
+            return this.CreateResult( result );
         }
 
         /*

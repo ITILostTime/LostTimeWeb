@@ -12,12 +12,14 @@ namespace LostTimeWeb.WebApp.Services
         public List<Article> _pocoArticles; 
         public NewsService(StudentGateway studentGateway)
         {
-            _studentGateway = studentGateway; 
+            _studentGateway = studentGateway;
             _pocoArticles = SetPoco();
         }
         
         public List<Article> SetPoco()
         {
+            //BIG POCO !!!
+
             List<Article> pocoArticles = new List<Article>();
 
             Article a1 = new Article();
@@ -44,7 +46,80 @@ namespace LostTimeWeb.WebApp.Services
 
             return pocoArticles;
         }
-        /*
+       
+        public Result<Article> Create( string title, int  authorId,  string content, DateTime datePost)
+        {
+            Article model = new Article();
+            if( !IsNameValid( title ) ) return Result.Failure<Article>( Status.BadRequest, "The title is not valid." );
+            if( !IsNameValid( content ) ) return Result.Failure<Article>( Status.BadRequest, "The content is not valid." );
+            model.Title = title;
+            model.AuthorId = authorId;
+            model.Content = content;
+            model.DatePost = model.DateLastEdit = datePost;
+            model.ArticleId = _pocoArticles.Last().ArticleId++; 
+            _pocoArticles.Add(model);
+            //verifier si le contenue existe deja 
+            
+            return Result.Success( Status.Created, model);
+        }
+
+        public Result<Article> Update(int Id, string title, int  authorId,  string content, DateTime Article)
+        {
+
+            if( !IsNameValid( title ) ) return Result.Failure<Article>( Status.BadRequest, "The title is not valid." );
+            if( !IsNameValid( content ) ) return Result.Failure<Article>( Status.BadRequest, "The content is not valid." );
+            Article model = new Article();
+
+            //if( ( student = _studentGateway.FindById( studentId ) ) == null )
+            if ((model = findArticle(Id))== null)
+            {
+                return Result.Failure<Article>( Status.NotFound, "Article not found." );
+            }
+            if( title != null ) {model.title = title; }
+            if( authorId != model.AuthorId ) {model.AuthorId = authorId;}
+            if( content != null ) {model.Content = content}
+            //if( title != null ) {model.title = title; }
+            //foreach(Article toto  in _pocoArticles) { if (toto.ArticleId ==  Id) ;} a faire en rentrant.
+            //_studentGateway.Update( studentId, firstName, lastName, birthDate, photo, gitHubLogin );
+            return Result.Success( Status.Ok, model );
+        }
+
+        public Result<int> Delete( int Id )
+        {
+            Article model = new Article();
+            //if( ( student = _studentGateway.FindById( studentId ) ) == null )
+            //if( _studentGateway.FindById( classId ) == null ) return Result.Failure<int>( Status.NotFound, "Student not found." );
+            //_studentGateway.Delete( classId );
+            if ( (model = findArticle(Id))== null ) return Result.Failure<int>( Status.NotFound, "News not found." );
+            _pocoArticles.Remove(model);
+            return Result.Success( Status.Ok,  Id);
+        }
+
+        public Result<IEnumerable<Article>> GetAll()
+        {
+            IEnumerable<Article> poco = _pocoArticles;
+            return Result.Success( Status.Ok, poco);
+        }
+
+        public Result<Article> GetById( int id )
+        {
+            Article article = findArticle(id);
+            if ( article == null) return Result.Failure<Article>( Status.NotFound, "Article not found." );
+            //if( ( article = _articleGateway.FindById( id ) ) == null ) return Result.Failure<Article>( Status.NotFound, "Article not found." );
+            return Result.Success( Status.Ok, article );
+        }
+
+        bool IsNameValid( string name ) => !string.IsNullOrWhiteSpace( name );
+
+        private Article findArticle(int Id)
+        {
+            //if ( _pocoArticles.Exists(x => x.ArticleId == Id) == false) return null;
+            foreach(Article article in _pocoArticles) { if (article.ArticleId ==  Id) return article;}
+            return null;
+        }
+
+        
+         /*
         public Result<Student> CreateStudent( string firstName, string lastName, DateTime birthDate, string photo, string gitHubLogin )
         {
             if( !IsNameValid( firstName ) ) return Result.Failure<Student>( Status.BadRequest, "The first name is not valid." );
@@ -96,33 +171,5 @@ namespace LostTimeWeb.WebApp.Services
             return Result.Success( Status.Ok, classId );
         }
         */
-        public Result<Article> Create( string title, int  authorId,  string content, DateTime datePost)
-        {
-            Article model = new Article();
-            if( !IsNameValid( title ) ) return Result.Failure<Article>( Status.BadRequest, "The title is not valid." );
-            if( !IsNameValid( content ) ) return Result.Failure<Article>( Status.BadRequest, "The content is not valid." );
-            model.Title = title;
-            model.AuthorId = authorId;
-            model.Content = content;
-            model.DatePost = model.DateLastEdit = datePost;
-            model.ArticleId = _pocoArticles.Last().ArticleId++; 
-            _pocoArticles.Add(model);
-            //verifier si le contenue existe deja 
-            
-            return Result.Success( Status.Created, model);
-        }
-
-        public Result<Article> Create()
-        {
-
-            return null;
-        }
-        public Result<IEnumerable<Article>> GetAll()
-        {
-            //BIG POCO !!!
-            IEnumerable<Article> poco = _pocoArticles;
-            return Result.Success( Status.Ok, poco);
-        }
-        bool IsNameValid( string name ) => !string.IsNullOrWhiteSpace( name );
     }
 }
