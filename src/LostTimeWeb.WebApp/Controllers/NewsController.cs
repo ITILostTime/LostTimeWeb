@@ -24,12 +24,27 @@ namespace LostTimeWeb.WebApp.Controllers
         [HttpGet]
         public IActionResult GetNewsList()
         {
-            Console.WriteLine("NEWSLIST CALLED");
-            Result<IEnumerable<Article>> result = _newsServices.GetAll();
-            return this.CreateResult<IEnumerable<Article>, IEnumerable<ArticleViewModel>>( result, o =>
+            //Console.WriteLine("NEWSLIST CALLED");
+            Result<IEnumerable<News>> result = _newsServices.GetAll();
+            //Console.WriteLine(result.Content.First().NewsGoodVote);
+            return this.CreateResult<IEnumerable<News>, IEnumerable<ArticleViewModel>>( result, o =>
             {
                 o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );
             } );
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(string title, int authorId,  string content)
+        {
+            Result<News> result = _newsServices.Create( title, authorId, content); 
+            return this.CreateResult<News , ArticleViewModel>( result, o =>
+            {
+                o.ToViewModel = s => s.ToArticleViewModel();
+                o.RouteName = "GetArticle";
+                o.RouteValues = s => new { id = s.NewsID };
+            } );
+        }
+
     }
 }

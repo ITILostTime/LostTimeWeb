@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.OAuth;
 
 namespace LostTimeWeb.WebApp.Authentication
 {
+    /*
     public class GoogleExternalAuthenticationManager : IExternalAuthenticationManager
     {
         readonly UserService _userService;
@@ -26,4 +27,5 @@ namespace LostTimeWeb.WebApp.Authentication
             return _userService.FindGoogleUser( context.GetGoogleId() );
         }
     }
+    */
 }
