@@ -24,8 +24,9 @@ namespace LostTimeWeb.WebApp.Controllers
         [HttpGet]
         public IActionResult GetNewsList()
         {
-            Console.WriteLine("NEWSLIST CALLED");
+            //Console.WriteLine("NEWSLIST CALLED");
             Result<IEnumerable<News>> result = _newsServices.GetAll();
+            //Console.WriteLine(result.Content.First().NewsGoodVote);
             return this.CreateResult<IEnumerable<News>, IEnumerable<ArticleViewModel>>( result, o =>
             {
                 o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );

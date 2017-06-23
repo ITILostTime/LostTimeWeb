@@ -4,7 +4,10 @@
             <article>
                 <h3>{{i.title}}<small> par {{i.authorId}}</small></h3>
                 <vue-markdown>{{i.content}}</vue-markdown>
-                <footer>{{i.UpVote}} <i class="glyphicon glyphicon-menu-up"></i> {{i.DownVote}} <i class="glyphicon glyphicon-menu-down"></i>    - Posté le {{i.datePost | formatDate}}</footer>
+                <footer> 
+                <span> {{i.upVote}} <i class="glyphicon glyphicon-menu-up"></i></span>
+                <span> {{i.downVote}} <i class="glyphicon glyphicon-menu-down"></i></span>  
+                - Posté le {{i.datePost | formatDate}}</footer>
             </article>
         </div>
     </section>
