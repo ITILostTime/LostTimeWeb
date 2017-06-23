@@ -27,7 +27,7 @@
         methods: {
             onSignedOut() {
                this.$router.replace('/');
-                location.reload(true);
+               location.reload(true);
             }
         }
     }

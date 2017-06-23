@@ -6,7 +6,8 @@
         </div>
         <div class="panel-body text-right">
                 <router-link class="btn btn-primary" :to="`news/create`"><i class="glyphicon glyphicon-plus"></i> Rédiger une News</router-link>
-            </div>
+                <router-link class="btn btn-primary" :to="`admin`"><i class="glyphicon glyphicon-chevron-left"></i> Retour</router-link>
+        </div>
         <table class="table table-striped">
             <thead>
                 <tr>

@@ -17,11 +17,12 @@
                     <input type="text" v-model="item.title" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label>Contenu</label> <!--ADD THE MARKDOWN EDITOR HERE-->
+                    <label>Contenu</label>  <!--ADD THE MARKDOWN EDITOR HERE-->
                     <textarea v-model="item.content" placeholder="Rédiger la news" class="form-control"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Poster</button>
-                <router-link class="btn btn-primary" :to="`/news`"> Annuler</router-link>
+                <router-link class="btn btn-primary" :to="`/news`"> Annuler 
+                </router-link><a class="btn btn-default" href="https://simplemde.com/markdown-guide" target="_blank">Aide Markdown <i class="glyphicon glyphicon-question-sign"></i></a>
             </form>
         </div>
     </div>
