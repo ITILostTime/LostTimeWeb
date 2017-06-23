@@ -20,7 +20,7 @@ class NewsApiService {
     }
 
     async updateNewsAsync(model) {
-        return await putAsync(`${endpoint}/${model.newarticleId}`, model);
+        return await putAsync(`${endpoint}/${model.articleId }`, model);
     }
 
     async deleteNewsAsync(articleId) {

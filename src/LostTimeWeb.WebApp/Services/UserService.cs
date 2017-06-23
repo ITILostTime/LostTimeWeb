@@ -17,21 +17,21 @@ namespace LostTimeWeb.WebApp.Services
 
         public bool CreatePasswordUser( string email, string password )
         {
-            if( _userGateway.FindByEmail( email ) != null ) return false;
-            _userGateway.CreatePasswordUser( email, _passwordHasher.HashPassword( password ) );
+            if( _userGateway.FindByUserEmail( email ) != null ) return false;
+            _userGateway.CreateNewUserAccount("", email, _passwordHasher.HashPassword( password ),DateTime.Now );
             return true;
         }
 
         
-
+        /*
         public bool CreateOrUpdateGoogleUser( string email, string googleId, string refreshToken )
         {
-            if( _userGateway.FindByGoogleId( googleId ) != null )
+            if( _userGateway.FindByGoogleID( googleId ) != null )
             {
                 _userGateway.UpdateGoogleToken( googleId, refreshToken );
                 return false;
             }
-            User user = _userGateway.FindByEmail( email );
+            UserAccount user = _userGateway.FindByUserEmail( email );
             if( user != null )
             {
                 _userGateway.AddGoogleToken( user.UserId, googleId, refreshToken );
@@ -40,11 +40,11 @@ namespace LostTimeWeb.WebApp.Services
             _userGateway.CreateGoogleUser( email, googleId, refreshToken );
             return true;
         }
-
+        */
         public UserAccount FindUser( string email, string password )
         {
-            UserAccount user = _userGateway.FindByEmail( email );
-            if( user != null && _passwordHasher.VerifyHashedPassword( user.Password, password ) == PasswordVerificationResult.Success )
+            UserAccount user = _userGateway.FindByUserEmail( email );
+            if( user != null && _passwordHasher.VerifyHashedPassword( user.UserPassword, password ) == PasswordVerificationResult.Success )
             {
                 return user;
             }
@@ -54,22 +54,19 @@ namespace LostTimeWeb.WebApp.Services
 
         public UserAccount FindUser( string email )
         {
-            return _userGateway.FindByEmail( email );
+            return _userGateway.FindByUserEmail( email );
         }
-
+        /*
         public UserAccount FindGoogleUser( string googleId )
         {
             return _userGateway.FindByGoogleId( googleId );
         }
-
-        public UserAccount FindGithubUser( int githubId )
-        {
-            return _userGateway.FindByGithubId( githubId );
-        }
+        
 
         public IEnumerable<string> GetAuthenticationProviders( string userId )
         {
             return _userGateway.GetAuthenticationProviders( userId );
         }
+        */
     }
 }

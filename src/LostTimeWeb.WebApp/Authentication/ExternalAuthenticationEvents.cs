@@ -29,8 +29,8 @@ namespace LostTimeWeb.WebApp.Authentication
         {
             List<Claim> claims = new List<Claim>
             {
-                new Claim( ClaimTypes.NameIdentifier, user.UserId.ToString(), ClaimValueTypes.String ),
-                new Claim( ClaimTypes.Email, user.Email )
+                new Claim( ClaimTypes.NameIdentifier, user.UserID.ToString(), ClaimValueTypes.String ),
+                new Claim( ClaimTypes.Email, user.UserEmail )
             };
             ClaimsPrincipal principal = new ClaimsPrincipal( new ClaimsIdentity( claims, CookieAuthentication.AuthenticationType, ClaimTypes.Email, string.Empty ) );
             return principal;

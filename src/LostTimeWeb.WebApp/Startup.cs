@@ -84,25 +84,14 @@ namespace LostTimeWeb.WebApp
             {
                 AuthenticationScheme = CookieAuthentication.AuthenticationScheme
             } );
-
+            /*
             ExternalAuthenticationEvents githubAuthenticationEvents = new ExternalAuthenticationEvents(
                 new GithubExternalAuthenticationManager( app.ApplicationServices.GetRequiredService<UserService>() ) );
             ExternalAuthenticationEvents googleAuthenticationEvents = new ExternalAuthenticationEvents(
                 new GoogleExternalAuthenticationManager( app.ApplicationServices.GetRequiredService<UserService>() ) );
-
-            app.UseGitHubAuthentication( o =>
-            {
-                o.SignInScheme = CookieAuthentication.AuthenticationScheme;
-                o.ClientId = Configuration[ "Authentication:Github:ClientId" ];
-                o.ClientSecret = Configuration[ "Authentication:Github:ClientSecret" ];
-                o.Scope.Add( "user" );
-                o.Scope.Add( "user:email" );
-                o.Events = new OAuthEvents
-                {
-                    OnCreatingTicket = githubAuthenticationEvents.OnCreatingTicket
-                };
-            } );
-
+                */
+            
+            /*
             app.UseGoogleAuthentication( c =>
             {
                 c.SignInScheme = CookieAuthentication.AuthenticationScheme;
@@ -114,7 +103,7 @@ namespace LostTimeWeb.WebApp
                 };
                 c.AccessType = "offline";
             } );
-                        
+              */          
             app.UseMvc( routes =>
             {
                 routes.MapRoute(

@@ -25,8 +25,8 @@ namespace LostTimeWeb.WebApp.Controllers
         public IActionResult GetNewsList()
         {
             Console.WriteLine("NEWSLIST CALLED");
-            Result<IEnumerable<Article>> result = _newsServices.GetAll();
-            return this.CreateResult<IEnumerable<Article>, IEnumerable<ArticleViewModel>>( result, o =>
+            Result<IEnumerable<News>> result = _newsServices.GetAll();
+            return this.CreateResult<IEnumerable<News>, IEnumerable<ArticleViewModel>>( result, o =>
             {
                 o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );
             } );
@@ -34,14 +34,14 @@ namespace LostTimeWeb.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(string title, int  authorId,  string content, DateTime datePost)
+        public IActionResult Create(string title, int authorId,  string content)
         {
-            Result<Article> result = _newsServices.Create( title, authorId, content, datePost); 
-            return this.CreateResult<Article , ArticleViewModel>( result, o =>
+            Result<News> result = _newsServices.Create( title, authorId, content); 
+            return this.CreateResult<News , ArticleViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToArticleViewModel();
                 o.RouteName = "GetArticle";
-                o.RouteValues = s => new { id = s.ArticleId };
+                o.RouteValues = s => new { id = s.NewsID };
             } );
         }
 

@@ -12,12 +12,12 @@ namespace LostTimeWeb.WebApp.Controllers
                 ArticleId = @this.NewsID,
                 Title = @this.NewsTitle,
                 Content = @this.NewsContent,
-                DateLastEdit = @this.DateLastEdit,
-                DatePost = @this.NewsDate,
-                AuthorId = @this.AuthorID,
-                UpVote = @this.UpVote,
-                DownVote = @this.DownVote,
-                Editions = @this.Editions
+                DateLastEdit = @this.NewsLastUpdate,
+                DatePost = @this.NewsCreationDate,
+                AuthorId = @this.NewsAuthorID,
+                UpVote = @this.NewsGoodVote,
+                DownVote = @this.NewsBadVote,
+                Editions = @this.NewsEditionNb
             };
         }
     }

@@ -50,7 +50,7 @@ namespace LostTimeWeb.WebApp.Controllers
                     ModelState.AddModelError( string.Empty, "Invalid login attempt." );
                     return View( model );
                 }
-                await SignIn( user.Email, user.UserId.ToString() );
+                await SignIn( user.UserEmail, user.UserID.ToString() );
                 return RedirectToAction( nameof( Authenticated ) );
             }
             return View( model );
@@ -78,7 +78,7 @@ namespace LostTimeWeb.WebApp.Controllers
                 //User user = _userService.FindUser( model.Email );
                 ModelPoco poco = new ModelPoco();
                 UserAccount user = poco.checkModel(model.Email, model.Password);
-                await SignIn( user.Email, user.UserId.ToString() );
+                await SignIn( user.UserEmail, user.UserID.ToString() );
                 return RedirectToAction( nameof( Authenticated ) );
             }
 
