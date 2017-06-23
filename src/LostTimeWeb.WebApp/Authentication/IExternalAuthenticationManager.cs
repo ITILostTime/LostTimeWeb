@@ -1,4 +1,4 @@
-﻿using LostTimeWeb.DAL;
+﻿using LostTimeDB;
 using Microsoft.AspNetCore.Authentication.OAuth;
 
 namespace LostTimeWeb.WebApp.Authentication
@@ -7,6 +7,6 @@ namespace LostTimeWeb.WebApp.Authentication
     {
         void CreateOrUpdateUser( OAuthCreatingTicketContext context );
 
-        User FindUser( OAuthCreatingTicketContext context );
+        UserAccount FindUser( OAuthCreatingTicketContext context );
     }
 }

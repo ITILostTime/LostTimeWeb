@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using LostTimeWeb.DAL;
+using LostTimeDB;
 using LostTimeWeb.WebApp.Authentication;
 using LostTimeWeb.WebApp.Models.NewsViewModels;
 using LostTimeWeb.WebApp.Services;
@@ -24,9 +24,10 @@ namespace LostTimeWeb.WebApp.Controllers
         [HttpGet]
         public IActionResult GetNewsList()
         {
-            Console.WriteLine("NEWSLIST CALLED");
-            Result<IEnumerable<Article>> result = _newsServices.GetAll();
-            return this.CreateResult<IEnumerable<Article>, IEnumerable<ArticleViewModel>>( result, o =>
+            //Console.WriteLine("NEWSLIST CALLED");
+            Result<IEnumerable<News>> result = _newsServices.GetAll();
+            //Console.WriteLine(result.Content.First().NewsGoodVote);
+            return this.CreateResult<IEnumerable<News>, IEnumerable<ArticleViewModel>>( result, o =>
             {
                 o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );
             } );
@@ -34,56 +35,16 @@ namespace LostTimeWeb.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(string title, int  authorId,  string content, DateTime datePost)
+        public IActionResult Create(string title, int authorId,  string content)
         {
-            Result<Article> result = _newsServices.Create( title, authorId, content, datePost); 
-            return this.CreateResult<Article , ArticleViewModel>( result, o =>
+            Result<News> result = _newsServices.Create( title, authorId, content); 
+            return this.CreateResult<News , ArticleViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToArticleViewModel();
                 o.RouteName = "GetArticle";
-                o.RouteValues = s => new { id = s.ArticleId };
+                o.RouteValues = s => new { id = s.NewsID };
             } );
         }
 
-        /*
-        [HttpGet( "{id}", Name = "GetStudent" )]
-        public IActionResult GetStudentById( int id )
-        {
-            Result<Student> result = _studentService.GetById( id );
-            return this.CreateResult<Student, StudentViewModel>( result, o =>
-            {
-                o.ToViewModel = s => s.ToStudentViewModel();
-            } );
-        }
-
-        [HttpPost]
-        public IActionResult CreateStudent( [FromBody] StudentViewModel model )
-        {
-            Result<Student> result = _studentService.CreateStudent( model.FirstName, model.LastName, model.BirthDate, model.Photo, model.GitHubLogin );
-            return this.CreateResult<Student, StudentViewModel>( result, o =>
-            {
-                o.ToViewModel = s => s.ToStudentViewModel();
-                o.RouteName = "GetStudent";
-                o.RouteValues = s => new { id = s.StudentId };
-            } );
-        }
-
-        [HttpPut( "{id}" )]
-        public IActionResult UpdateStudent( int id, [FromBody] StudentViewModel model )
-        {
-            Result<Student> result = _studentService.UpdateStudent( id, model.FirstName, model.LastName, model.BirthDate, model.Photo, model.GitHubLogin );
-            return this.CreateResult<Student, StudentViewModel>( result, o =>
-            {
-                o.ToViewModel = s => s.ToStudentViewModel();
-            } );
-        }
-
-        [HttpDelete( "{id}" )]
-        public IActionResult DeleteStudent( int id )
-        {
-            Result<int> result = _studentService.Delete( id );
-            return this.CreateResult( result );
-        }
-        */
     }
 }

@@ -1,127 +1,72 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using LostTimeWeb.DAL;
+using LostTimeDB;
 using LostTimeWeb.WebApp.Models.NewsViewModels;
 
 namespace LostTimeWeb.WebApp.Services
 {
     public class NewsService
     {
-        readonly StudentGateway _studentGateway;
-        public List<Article> _pocoArticles; 
-        public NewsService(StudentGateway studentGateway)
+        readonly  NewsGateway _newsGateway;
+        public List<News> _pocoArticles; 
+
+        public NewsService(NewsGateway newsGateway)
         {
-            _studentGateway = studentGateway; 
+            _newsGateway = newsGateway;
             _pocoArticles = SetPoco();
         }
         
-        public List<Article> SetPoco()
+        public List<News> SetPoco()
         {
-            List<Article> pocoArticles = new List<Article>();
+            List<News> pocoArticles = new List<News>();
 
-            Article a1 = new Article();
-            a1.ArticleId = 0;
-            a1.Title = "Next gen of title";
-            a1.Content = "Lorem Ipsum";
-            a1.DateLastEdit = DateTime.Now;
-            a1.DatePost = DateTime.Now;
-            a1.AuthorId = 1;
-            a1.Popularity = 0;
-            a1.Editions = 0;
+            News a1 = new News();
+            a1.NewsID = 0;
+            a1.NewsTitle = "Next gen of title";
+            a1.NewsContent = "**Ex proident** elit ullamco consectetur tempor consectetur id. Sit aliquip deserunt nostrud excepteur occaecat commodo non dolore cupidatat est. Velit id sunt amet duis magna magna amet exercitation consequat sit nisi. Ex consequat elit culpa ullamco adipisicing reprehenderit dolore aliqua nisi proident magna mollit ad.";
+            a1.NewsCreationDate = DateTime.Now;
+            a1.NewsLastUpdate = DateTime.Now;
+            a1.NewsAuthorID = 1;
+            a1.NewsGoodVote = 1;
+            a1.NewsBadVote = 31;
+            a1.NewsEditionNb = 0;
             pocoArticles.Add(a1);
 
-            Article a2 = new Article();
-            a2.ArticleId = 1;
-            a2.Title = "Another title";
-            a2.Content = "Lorem Ipsum  Again";
-            a2.DateLastEdit = DateTime.Now;
-            a2.DatePost = DateTime.Now;
-            a2.AuthorId = 1;
-            a2.Popularity = 10;
-            a2.Editions = 0;
+            News a2 = new News();
+            a2.NewsID = 0;
+            a2.NewsTitle = "Another title";
+            a2.NewsContent = "Cillum esse ea Lorem non veniam voluptate. Culpa velit magna ullamco velit ad anim aliqua incididunt aute veniam ut. Adipisicing do ut fugiat magna ad cupidatat cupidatat qui do. Culpa exercitation veniam esse nulla ut eiusmod sint ad duis minim ipsum deserunt Lorem. Nostrud cillum labore esse ullamco do pariatur ad proident. Anim anim non dolore commodo ad commodo amet.";
+            a2.NewsCreationDate = DateTime.Now;
+            a2.NewsLastUpdate = DateTime.Now;
+            a2.NewsAuthorID = 1;
+            a2.NewsGoodVote = 25;
+            a2.NewsBadVote = 1;
+            a2.NewsEditionNb = 0;
             pocoArticles.Add(a2);
 
             return pocoArticles;
         }
-        /*
-        public Result<Student> CreateStudent( string firstName, string lastName, DateTime birthDate, string photo, string gitHubLogin )
+        public Result<News> Create(string title, int authorId, string content)
         {
-            if( !IsNameValid( firstName ) ) return Result.Failure<Student>( Status.BadRequest, "The first name is not valid." );
-            if( !IsNameValid( lastName ) ) return Result.Failure<Student>( Status.BadRequest, "The last name is not valid." );
-            if( _studentGateway.FindByName( firstName, lastName ) != null ) return Result.Failure<Student>( Status.BadRequest, "A student with this name already exists." );
-            if( !string.IsNullOrEmpty( gitHubLogin ) && _studentGateway.FindByGitHubLogin( gitHubLogin ) != null ) return Result.Failure<Student>( Status.BadRequest, "A student with GitHub login already exists." );
-            _studentGateway.Create( firstName, lastName, birthDate, photo, gitHubLogin );
-            Student student = _studentGateway.FindByName( firstName, lastName );
-            return Result.Success( Status.Created, student );
-        }
-
-        public Result<Student> UpdateStudent( int studentId, string firstName, string lastName, DateTime birthDate, string photo, string gitHubLogin )
-        {
-            if( !IsNameValid( firstName ) ) return Result.Failure<Student>( Status.BadRequest, "The first name is not valid." );
-            if( !IsNameValid( lastName ) ) return Result.Failure<Student>( Status.BadRequest, "The last name is not valid." );
-            Student student;
-            if( ( student = _studentGateway.FindById( studentId ) ) == null )
-            {
-                return Result.Failure<Student>( Status.NotFound, "Student not found." );
-            }
-
-            {
-                Student s = _studentGateway.FindByName( firstName, lastName );
-                if( s != null && s.StudentId != student.StudentId ) return Result.Failure<Student>( Status.BadRequest, "A student with this name already exists." );
-            }
-
-            if( !string.IsNullOrEmpty( gitHubLogin ) )
-            {
-                Student s = _studentGateway.FindByGitHubLogin( gitHubLogin );
-                if( s != null && s.StudentId != student.StudentId ) return Result.Failure<Student>( Status.BadRequest, "A student with this GitHub login already exists." );
-            }
-
-            _studentGateway.Update( studentId, firstName, lastName, birthDate, photo, gitHubLogin );
-            student = _studentGateway.FindById( studentId );
-            return Result.Success( Status.Ok, student );
-        }
-
-        public Result<Student> GetById( int id )
-        {
-            Student student;
-            if( ( student = _studentGateway.FindById( id ) ) == null ) return Result.Failure<Student>( Status.NotFound, "Student not found." );
-            return Result.Success( Status.Ok, student );
-        }
-
-        public Result<int> Delete( int classId )
-        {
-            if( _studentGateway.FindById( classId ) == null ) return Result.Failure<int>( Status.NotFound, "Student not found." );
-            _studentGateway.Delete( classId );
-            return Result.Success( Status.Ok, classId );
-        }
-        */
-        public Result<Article> Create( string title, int  authorId,  string content, DateTime datePost)
-        {
-            Article model = new Article();
-            if( !IsNameValid( title ) ) return Result.Failure<Article>( Status.BadRequest, "The title is not valid." );
-            if( !IsNameValid( content ) ) return Result.Failure<Article>( Status.BadRequest, "The content is not valid." );
-            model.Title = title;
-            model.AuthorId = authorId;
-            model.Content = content;
-            model.DatePost = model.DateLastEdit = datePost;
-            model.ArticleId = _pocoArticles.Last().ArticleId++; 
+            News model = new News();
+            if (!IsNameValid(title)) return Result.Failure<News>(Status.BadRequest, "The title is not valid.");
+            if (!IsNameValid(content)) return Result.Failure<News>(Status.BadRequest, "The content is not valid.");
+            model.NewsTitle = title;
+            model.NewsAuthorID = authorId;
+            model.NewsContent = content;
+            model.NewsCreationDate = model.NewsLastUpdate = DateTime.Now;
+            model.NewsID = _pocoArticles.Last().NewsID++;
             _pocoArticles.Add(model);
             //verifier si le contenue existe deja 
-            
-            return Result.Success( Status.Created, model);
-        }
 
-        public Result<Article> Create()
-        {
-
-            return null;
+            return Result.Success(Status.Created, model);
         }
-        public Result<IEnumerable<Article>> GetAll()
+        public Result<IEnumerable<News>> GetAll()
         {
             //BIG POCO !!!
-            IEnumerable<Article> poco = _pocoArticles;
-            return Result.Success( Status.Ok, poco);
+            IEnumerable<News> poco = _pocoArticles;
+            return Result.Success(Status.Ok, poco);
         }
         bool IsNameValid( string name ) => !string.IsNullOrWhiteSpace( name );
     }

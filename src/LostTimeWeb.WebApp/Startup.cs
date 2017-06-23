@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Text;
-using LostTimeWeb.DAL;
+using LostTimeDB;
 using LostTimeWeb.WebApp.Authentication;
 using LostTimeWeb.WebApp.Services;
 using Microsoft.AspNetCore.Authentication.OAuth;
@@ -41,19 +41,12 @@ namespace LostTimeWeb.WebApp
             } );
 
             services.AddMvc();
-            services.AddSingleton( _ => new UserGateway( Configuration[ "ConnectionStrings:PrimarySchoolDB" ] ) );
-            services.AddSingleton( _ => new ClassGateway( Configuration[ "ConnectionStrings:PrimarySchoolDB" ] ) );
-            services.AddSingleton( _ => new StudentGateway( Configuration[ "ConnectionStrings:PrimarySchoolDB" ] ) );
-            services.AddSingleton( _ => new TeacherGateway( Configuration[ "ConnectionStrings:PrimarySchoolDB" ] ) );
+            services.AddSingleton( _ => new UserAccountGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
+            services.AddSingleton( _ => new NewsGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
             services.AddSingleton<PasswordHasher>();
             services.AddSingleton<UserService>();
             services.AddSingleton<TokenService>();
-            services.AddSingleton<ClassService>();
-            services.AddSingleton<StudentService>();
-            services.AddSingleton<TeacherService>();
             services.AddSingleton<NewsService>();
-            services.AddSingleton<GitHubService>();
-            services.AddSingleton<GitHubClient>();
         }
 
         public void Configure( IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory )
@@ -91,25 +84,14 @@ namespace LostTimeWeb.WebApp
             {
                 AuthenticationScheme = CookieAuthentication.AuthenticationScheme
             } );
-
+            /*
             ExternalAuthenticationEvents githubAuthenticationEvents = new ExternalAuthenticationEvents(
                 new GithubExternalAuthenticationManager( app.ApplicationServices.GetRequiredService<UserService>() ) );
             ExternalAuthenticationEvents googleAuthenticationEvents = new ExternalAuthenticationEvents(
                 new GoogleExternalAuthenticationManager( app.ApplicationServices.GetRequiredService<UserService>() ) );
-
-            app.UseGitHubAuthentication( o =>
-            {
-                o.SignInScheme = CookieAuthentication.AuthenticationScheme;
-                o.ClientId = Configuration[ "Authentication:Github:ClientId" ];
-                o.ClientSecret = Configuration[ "Authentication:Github:ClientSecret" ];
-                o.Scope.Add( "user" );
-                o.Scope.Add( "user:email" );
-                o.Events = new OAuthEvents
-                {
-                    OnCreatingTicket = githubAuthenticationEvents.OnCreatingTicket
-                };
-            } );
-
+                */
+            
+            /*
             app.UseGoogleAuthentication( c =>
             {
                 c.SignInScheme = CookieAuthentication.AuthenticationScheme;
@@ -121,7 +103,7 @@ namespace LostTimeWeb.WebApp
                 };
                 c.AccessType = "offline";
             } );
-                        
+              */          
             app.UseMvc( routes =>
             {
                 routes.MapRoute(
