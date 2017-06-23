@@ -42,11 +42,11 @@ namespace LostTimeWeb.WebApp
 
             services.AddMvc();
             services.AddSingleton( _ => new UserAccountGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
-              services.AddSingleton<PasswordHasher>();
+            services.AddSingleton( _ => new NewsGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
+            services.AddSingleton<PasswordHasher>();
             services.AddSingleton<UserService>();
             services.AddSingleton<TokenService>();
             services.AddSingleton<NewsService>();
-            services.AddSingleton<GitHubClient>();
         }
 
         public void Configure( IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory )

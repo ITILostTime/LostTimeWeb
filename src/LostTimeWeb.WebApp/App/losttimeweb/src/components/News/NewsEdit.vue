@@ -47,7 +47,9 @@
                 try {
                     // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                     // It is useful when we have to know if an error occurred, in order to adapt the user experience.
-                    this.item = await this.executeAsyncRequest(() => NewsApiService.getNewsAsync(this.id));
+                    //this.item = await this.executeAsyncRequest(() => NewsApiService.getNewsAsync(this.id));
+                    item.title="hey this is a title"
+                    item.content="Enim minim ex enim anim proident qui ad adipisicing occaecat anim sint consequat. Ullamco adipisicing id irure qui laboris nisi. Commodo exercitation quis eiusmod labore quis. Tempor nulla eu aliqua quis. Mollit aliqua velit aliquip eu ad officia ad aute irure officia voluptate. Aliquip laborum tempor nulla cupidatat. Sunt quis nulla enim aliquip incididunt."
                 }
                 catch(error) {
                     // So if an exception occurred, we redirect the user to the students list.
