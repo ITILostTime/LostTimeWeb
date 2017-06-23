@@ -16,6 +16,8 @@ class NewsApiService {
     }
 
     async createNewsAsync(model) {
+        console.log("post")
+        console.log(model)
         return await postAsync(endpoint, model);
     }
 

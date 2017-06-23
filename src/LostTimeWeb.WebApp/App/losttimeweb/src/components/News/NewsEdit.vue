@@ -55,7 +55,6 @@
                 }
             }
         },
-
         methods: {
             ...mapActions(['executeAsyncRequest']),
 
@@ -70,8 +69,9 @@
                 this.errors = errors;
 
                 if(errors.length == 0) {
+                   //item.authorId = 0
                     try {
-                        item.authorId = 0
+                        this.item.authorId = 1;                        
                         if(this.mode == 'create') {
                             await this.executeAsyncRequest(() => NewsApiService.createNewsAsync(this.item));
                         }
@@ -81,6 +81,7 @@
                         this.$router.replace('/news');
                     }
                     catch(error) {
+                        console.log("error")
                         // Custom error management here.
                         // In our application, errors throwed when executing a request are managed globally via the "executeAsyncRequest" action: errors are added to the 'app.errors' state.
                         // A custom component should react to this state when a new error is added, and make an action, like showing an alert message, or something else.

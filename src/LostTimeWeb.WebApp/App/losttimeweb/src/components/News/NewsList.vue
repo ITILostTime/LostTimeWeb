@@ -24,7 +24,10 @@
                     <td>{{i.title}}</td>
                     <td>{{i.authorId}}</td>
                     <td>{{i.datePost | formatDate}}</td>                    
-                    <td>{{i.popularity}}</td>
+                    <td> 
+                        <span> {{i.upVote}} <i class="glyphicon glyphicon-menu-up"></i></span>
+                        <span><i class="glyphicon glyphicon-menu-down"></i> {{i.downVote}} </span>  
+                    </td>
                     <td>
                         <router-link :to="`news/edit/${i.articleId}`"><i class="glyphicon glyphicon-pencil"></i></router-link>
                         <a href="#" @click="deleteNews(i.articleId)"><i class="glyphicon glyphicon-remove"></i></a>
