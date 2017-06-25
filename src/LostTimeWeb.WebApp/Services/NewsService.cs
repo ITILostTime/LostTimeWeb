@@ -20,8 +20,8 @@ namespace LostTimeWeb.WebApp.Services
         public List<News> SetPoco()
         {
             List<News> pocoArticles = new List<News>();
-
             News a1 = new News();
+
             a1.NewsID = 0;
             a1.NewsTitle = "Next gen of title";
             a1.NewsContent = "**Ex proident** elit ullamco consectetur tempor consectetur id. Sit aliquip deserunt nostrud excepteur occaecat commodo non dolore cupidatat est. Velit id sunt amet duis magna magna amet exercitation consequat sit nisi. Ex consequat elit culpa ullamco adipisicing reprehenderit dolore aliqua nisi proident magna mollit ad.";
@@ -48,21 +48,37 @@ namespace LostTimeWeb.WebApp.Services
             return pocoArticles;
         }
 
-        public Result<Article> Update(int Id, string title, int  authorId,  string content, DateTime Article)
+       public Result<News> Create(string title, int authorId, string content)
+        {
+            News model = new News();
+            if (!IsNameValid(title)) return Result.Failure<News>(Status.BadRequest, "The title is not valid.");
+            if (!IsNameValid(content)) return Result.Failure<News>(Status.BadRequest, "The content is not valid.");
+            model.NewsTitle = title;
+            model.NewsAuthorID = authorId;
+            model.NewsContent = content;
+            model.NewsCreationDate = model.NewsLastUpdate = DateTime.Now;
+            model.NewsID = _pocoArticles.Last().NewsID++;
+            _pocoArticles.Add(model);
+            //verifier si le contenue existe deja 
+
+            return Result.Success(Status.Created, model);
+        }
+
+        public Result<News> Update(int Id, string title, int  authorId,  string content, DateTime Article)
         {
 
-            if( !IsNameValid( title ) ) return Result.Failure<Article>( Status.BadRequest, "The title is not valid." );
-            if( !IsNameValid( content ) ) return Result.Failure<Article>( Status.BadRequest, "The content is not valid." );
-            Article model = new Article();
+            if( !IsNameValid( title ) ) return Result.Failure<News>( Status.BadRequest, "The title is not valid." );
+            if( !IsNameValid( content ) ) return Result.Failure<News>( Status.BadRequest, "The content is not valid." );
+            News model = new News();
 
             //if( ( student = _studentGateway.FindById( studentId ) ) == null )
-            if ((model = findArticle(Id))== null)
+            if ((model = findNews(Id))== null)
             {
-                return Result.Failure<Article>( Status.NotFound, "Article not found." );
+                return Result.Failure<News>( Status.NotFound, "News not found." );
             }
-            if( title != null ) {model.title = title; }
-            if( authorId != model.AuthorId ) {model.AuthorId = authorId;}
-            if( content != null ) {model.Content = content;}
+            if( title != null ) {model.NewsTitle = title; }
+            if( authorId != model.NewsAuthorID ) {model.NewsAuthorID = authorId;}
+            if( content != null ) {model.NewsContent = content;}
             //if( title != null ) {model.title = title; }
             //foreach(Article toto  in _pocoArticles) { if (toto.ArticleId ==  Id) ;} a faire en rentrant.
             //_studentGateway.Update( studentId, firstName, lastName, birthDate, photo, gitHubLogin );
@@ -71,17 +87,17 @@ namespace LostTimeWeb.WebApp.Services
 
         public Result<int> Delete( int Id )
         {
-            Article model = new Article();
+            News model = new News();
             //if( ( student = _studentGateway.FindById( studentId ) ) == null )
             //if( _studentGateway.FindById( classId ) == null ) return Result.Failure<int>( Status.NotFound, "Student not found." );
             //_studentGateway.Delete( classId );
-            if ( (model = findArticle(Id))== null ) return Result.Failure<int>( Status.NotFound, "Article not found." );
+            if ( (model = findNews(Id))== null ) return Result.Failure<int>( Status.NotFound, "News not found." );
             _pocoArticles.Remove(model);
             return Result.Success( Status.Ok,  Id);
         }
 
 
-        public Result<Article> GetById( int id )
+        public Result<News> GetById( int id )
         {
             News news = findNews(id);
             if ( news == null) return Result.Failure<News>( Status.NotFound, "News not found." );
@@ -91,10 +107,10 @@ namespace LostTimeWeb.WebApp.Services
 
         bool IsNameValid( string name ) => !string.IsNullOrWhiteSpace( name );
 
-        private Article findArticle(int Id)
+        private News findNews(int Id)
         {
             //if ( _pocoArticles.Exists(x => x.ArticleId == Id) == false) return null;
-            foreach(Article news in _pocoArticles) { if (news.NewsId ==  Id) return article;}
+            foreach(News news in _pocoArticles) { if (news.NewsID ==  Id) return news;}
             return null;
         }
 
@@ -151,28 +167,14 @@ namespace LostTimeWeb.WebApp.Services
             return Result.Success( Status.Ok, classId );
         }
         */
-=======
-        public Result<News> Create(string title, int authorId, string content)
-        {
-            News model = new News();
-            if (!IsNameValid(title)) return Result.Failure<News>(Status.BadRequest, "The title is not valid.");
-            if (!IsNameValid(content)) return Result.Failure<News>(Status.BadRequest, "The content is not valid.");
-            model.NewsTitle = title;
-            model.NewsAuthorID = authorId;
-            model.NewsContent = content;
-            model.NewsCreationDate = model.NewsLastUpdate = DateTime.Now;
-            model.NewsID = _pocoArticles.Last().NewsID++;
-            _pocoArticles.Add(model);
-            //verifier si le contenue existe deja 
-
-            return Result.Success(Status.Created, model);
-        }
+        
         public Result<IEnumerable<News>> GetAll()
         {
             //BIG POCO !!!
             IEnumerable<News> poco = _pocoArticles;
             return Result.Success(Status.Ok, poco);
         }
-        bool IsNameValid( string name ) => !string.IsNullOrWhiteSpace( name );
+
+        //bool IsNameValid( string name ) => !string.IsNullOrWhiteSpace( name );
     }
 }

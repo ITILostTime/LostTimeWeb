@@ -27,7 +27,7 @@ namespace LostTimeWeb.WebApp.Controllers
             //Console.WriteLine("NEWSLIST CALLED");
             Result<IEnumerable<News>> result = _newsServices.GetAll();
             //Console.WriteLine(result.Content.First().NewsGoodVote);
-            return this.CreateResult<IEnumerable<News>, IEnumerable<NewsViewModel>>( result, o =>
+            return this.CreateResult<IEnumerable<News>, IEnumerable<ArticleViewModel>>( result, o =>
             {
                 o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );
             } );
@@ -35,9 +35,9 @@ namespace LostTimeWeb.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(string title, int authorId,  string content)
+        public IActionResult Create( [FromBody] ArticleViewModel model )
         {
-            Result<News> result = _newsServices.Create( title, authorId, content); 
+            Result<News> result  = _newsServices.Create( model.Title, model.AuthorId, model.Content);
             return this.CreateResult<News , ArticleViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToArticleViewModel();
@@ -47,10 +47,10 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpPut( "{id}" )]
-        public IActionResult Update( int id, [FromBody] NewsViewModel model )
+        public IActionResult Update( int id, [FromBody] ArticleViewModel model )
         {
             Result<News> result = _newsServices.Update(id, model.Title, model.AuthorId, model.Content, model.DatePost);
-            return this.CreateResult<News, NewsViewModel>( result, o =>
+            return this.CreateResult<News, ArticleViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToArticleViewModel();
             } );
