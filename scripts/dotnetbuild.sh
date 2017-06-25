@@ -24,11 +24,11 @@ dotnet restore
 # dotnet test ./test/TEST_PROJECT_NAME -c Release -f netcoreapp1.0
 
 # Instead, run directly with mono for the full .net version 
-#dotnet build ./src/LostTimeWeb.DAL.Test -c Release -f net451
+#dotnet build ./src/.Test -c Release -f net451
 
 #mono \  
-#./src/LostTimeWeb.DAL.Test/bin/Release/net451/*/dotnet-test-xunit.exe \
-#./src/LostTimeWeb.DAL.Test/bin/Release/net451/*/TEST_PROJECT_NAME.dll
+#./src/.Test/bin/Release/net451/*/dotnet-test-xunit.exe \
+#./src/.Test/bin/Release/net451/*/TEST_PROJECT_NAME.dll
 
 #switch release
 

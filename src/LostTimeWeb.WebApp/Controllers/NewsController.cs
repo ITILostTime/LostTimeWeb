@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using LostTimeWeb.DAL;
+using LostTimeDB;
 using LostTimeWeb.WebApp.Authentication;
 using LostTimeWeb.WebApp.Models.NewsViewModels;
 using LostTimeWeb.WebApp.Services;
@@ -24,9 +24,10 @@ namespace LostTimeWeb.WebApp.Controllers
         [HttpGet]
         public IActionResult GetNewsList()
         {
-            Console.WriteLine("NEWSLIST CALLED");
-            Result<IEnumerable<Article>> result = _newsServices.GetAll();
-            return this.CreateResult<IEnumerable<Article>, IEnumerable<ArticleViewModel>>( result, o =>
+            //Console.WriteLine("NEWSLIST CALLED");
+            Result<IEnumerable<News>> result = _newsServices.GetAll();
+            //Console.WriteLine(result.Content.First().NewsGoodVote);
+            return this.CreateResult<IEnumerable<News>, IEnumerable<NewsViewModel>>( result, o =>
             {
                 o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );
             } );
@@ -34,15 +35,32 @@ namespace LostTimeWeb.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(string title, int  authorId,  string content, DateTime datePost)
+        public IActionResult Create(string title, int authorId,  string content)
         {
-            Result<Article> result = _newsServices.Create( title, authorId, content, datePost); 
-            return this.CreateResult<Article , ArticleViewModel>( result, o =>
+            Result<News> result = _newsServices.Create( title, authorId, content); 
+            return this.CreateResult<News , ArticleViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToArticleViewModel();
                 o.RouteName = "GetArticle";
-                o.RouteValues = s => new { id = s.ArticleId };
+                o.RouteValues = s => new { id = s.NewsID };
             } );
+        }
+
+        [HttpPut( "{id}" )]
+        public IActionResult Update( int id, [FromBody] NewsViewModel model )
+        {
+            Result<News> result = _newsServices.Update(id, model.Title, model.AuthorId, model.Content, model.DatePost);
+            return this.CreateResult<News, NewsViewModel>( result, o =>
+            {
+                o.ToViewModel = s => s.ToArticleViewModel();
+            } );
+        }
+
+        [HttpDelete( "{id}" )]
+        public IActionResult Delete( int id )
+        {
+            Result<int> result =  _newsServices.Delete( id );
+            return this.CreateResult( result );
         }
 
         /*
