@@ -42,9 +42,9 @@ namespace LostTimeWeb.WebApp.Controllers
         {
             if( ModelState.IsValid )
             {
-                //User user = _userService.FindUser( model.Email, model.Password );
-                ModelPoco poco = new ModelPoco();
-                UserAccount user = poco.checkModel(model.Email, model.Password);
+                UserAccount user = _userService.FindUser( model.Email, model.Password );
+                //ModelPoco poco = new ModelPoco();
+                //UserAccount user = poco.checkModel(model.Email, model.Password);
                 if( user == null )
                 {
                     ModelState.AddModelError( string.Empty, "Invalid login attempt." );
@@ -75,9 +75,9 @@ namespace LostTimeWeb.WebApp.Controllers
                     ModelState.AddModelError( string.Empty, "An account with this email already exists." );
                     return View( model );
                 }
-                //User user = _userService.FindUser( model.Email );
-                ModelPoco poco = new ModelPoco();
-                UserAccount user = poco.checkModel(model.Email, model.Password);
+                UserAccount user = _userService.FindUser( model.Email );
+                //ModelPoco poco = new ModelPoco();
+                //UserAccount user = poco.checkModel(model.Email, model.Password);
                 await SignIn( user.UserEmail, user.UserID.ToString() );
                 return RedirectToAction( nameof( Authenticated ) );
             }
@@ -130,7 +130,8 @@ namespace LostTimeWeb.WebApp.Controllers
         {
             string userId = User.FindFirst( ClaimTypes.NameIdentifier ).Value;
             string email = User.FindFirst( ClaimTypes.Email ).Value;
-            Token token = _tokenService.GenerateToken( userId, email );
+            string role = User.FindFirst(ClaimTypes.Role ).Value;
+            Token token = _tokenService.GenerateToken( userId, email , role);
             //
             /*IEnumerable<string> providers= Enumerable.Empty<string>();
             providers = providers.Concat(new[] { "PrimarySchool" });*/

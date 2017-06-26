@@ -11,7 +11,8 @@ using System;
 namespace LostTimeWeb.WebApp.Controllers
 {
     [Route( "api/[controller]" )]
-    //[Authorize( ActiveAuthenticationSchemes = JwtBearerAuthentication.AuthenticationScheme )]
+    [AllowAnonymous]
+    [Authorize( ActiveAuthenticationSchemes = JwtBearerAuthentication.AuthenticationScheme )]
     public class NewsController : Controller
     {
         readonly NewsService _newsServices;
@@ -25,6 +26,7 @@ namespace LostTimeWeb.WebApp.Controllers
         public IActionResult GetNewsList()
         {
             //Console.WriteLine("NEWSLIST CALLED");
+            //_newsServices.GetById( id );
             Result<IEnumerable<News>> result = _newsServices.GetAll();
             //Console.WriteLine(result.Content.First().NewsGoodVote);
             return this.CreateResult<IEnumerable<News>, IEnumerable<ArticleViewModel>>( result, o =>
@@ -35,6 +37,7 @@ namespace LostTimeWeb.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Create( [FromBody] ArticleViewModel model )
         {
             Result<News> result  = _newsServices.Create( model.Title, model.AuthorId, model.Content);
@@ -47,6 +50,7 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpPut( "{id}" )]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Update( int id, [FromBody] ArticleViewModel model )
         {
             Result<News> result = _newsServices.Update(id, model.Title, model.AuthorId, model.Content, model.DatePost);
@@ -57,6 +61,7 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpDelete( "{id}" )]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Delete( int id )
         {
             Result<int> result =  _newsServices.Delete( id );
