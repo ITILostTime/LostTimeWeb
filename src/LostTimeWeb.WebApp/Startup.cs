@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace LostTimeWeb.WebApp
 {
@@ -84,14 +86,10 @@ namespace LostTimeWeb.WebApp
             {
                 AuthenticationScheme = CookieAuthentication.AuthenticationScheme
             } );
-            /*
-            ExternalAuthenticationEvents githubAuthenticationEvents = new ExternalAuthenticationEvents(
-                new GithubExternalAuthenticationManager( app.ApplicationServices.GetRequiredService<UserService>() ) );
-            ExternalAuthenticationEvents googleAuthenticationEvents = new ExternalAuthenticationEvents(
-                new GoogleExternalAuthenticationManager( app.ApplicationServices.GetRequiredService<UserService>() ) );
-                */
             
-            /*
+           /* ExternalAuthenticationEvents googleAuthenticationEvents = new ExternalAuthenticationEvents(
+                new GoogleExternalAuthenticationManager( app.ApplicationServices.GetRequiredService<UserService>() ) );
+                
             app.UseGoogleAuthentication( c =>
             {
                 c.SignInScheme = CookieAuthentication.AuthenticationScheme;
@@ -102,8 +100,8 @@ namespace LostTimeWeb.WebApp
                     OnCreatingTicket = googleAuthenticationEvents.OnCreatingTicket
                 };
                 c.AccessType = "offline";
-            } );
-              */          
+            } );*/
+         
             app.UseMvc( routes =>
             {
                 routes.MapRoute(
