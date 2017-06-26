@@ -14,6 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="1.0.0-beta3-final" />
+    <PackageReference Include="Dapper" Version="1.50.2" />
     <PackageReference Include="LostTimeDB" Version="0.6.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.1" />
