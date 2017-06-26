@@ -3,6 +3,7 @@
         <div class="col-md-5 col-md-offset-3">
             <h1>Page d'administration</h1>
             <router-link class="btn btn-primary" to="/news">Gestion des News</router-link>
+            <router-link class="btn btn-primary" to="/users">Gestion des Utilisateurs</router-link>
         </div>
     </div>
 </template>
@@ -14,16 +15,10 @@ import '../directives/requiredProviders'
 export default {
     data () {
         return {
-            item: {},
-            id: null,
-            errors: []
         }
     },
     computed: {
         auth: () => AuthService,
-    },
-    async mounted() {
-        this.mode = this.$route.params.mode;
     },
 }
 </script>

@@ -42,9 +42,9 @@ namespace LostTimeWeb.WebApp.Controllers
         {
             if( ModelState.IsValid )
             {
-                //User user = _userService.FindUser( model.Email, model.Password );
-                ModelPoco poco = new ModelPoco();
-                UserAccount user = poco.checkModel(model.Email, model.Password);
+                UserAccount user = _userService.FindUser( model.Email, model.Password );
+                //ModelPoco poco = new ModelPoco();
+                //UserAccount user = poco.checkModel(model.Email, model.Password);
                 if( user == null )
                 {
                     ModelState.AddModelError( string.Empty, "Invalid login attempt." );
@@ -75,9 +75,9 @@ namespace LostTimeWeb.WebApp.Controllers
                     ModelState.AddModelError( string.Empty, "An account with this email already exists." );
                     return View( model );
                 }
-                //User user = _userService.FindUser( model.Email );
-                ModelPoco poco = new ModelPoco();
-                UserAccount user = poco.checkModel(model.Email, model.Password);
+                UserAccount user = _userService.FindUser( model.Email );
+                //ModelPoco poco = new ModelPoco();
+                //UserAccount user = poco.checkModel(model.Email, model.Password);
                 await SignIn( user.UserEmail, user.UserID.ToString() );
                 return RedirectToAction( nameof( Authenticated ) );
             }
@@ -147,7 +147,6 @@ namespace LostTimeWeb.WebApp.Controllers
             Console.WriteLine("Authenticated() : provider = " + providers);
             return View();
         }
-
         async Task SignIn( string email, string userId )
         { 
             List<Claim> claims = new List<Claim>
@@ -159,7 +158,6 @@ namespace LostTimeWeb.WebApp.Controllers
             ClaimsPrincipal principal = new ClaimsPrincipal( identity );
             await HttpContext.Authentication.SignInAsync( CookieAuthentication.AuthenticationScheme, principal );
         }
-
         string GetBreachPadding()
         {
             byte[] data = new byte[ _random.Next( 64, 256 ) ];

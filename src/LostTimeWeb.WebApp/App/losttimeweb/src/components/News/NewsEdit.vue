@@ -17,11 +17,12 @@
                     <input type="text" v-model="item.title" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label>Contenu</label> <!--ADD THE MARKDOWN EDITOR HERE-->
+                    <label>Contenu</label>  <!--ADD THE MARKDOWN EDITOR HERE-->
                     <textarea v-model="item.content" placeholder="Rédiger la news" class="form-control"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Poster</button>
-                <router-link class="btn btn-primary" :to="`/news`"> Annuler</router-link>
+                <router-link class="btn btn-primary" :to="`/news`"> Annuler 
+                </router-link><a class="btn btn-default" href="https://simplemde.com/markdown-guide" target="_blank">Aide Markdown <i class="glyphicon glyphicon-question-sign"></i></a>
             </form>
         </div>
     </div>
@@ -55,7 +56,6 @@
                 }
             }
         },
-
         methods: {
             ...mapActions(['executeAsyncRequest']),
 
@@ -70,8 +70,9 @@
                 this.errors = errors;
 
                 if(errors.length == 0) {
+                   //item.authorId = 0
                     try {
-                        item.authorId = 0
+                        this.item.authorId = 1;                        
                         if(this.mode == 'create') {
                             await this.executeAsyncRequest(() => NewsApiService.createNewsAsync(this.item));
                         }
@@ -81,6 +82,7 @@
                         this.$router.replace('/news');
                     }
                     catch(error) {
+                        console.log("error")
                         // Custom error management here.
                         // In our application, errors throwed when executing a request are managed globally via the "executeAsyncRequest" action: errors are added to the 'app.errors' state.
                         // A custom component should react to this state when a new error is added, and make an action, like showing an alert message, or something else.

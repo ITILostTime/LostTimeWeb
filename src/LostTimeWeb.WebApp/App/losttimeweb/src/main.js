@@ -18,12 +18,15 @@ import Download from './components/Download.vue'
 
 import UserEdit from './components/Users/UserEdit.vue'
 import UserDelete from './components/Users/UserDelete.vue'
+import UserList from './components/Users/UserList.vue'
+import UserDisplay from './components/Users/UserDisplay.vue'
 
 import Tchat from './components/Tchat.vue'
 
 import Admin from './components/Admin.vue'
-import NewsList from './components//News/NewsList.vue'
-import NewsEdit from './components//News/NewsEdit.vue'
+import NewsList from './components/News/NewsList.vue'
+import NewsEdit from './components/News/NewsEdit.vue'
+
 
 /*
 import ClassList from './components/Classes/ClassList.vue'
@@ -90,14 +93,15 @@ const router = new VueRouter({
     { path: '/download', component: Download },
     { path: '/tchat', component: Tchat },
 
-    { path: '/admin', component: Admin/*, beforeEnter: requireAuth */},
-    { path: '/news', component: NewsList/*, beforeEnter: requireAuth*/ },
+    { path: '/admin', component: Admin, beforeEnter: requireAuth },
+    { path: '/news', component: NewsList, beforeEnter: requireAuth },
     { path: '/news/:mode([create|edit]+)/:id?', component: NewsEdit/*, beforeEnter: requireAuth*/ },
 
-
-    { path: '/usersettings', component: UserEdit, beforeEnter: requireAuth },
+    { path: '/users', component: UserList, beforeEnter: requireAuth },
+    { path: '/user', component: UserDisplay, beforeEnter: requireAuth },
+    { path: '/user/edit/:id?', component: UserEdit, beforeEnter: requireAuth },    
     { path: '/deleteaccount', component: UserDelete, beforeEnter: requireAuth },
-    
+
     //{ path: '/classes', component: ClassList/*, beforeEnter: requireAuth*/ },
     //{ path: '/classes/:mode([create|edit]+)/:id?', component: ClassEdit/*, beforeEnter: requireAuth*/ },
 
@@ -109,7 +113,7 @@ const router = new VueRouter({
     //{ path: '/teachers/assign/:id', component: TeacherAssign/*, beforeEnter: requireAuth*/ },
 
     //{ path: '/github/following', component: FollowingList, beforeEnter: requireAuth, meta: { requiredProviders: ['GitHub'] } }, 
-    
+
     { path: '', component: Home }
   ]
 })

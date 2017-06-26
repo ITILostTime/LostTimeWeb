@@ -33,15 +33,17 @@ namespace LostTimeWeb.WebApp.Controllers
             } );
         }
 
+
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(string title, int authorId,  string content)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Create([FromBody] ArticleViewModel model)
         {
-            Result<News> result = _newsServices.Create( title, authorId, content); 
-            return this.CreateResult<News , ArticleViewModel>( result, o =>
+            Result<News> result = _newsServices.Create(model.Title, model.AuthorId, model.Content); 
+            return this.CreateResult<News, ArticleViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToArticleViewModel();
-                o.RouteName = "GetArticle";
+                o.RouteName = "";
                 o.RouteValues = s => new { id = s.NewsID };
             } );
         }

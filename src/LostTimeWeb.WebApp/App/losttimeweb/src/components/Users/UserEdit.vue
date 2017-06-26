@@ -59,10 +59,9 @@
                 errors: []  
             }
         },
-
         async beforeMount() {
-                this.id = AuthService.email;//get the ID from the auth data
-                console.log(this.item.pseudo)
+            this.id = this.$route.params.id;
+            console.log(this.item.pseudo)
             try {
                 /*this.item.pseudo = ""
                 this.item.email = AuthService.email

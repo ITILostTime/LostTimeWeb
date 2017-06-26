@@ -22,6 +22,7 @@
     <p>connected</p>
     <script>
         (function () {
+            console.log("trying to send the message");
             window.opener.postMessage(JSON.stringify({
                 type: 'authenticated',
                 payload: {
@@ -33,7 +34,6 @@
                     boundProviders: [@Html.Raw( providerNames )]
                 }
             }), '@location');
-
             window.close();
         })();
     </script>

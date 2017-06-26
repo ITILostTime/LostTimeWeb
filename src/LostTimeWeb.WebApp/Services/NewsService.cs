@@ -34,7 +34,7 @@ namespace LostTimeWeb.WebApp.Services
             pocoArticles.Add(a1);
 
             News a2 = new News();
-            a2.NewsID = 0;
+            a2.NewsID = 1;
             a2.NewsTitle = "Another title";
             a2.NewsContent = "Cillum esse ea Lorem non veniam voluptate. Culpa velit magna ullamco velit ad anim aliqua incididunt aute veniam ut. Adipisicing do ut fugiat magna ad cupidatat cupidatat qui do. Culpa exercitation veniam esse nulla ut eiusmod sint ad duis minim ipsum deserunt Lorem. Nostrud cillum labore esse ullamco do pariatur ad proident. Anim anim non dolore commodo ad commodo amet.";
             a2.NewsCreationDate = DateTime.Now;
