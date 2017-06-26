@@ -35,6 +35,7 @@ namespace LostTimeWeb.WebApp.Controllers
                 //IEnumerable<string> providers = _userService.GetAuthenticationProviders( userId );
                 ViewData[ "Token" ] = token;
                 ViewData[ "Email" ] = email;
+                ViewData[ "Id" ] = userId;
                 ViewData[ "Providers" ] = providers;
                 Console.WriteLine("Index() : provider = " + providers);
             }

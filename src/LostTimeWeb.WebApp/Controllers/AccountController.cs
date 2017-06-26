@@ -139,6 +139,7 @@ namespace LostTimeWeb.WebApp.Controllers
             ViewData[ "BreachPadding" ] = GetBreachPadding(); // Mitigate BREACH attack. See http://www.breachattack.com/
             ViewData[ "Token" ] = token;
             ViewData[ "Email" ] = email;
+            ViewData[ "Id" ] = userId;
             ViewData[ "NoLayout" ] = true;
             ViewData[ "Providers" ] = providers;
             return View();

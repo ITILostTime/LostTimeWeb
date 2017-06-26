@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using LostTimeDB;
 using LostTimeWeb.WebApp.Authentication;
 using LostTimeWeb.WebApp.Models.NewsViewModels;
 using LostTimeWeb.WebApp.Services;
@@ -13,7 +12,7 @@ namespace LostTimeWeb.WebApp.Controllers
     [Route( "api/[controller]" )]
     [Authorize( ActiveAuthenticationSchemes = JwtBearerAuthentication.AuthenticationScheme )]
     public class NewsController : Controller
-    {
+    {     
         readonly NewsService _newsServices;
 
         public NewsController(NewsService newsServices)
@@ -22,13 +21,21 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetNewsList()
+        public IActionResult GetAll()
         {
             //Console.WriteLine("NEWSLIST CALLED");
-            //_newsServices.GetById( id );
-            Result<IEnumerable<News>> result = _newsServices.GetAll();
-            //Console.WriteLine(result.Content.First().NewsGoodVote);
+            Result<IEnumerable<News>> result = _newsServices.GetAllNews();
             return this.CreateResult<IEnumerable<News>, IEnumerable<ArticleViewModel>>( result, o =>
+            {
+                o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );
+            } );
+        }
+
+        [HttpGet]
+        public IActionResult GetById(int id)
+        {
+            Result<News> result  = _newsService.FindByID(id);
+            return this.CreateResult<News, ArticleViewModel>( result, o =>
             {
                 o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );
             } );
@@ -39,7 +46,8 @@ namespace LostTimeWeb.WebApp.Controllers
         [Authorize(Roles = "ADMIN")]
         public IActionResult Create( [FromBody] ArticleViewModel model )
         {
-            Result<News> result  = _newsServices.Create( model.Title, model.AuthorId, model.Content);
+            Result<News> result  = _newsServices.Create( model.Title, model.Content, DateTime.Now ,model.AuthorId);
+        //    Result<News> result  = _newsGateway.CreateNews( model.Title, model.Content, DateTime.Now ,model.AuthorId);
             return this.CreateResult<News , ArticleViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToArticleViewModel();
@@ -50,12 +58,33 @@ namespace LostTimeWeb.WebApp.Controllers
 
         [HttpPut( "{id}" )]
         [Authorize(Roles = "ADMIN")]
-        public IActionResult Update( int id, [FromBody] ArticleViewModel model )
+        public IActionResult Update( [FromBody] ArticleViewModel model )
         {
-            Result<News> result = _newsServices.Update(id, model.Title, model.AuthorId, model.Content, model.DatePost);
+            Result<News> result = _newsServices.Update(model.ArticleId, model.Title, model.Content, DateTime.Now, model.AuthorId);
+            //Result<News> result = _newsGateway.UpdateArticle(model.rticleId, model.Title, model.Content, DateTime.Now,model.AuthorId);
             return this.CreateResult<News, ArticleViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToArticleViewModel();
+            } );
+        }
+
+        [HttpPut( "{id}" )]
+        public void UpdateNewsBadPopularity(int id)
+        {
+           Result<News> result = _newsServices.BadNewsVote(id);
+           return this.CreateResult<News, ArticleViewModel>( result, o =>
+            {
+                o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );
+            } );
+        }
+        
+        [HttpPut( "{id}" )]
+        public void UpdateNewsGoodPopularity(int id)
+        {
+            Result<News> result = _newsServices.GoodNewsVote(id);
+            return this.CreateResult<News, ArticleViewModel>( result, o =>
+            {
+                o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );
             } );
         }
 
