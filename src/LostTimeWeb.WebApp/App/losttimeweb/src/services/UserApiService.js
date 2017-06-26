@@ -13,6 +13,9 @@ class UserApiService {
     async getUserAsync(UserId) {
         return await getAsync(`${endpoint}/${UserId}`);
     }
+    async getUserByEmailAsync(UserEmail) {
+        return await getAsync(`${endpoint}/${UserEmail}`);
+    }
 
     async createUserAsync(model) {
         return await postAsync(endpoint, model);

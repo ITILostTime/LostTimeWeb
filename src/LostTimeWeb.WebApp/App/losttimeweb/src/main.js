@@ -19,6 +19,7 @@ import Download from './components/Download.vue'
 import UserEdit from './components/Users/UserEdit.vue'
 import UserDelete from './components/Users/UserDelete.vue'
 import UserList from './components/Users/UserList.vue'
+import UserDisplay from './components/Users/UserDisplay.vue'
 
 import Tchat from './components/Tchat.vue'
 
@@ -97,10 +98,10 @@ const router = new VueRouter({
     { path: '/news/:mode([create|edit]+)/:id?', component: NewsEdit/*, beforeEnter: requireAuth*/ },
 
     { path: '/users', component: UserList, beforeEnter: requireAuth },
-
-    { path: '/usersettings', component: UserEdit, beforeEnter: requireAuth },
+    { path: '/user', component: UserDisplay, beforeEnter: requireAuth },
+    { path: '/user/edit/:id?', component: UserEdit, beforeEnter: requireAuth },    
     { path: '/deleteaccount', component: UserDelete, beforeEnter: requireAuth },
-    
+
     //{ path: '/classes', component: ClassList/*, beforeEnter: requireAuth*/ },
     //{ path: '/classes/:mode([create|edit]+)/:id?', component: ClassEdit/*, beforeEnter: requireAuth*/ },
 

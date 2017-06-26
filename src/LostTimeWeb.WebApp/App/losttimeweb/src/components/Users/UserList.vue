@@ -10,7 +10,6 @@
                 <input type="text" class="form-control" v-model="limitPage" />
             </div>
             <router-link class="btn btn-primary" :to="`admin`"><i class="glyphicon glyphicon-chevron-left"></i> Retour</router-link>
-
         </div>
         <table class="table table-striped">
             <thead>

@@ -1,107 +1,60 @@
 <template>
-    <div id="UserDisplay" class="row">
-        <div class="col-md-5 col-md-offset-3">
-            <h1>Listes des joueurs</h1>
-            <p>Rappel : Cette page est réservé aux admin du site</p>
+   <div id="UserDisplay" class="row">
+        <div class="col-md-3" id="avatar">
+            <img src="../../../dist/img/userSteam.png"/><br/>
+            <router-link :to="`user/edit/${this.id}`" class="btn btn-warning">Editer mon compte</router-link>
+            <button type="button" @click="goDelete" class="btn btn-warning">Supprimer mon compte</button>
         </div>
-        <div class="col-md-4">
-            <h2>Afficher :</h2>
-            <div class="form-group">
-                <input type="text" class="form-control" v-model="limitPage" />
+        <div class="col-md-9">
+            <div class="page-header">
+                <h1>Profil personnel</h1>
             </div>
-            <router-link class="btn btn-primary" :to="`admin`"><i class="glyphicon glyphicon-chevron-left"></i> Retour</router-link>
-
+            <dl class="dl-horizontal">
+                <dt>pseudo :</dt><dd>{{item.pseudo}}</dd>
+                <dt>mail :</dt><dd>{{item.email}}</dd>
+                <dt>Inscription :</dt><dd>{{item.AccountCreationDate | formatDate}}</dd>
+                <dt>Dernière connexion :</dt><dd>{{item.LastConnectionDate | formatDate}}</dd>
+            </dl>
         </div>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                <th>#</th>
-                <th>Pseudo</th>
-                <th>Email</th>
-                <th>Inscrit le</th>
-                <th>Dernière connexion</th>
-                <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-if="paginatedList.length == 0">
-                    <td colspan="6" class="text-center">Il n'y a actuellement aucun joueurs...</td>
-                </tr>
-                <tr v-for="i of paginatedList">
-                    <th scope="row">{{i.userId}}</th>
-                    <td>{{i.pseudo}}</td>
-                    <td>{{i.email}}</td>
-                    <td>{{i.AccountCreationDate | formatDate}}</td>                    
-                    <td>{{i.LastConnectionDate | formatDate}}</td>                    
-                    <td>
-                        <router-link :to="`user/edit/${i.userId}`"><i class="glyphicon glyphicon-pencil"></i></router-link>
-                        <a href="#" @click="deleteUsers(i.userId)"><i class="glyphicon glyphicon-remove"></i></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-          <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li v-for="i in numberOfPages"><a href="#" @click="goToPage(i)">{{ i }}</a></li>
-            </ul>
-        </nav>
     </div>
 </template>
 
 <script>
     import { mapActions } from 'vuex'
     import UserApiService from '../../services/UserApiService'
+    import AuthService from '../../services/AuthService'
 
     export default {
-        data() {
+        data () {
             return {
-                userList: [],
-                currentPage: 0,
-                limitPage: 5
+                item: {},
+                id: null,
+                errors: []  
             }
         },
-
-        async mounted() {
-            await this.refreshList();
-        },
-
-        computed: {
-            numberOfPages() {
-                return Math.ceil(this.userList.length / this.limitPage);
-            },
-
-            paginatedList() {
-                let begin = this.currentPage == 0 ? 0 : this.currentPage * this.limitPage;
-                let end = begin + this.limitPage;
-
-                return this.userList.slice(begin, end);
+        async beforeMount() {
+            this.id = AuthService.Id;//get the ID from the auth data
+            try {
+                // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
+                // It is useful when we have to know if an error occurred, in order to adapt the user experience.
+                this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));
+            }
+            catch(error) {
+                // So if an exception occurred, we redirect the user to the students list.
+                this.$router.replace('/');
             }
         },
-
         methods: {
-            ...mapActions(['executeAsyncRequestOrDefault', 'executeAsyncRequest']),
-
-            goToPage(pageNumber) {
-                this.currentPage = pageNumber - 1;
-            },
-
-            async refreshList() {
-                this.userList = await this.executeAsyncRequestOrDefault(() => userApiService.getUserListAsync());
-            },
-
-            async deleteUser(userId) {
-                try {
-                    await this.executeAsyncRequest(() => userApiService.deleteUserAsync(userId));
-                    await this.refreshList();
-                }
-                catch(error) {
-
-                }
+            goDelete: function () {
+                this.$router.replace('/deleteaccount');
             },
         }
     }
 </script>
 
 <style lang="less">
-
+#avatar
+{
+    margin-top:100px;
+}
 </style>
