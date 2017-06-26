@@ -33,7 +33,7 @@
             }
         },
         async beforeMount() {
-            this.id = AuthService.Id;//get the ID from the auth data
+            this.id = AuthService.id;//get the ID from the auth data
             try {
                 // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                 // It is useful when we have to know if an error occurred, in order to adapt the user experience.
