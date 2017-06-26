@@ -130,22 +130,17 @@ namespace LostTimeWeb.WebApp.Controllers
         {
             string userId = User.FindFirst( ClaimTypes.NameIdentifier ).Value;
             string email = User.FindFirst( ClaimTypes.Email ).Value;
-            string role = User.FindFirst(ClaimTypes.Role ).Value;
+            string role = null;
+            //string role = User.FindFirst(ClaimTypes.Role ).Value;
             Token token = _tokenService.GenerateToken( userId, email , role);
-            //
-            /*IEnumerable<string> providers= Enumerable.Empty<string>();
-            providers = providers.Concat(new[] { "PrimarySchool" });*/
-            /*Console.WriteLine(providers);*/
-            //
-            string providers = "PrimarySchool";
+
             //IEnumerable<string> providers = _userService.GetAuthenticationProviders( userId );
+            string providers = "PrimarySchool";
             ViewData[ "BreachPadding" ] = GetBreachPadding(); // Mitigate BREACH attack. See http://www.breachattack.com/
             ViewData[ "Token" ] = token;
             ViewData[ "Email" ] = email;
             ViewData[ "NoLayout" ] = true;
             ViewData[ "Providers" ] = providers;
-            //ViewData[ "Providers" ] = null;
-            Console.WriteLine("Authenticated() : provider = " + providers);
             return View();
         }
 

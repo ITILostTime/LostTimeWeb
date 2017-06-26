@@ -11,7 +11,6 @@ using System;
 namespace LostTimeWeb.WebApp.Controllers
 {
     [Route( "api/[controller]" )]
-    [AllowAnonymous]
     [Authorize( ActiveAuthenticationSchemes = JwtBearerAuthentication.AuthenticationScheme )]
     public class NewsController : Controller
     {

@@ -31,7 +31,7 @@ namespace LostTimeWeb.WebApp.Authentication
             {
                 new Claim( ClaimTypes.NameIdentifier, user.UserID.ToString(), ClaimValueTypes.String ),
                 new Claim( ClaimTypes.Email, user.UserEmail ),
-                new Claim(ClaimTypes.Role, user.UserPermission, ClaimValueTypes.String) 
+                new Claim(ClaimTypes.Role, user.UserPermission) 
             };
             ClaimsPrincipal principal = new ClaimsPrincipal( new ClaimsIdentity( claims, CookieAuthentication.AuthenticationType, ClaimTypes.Email, string.Empty ) );
             return principal;

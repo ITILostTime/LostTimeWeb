@@ -27,7 +27,9 @@ namespace LostTimeWeb.WebApp.Controllers
             {
                 string userId = identity.FindFirst( ClaimTypes.NameIdentifier ).Value;
                 string email = identity.FindFirst( ClaimTypes.Email ).Value;
-                string role = identity.FindFirst(ClaimTypes.Role ).Value;
+                string role = null;
+                //string role = identity.FindFirst(ClaimTypes.Role ).Value;
+                
                 Token token = _tokenService.GenerateToken( userId, email, role );
                 string providers = "PrimarySchool";
                 //IEnumerable<string> providers = _userService.GetAuthenticationProviders( userId );
