@@ -18,16 +18,16 @@ namespace LostTimeWeb.WebApp.Services
         public Result<IEnumerable<News>> GetAllNews()
         {
             IEnumerable<News> allNews = _newsGateway.GetAll();
-            eturn Result.Success( Status.Ok, allNews );
+            return Result.Success( Status.Ok, allNews );
         }
         public Result<News> Create(string title, string content,DateTime time, int authorId)
         {
             News news = new News();
             if (!IsNameValid(title)) return Result.Failure<News>(Status.BadRequest, "The title is not valid.");
             if (!IsNameValid(content)) return Result.Failure<News>(Status.BadRequest, "The content is not valid.");
-            if(if( _newsGateway.FindByTitle( title) != null ) ) return Result.Failure<News>( Status.BadRequest, " this Article already exists.");
+            if( ( _newsGateway.FindByTitle( title ) != null ) ) return Result.Failure<News>( Status.BadRequest, " this Article already exists.");
             _newsGateway.CreateNews( title, content, time, authorId);
-            News news = _newsGateway.FindByTitle( title ); 
+            news = _newsGateway.FindByTitle( title ); 
             return Result.Success( Status.Created, news );
         }
 
@@ -44,7 +44,7 @@ namespace LostTimeWeb.WebApp.Services
             
             {
                 News s = _newsGateway.FindByTitle( title);
-                if( s != null && s.NewsID != news.NewsID ) return Result.Failure<Student>( Status.BadRequest, "this Article already exists." );
+                if( s != null && s.NewsID != news.NewsID ) return Result.Failure<News>( Status.BadRequest, "this Article already exists." );
             }
             _newsGateway.UpdateArticle( Id, title, content, time, authorId );
             news = _newsGateway.FindByID( Id );
@@ -54,8 +54,8 @@ namespace LostTimeWeb.WebApp.Services
         public Result<int> Delete( int Id )
         {
             News news = new News();
-            if( (  = _newsGateway.FindByID( Id ) ) == null ) return Result.Failure<int>( Status.NotFound, "News not found." );
-            _newsGateway.Delete( Id );
+            if( ( news = _newsGateway.FindByID( Id ) ) == null ) return Result.Failure<int>( Status.NotFound, "News not found." );
+            _newsGateway.DeleteNews( Id );
             return Result.Success( Status.Ok,  Id);
         }
 
@@ -66,21 +66,21 @@ namespace LostTimeWeb.WebApp.Services
             return Result.Success( Status.Ok, news );
         }
 
-        public  BadNewsVote(int id)
+        public Result<News> BadNewsVote(int id)
         {
             News news = new News();
             if( ( news = _newsGateway.FindByID( id ) ) == null ) return Result.Failure<News>( Status.NotFound, "News not found." );
             _newsGateway.UpdateNewsBadPopularity(id);
-            news = _newsGateway.FindByID( Id );
+            news = _newsGateway.FindByID( id );
             return Result.Success( Status.Ok, news );
         }
 
-        public void GoodNewsVote(int id)
+        public Result<News> GoodNewsVote(int id)
         {
             News news = new News();
             if( ( news = _newsGateway.FindByID( id ) ) == null ) return Result.Failure<News>( Status.NotFound, "News not found." );
-            _newsServices.UpdateNewsGoodPopularity( id );
-            news = _newsGateway.FindByID( Id );
+            _newsGateway.UpdateNewsGoodPopularity( id );
+            news = _newsGateway.FindByID( id );
             return Result.Success( Status.Ok, news );
         }
 

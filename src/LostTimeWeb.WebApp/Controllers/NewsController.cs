@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using LostTimeDB;
 using LostTimeWeb.WebApp.Authentication;
 using LostTimeWeb.WebApp.Models.NewsViewModels;
 using LostTimeWeb.WebApp.Services;
@@ -34,10 +35,10 @@ namespace LostTimeWeb.WebApp.Controllers
         [HttpGet]
         public IActionResult GetById(int id)
         {
-            Result<News> result  = _newsService.FindByID(id);
+            Result<News> result  = _newsServices.GetById(id);
             return this.CreateResult<News, ArticleViewModel>( result, o =>
             {
-                o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );
+                o.ToViewModel = s => s.ToArticleViewModel();
             } );
         }
 
@@ -69,23 +70,24 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpPut( "{id}" )]
-        public void UpdateNewsBadPopularity(int id)
+        public IActionResult UpdateNewsBadPopularity(int id)
         {
            Result<News> result = _newsServices.BadNewsVote(id);
-           return this.CreateResult<News, ArticleViewModel>( result, o =>
+            return this.CreateResult<News, ArticleViewModel>( result, o =>
             {
-                o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );
+                o.ToViewModel = s => s.ToArticleViewModel();
             } );
         }
         
         [HttpPut( "{id}" )]
-        public void UpdateNewsGoodPopularity(int id)
+        public IActionResult UpdateNewsGoodPopularity(int id)
         {
             Result<News> result = _newsServices.GoodNewsVote(id);
             return this.CreateResult<News, ArticleViewModel>( result, o =>
             {
-                o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );
+                o.ToViewModel = s => s.ToArticleViewModel();
             } );
+
         }
 
         [HttpDelete( "{id}" )]
