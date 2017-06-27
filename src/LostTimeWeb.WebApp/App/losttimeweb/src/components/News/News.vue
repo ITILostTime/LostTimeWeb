@@ -5,8 +5,8 @@
                 <h3>{{i.title}}<small> par {{i.authorId}}</small></h3>
                 <vue-markdown>{{i.content}}</vue-markdown>
                 <footer> 
-                    <span> {{i.upVote}} <a href="#" @click="voteNews(i.articleId,true)"><i class="glyphicon glyphicon-menu-up"></i></a></span>
-                    <span> {{i.downVote}} <a href="#" @click="voteNews(i.articleId,false)"><i class="glyphicon glyphicon-menu-down"></i></a></span>  
+                    <span> {{i.upVote}} <a href="#" @click="NewsUpVote(i.articleId)"><i class="glyphicon glyphicon-menu-up"></i></a></span>
+                    <span> {{i.downVote}} <a href="#" @click="NewsDownVote(i.articleId)"><i class="glyphicon glyphicon-menu-down"></i></a></span>  
                     - Posté le {{i.datePost | formatDate}}
                 </footer>
             </article>
@@ -39,15 +39,22 @@
             async refreshList() {
                 this.newsList = await this.executeAsyncRequestOrDefault(() => NewsApiService.getNewsListAsync());
             },
-            async voteNews(newsId,isGoodVote) {
+            async NewsUpVote(newsId) {
                 try {
-                    await this.executeAsyncRequest(() => NewsApiService.updateNewsVoteAsync(newsId,isGoodVote));
+                    await this.executeAsyncRequest(() => NewsApiService.updateNewsUpVoteAsync(newsId));
                     await this.refreshList();
                 }
                 catch(error) {
                 }
             },
-            
+            async NewsDownVote(newsId) {
+                try {
+                    await this.executeAsyncRequest(() => NewsApiService.updateNewsDownVoteAsync(newsId));
+                    await this.refreshList();
+                }
+                catch(error) {
+                }
+            },
         }
     }
 </script>

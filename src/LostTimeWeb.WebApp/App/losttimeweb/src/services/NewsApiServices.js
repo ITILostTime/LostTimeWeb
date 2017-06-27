@@ -23,11 +23,16 @@ class NewsApiService {
     }
 
     async updateNewsAsync(model) {
+        console.log("put")
+        console.log(model)
         return await putAsync(`${endpoint}/${model.articleId }`, model);
     }
 
-    async updateNewsVoteAsync(isGoodVote) {
-        return await putAsync(`${endpoint}/${model.articleId }`, isGoodVote);
+    async updateNewsUpVoteAsync(articleId) {
+        return await putAsync(`${endpoint}/upvote/${articleId }`);
+    }
+    async updateNewsDownVoteAsync(articleId) {
+        return await putAsync(`${endpoint}/downvote/${articleId }`);
     }
 
 
