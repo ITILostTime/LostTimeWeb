@@ -23,7 +23,7 @@ class UserApiService {
     }
 
     async updateUserAsync(model) {
-        return await putAsync(`${endpoint}/${model.UserId}`, model);
+        return await putAsync(`${endpoint}/${model.userID}`, model);
     }
 
     async deleteUserAsync(UserId) {

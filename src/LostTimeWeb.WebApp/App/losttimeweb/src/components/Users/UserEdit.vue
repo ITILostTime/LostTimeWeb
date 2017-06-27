@@ -35,13 +35,13 @@
                     
                     <h3>Editer son mot de passe</h3>
                     <label>Nouveau mot de passe</label>
-                    <input type="password" v-model="item.password" class="form-control">
-                    <label>comfirmer nouveau mot de passe</label>
-                    <input type="password" v-model="item.passwordComfirm" class="form-control">
+                    <input type="password" v-model="item.userNewPassword" class="form-control">
+                    <label>Confirmer nouveau mot de passe</label>
+                    <input type="password" v-model="this.passwordComfirm" class="form-control">
 
                     <h3>Veuillez re-saisir votre mot de passe pour confirmer les changements  </h3>
                     <label class="required">Ancien mot de passe</label>
-                    <input type="password" v-model="item.oldpassword" class="form-control" required>
+                    <input type="password" v-model="item.userOldPassword" class="form-control" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Sauvegarder</button>
             </form>
@@ -59,6 +59,7 @@
             return {
                 item: {},
                 id: null,
+                passwordComfirm: "",
                 errors: []  
             }
         },
@@ -94,13 +95,13 @@
 
                 var errors = [];
 
-                if(!this.item.pseudo) errors.push("Pseudo")
-                if(!this.item.email) errors.push("email")
-                if(!this.item.password) errors.push("mot de passe")
+                if(!this.item.userPseudonym) errors.push("Pseudo")
+                if(!this.item.userEmail) errors.push("email")
+                if(!this.item.userOldPassword) errors.push("mot de passe")
                 
-                if(this.item.password == this.item.passwordComfirm)
+                if(this.item.userNewPassword == this.passwordComfirm)
                 {
-                    errors.push("mot de passe")
+                    errors.push("les deux mot de passe ne sont pas identiques")
                 } 
 
 
@@ -114,10 +115,10 @@
                         else {
                             await this.executeAsyncRequest(() => UserApiService.updateUserAsync(this.item));
                         }
-
                         this.$router.replace('/students');
                     }
                     catch(error) {
+                        console.log(error);
                         // Custom error management here.
                         // In our application, errors throwed when executing a request are managed globally via the "executeAsyncRequest" action: errors are added to the 'app.errors' state.
                         // A custom component should react to this state when a new error is added, and make an action, like showing an alert message, or something else.

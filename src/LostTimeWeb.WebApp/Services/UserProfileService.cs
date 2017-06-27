@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using LostTimeDB;
@@ -44,7 +44,6 @@ namespace LostTimeWeb.WebApp.Services
                 
                 return Result.Failure<UserAccount>( Status.BadRequest, "Bad Password , try again !" );
             }
-
             _userAccountGateway.UpdateUserAccount(userID, userPseudonym, userEmail, _passwordHasher.HashPassword( userNewPassword ));
             user = _userAccountGateway.FindByID( userID );
             return Result.Success( Status.Ok, user );

@@ -32,11 +32,10 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpPut( "{id}" )]
-        [Authorize(Policy = "Permission")]
+        //[Authorize(Policy = "Permission")]
         public IActionResult Edit( [FromBody] EditViewModel model )
         {
             Result<UserAccount> result = _userProfileService.Edit(model.UserID, model.UserPseudonym,model.UserEmail, model.UserOldPassword, model.UserNewPassword);
-            //Result<News> result = _newsGateway.UpdateArticle(model.rticleId, model.Title, model.Content, DateTime.Now,model.AuthorId);
             return this.CreateResult<UserAccount, UserViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToUserViewModel();
