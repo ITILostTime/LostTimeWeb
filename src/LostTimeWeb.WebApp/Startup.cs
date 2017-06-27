@@ -43,6 +43,12 @@ namespace LostTimeWeb.WebApp
             } );
 
             services.AddMvc();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Permission", policy =>
+                          policy.RequireClaim("Role", "ADMIN"));
+            });
+
             services.AddSingleton( _ => new UserAccountGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
             services.AddSingleton( _ => new NewsGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
             services.AddSingleton<PasswordHasher>();
