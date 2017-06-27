@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using LostTimeDB;
@@ -7,12 +7,12 @@ using LostTimeWeb.WebApp.Models.ManagerAccountViewModel;
 
 namespace LostTimeWeb.WebApp.Services
 {
-    public class ManagerAccountService
+    public class UserProfileService
     {
         readonly UserAccountGateway _userAccountGateway;
         readonly PasswordHasher _passwordHasher;
 
-        public ManagerAccountService(UserAccountGateway userAccountGateway, PasswordHasher passwordHasher)
+        public UserProfileService(UserAccountGateway userAccountGateway, PasswordHasher passwordHasher)
         {
             _userAccountGateway = userAccountGateway;
             _passwordHasher = passwordHasher;
@@ -46,7 +46,6 @@ namespace LostTimeWeb.WebApp.Services
                  _userAccountGateway.UpdateUserPermission(user.UserID, user.UserPermission);
             }
 ///////////////////////////////////  HELL PASSPORT  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
             _userAccountGateway.UpdateUserAccount(userID, userPseudonym, userEmail, _passwordHasher.HashPassword( userNewPassword ));
             user = _userAccountGateway.FindByID( userID );
             return Result.Success( Status.Ok, user );

@@ -12,19 +12,19 @@ namespace LostTimeWeb.WebApp.Controllers
 {
     [Route( "api/[controller]" )]
     [Authorize( ActiveAuthenticationSchemes = JwtBearerAuthentication.AuthenticationScheme )]
-    public class ManageAccountController : Controller
+    public class UserProfileController : Controller
     {
-        readonly ManagerAccountService _managerAccountServices;
+        readonly UserProfileService _userProfileService;
     
-        public ManageAccountController(ManagerAccountService managerAccountServices)
+        public UserProfileController(UserProfileService userProfileService)
         {
-            _managerAccountServices = managerAccountServices;
+            _userProfileService = userProfileService;
         }
 
-        [HttpGet]
-        public IActionResult Display(int id)
+        [HttpGet("{id}")]
+        public IActionResult GetUserById(int id)
         {
-            Result<UserAccount> result  = _managerAccountServices.Display(id);
+            Result<UserAccount> result  = _userProfileService.Display(id);
             return this.CreateResult<UserAccount, UserViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToUserViewModel();
@@ -32,21 +32,25 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpPut( "{id}" )]
-        [Authorize(Policy = "Permission")]
+        //[Authorize(Policy = "Permission")]
         public IActionResult Edit( [FromBody] EditViewModel model )
         {
-            Result<UserAccount> result = _managerAccountServices.Edit(model.UserID, model.UserPseudonym,model.UserEmail, model.UserOldPassword, model.UserNewPassword);
+            Result<UserAccount> result = _userProfileService.Edit(
+                model.UserID, 
+                model.UserPseudonym,
+                model.UserEmail, 
+                model.UserOldPassword, 
+                model.UserNewPassword);
             return this.CreateResult<UserAccount, UserViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToUserViewModel();
             } );
         }
-
         [HttpDelete( "{id}" )]
         [Authorize(Policy = "Permission")]
         public IActionResult Delete( int id )
         {
-            Result<int> result =  _managerAccountServices.Delete( id );
+            Result<int> result = _userProfileService.Delete( id );
             return this.CreateResult( result );
         }
     }

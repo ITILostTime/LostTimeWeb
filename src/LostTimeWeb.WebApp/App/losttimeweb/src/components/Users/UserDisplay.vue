@@ -10,10 +10,11 @@
                 <h1>Profil personnel</h1>
             </div>
             <dl class="dl-horizontal">
-                <dt>pseudo :</dt><dd>{{item.pseudo}}</dd>
-                <dt>mail :</dt><dd>{{item.email}}</dd>
-                <dt>Inscription :</dt><dd>{{item.AccountCreationDate | formatDate}}</dd>
-                <dt>Dernière connexion :</dt><dd>{{item.LastConnectionDate | formatDate}}</dd>
+                <dt>pseudo :</dt><dd>{{item.userPseudonym}}</dd>
+                <dt>mail :</dt><dd>{{item.userEmail}}</dd>
+                <dt>Inscription :</dt><dd>{{item.userAccountCreationDate | formatDate}}</dd>
+                <dt>Dernière connexion :</dt><dd>{{item.userLastConnectionDate | formatDate}}</dd>
+                <dt>Rang :</dt><dd>{{item.userPermission}}</dd>
             </dl>
         </div>
     </div>
@@ -32,7 +33,7 @@
                 errors: []  
             }
         },
-        async beforeMount() {
+        async mounted() {
 
             if(this.$route.params.id != undefined) 
             {
@@ -48,15 +49,20 @@
             try {
                 // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                 // It is useful when we have to know if an error occurred, in order to adapt the user experience.
+                
                 this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));
+                console.log(this.item);
             }
             catch(error) {
+                console.log(error);
                 // So if an exception occurred, we redirect the user to the students list.
                 //this.$router.replace('/');
             }
             
         },
         methods: {
+            ...mapActions(['executeAsyncRequestOrDefault', 'executeAsyncRequest']),
+            
             goDelete: function () {
                 this.$router.replace('/deleteaccount');
             },
