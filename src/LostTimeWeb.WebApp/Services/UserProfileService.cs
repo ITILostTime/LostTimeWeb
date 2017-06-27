@@ -25,28 +25,30 @@ namespace LostTimeWeb.WebApp.Services
             return Result.Success( Status.Ok, user );
         }
 
-        public Result<UserAccount> Edit(int userID, string userPseudonym, string userEmail, string userPassword)
+        public Result<UserAccount> Edit(int userID, string userPseudonym, string userEmail, string userControlPassword)
         {
-            if( !IsNameValid( userPseudonym) ) return Result.Failure<UserAccount>( Status.BadRequest, "The Pseudonym is not valid." );
-            if( !IsNameValid( userEmail) ) return Result.Failure<UserAccount>( Status.BadRequest, "The Email is not valid." );
+            if (!IsNameValid(userPseudonym)) return Result.Failure<UserAccount>(Status.BadRequest, "The Pseudonym is not valid.");
+            if (!IsNameValid(userEmail)) return Result.Failure<UserAccount>(Status.BadRequest, "The Email is not valid.");
 
             UserAccount user = new UserAccount();
-            if ( ( user = _userAccountGateway.FindByID( userID ) ) == null )
+            user = _userAccountGateway.FindByID(userID);
+
+            if ((user) == null)
             {
-                return Result.Failure<UserAccount>( Status.NotFound, "User not found." );
+                return Result.Failure<UserAccount>(Status.NotFound, "User not found.");
             }
-            else if (!user.UserPassword.SequenceEqual( _passwordHasher.HashPassword( userPassword ) ))
+            else if (_passwordHasher.VerifyHashedPassword(user.UserPassword, userControlPassword) == PasswordVerificationResult.Success)
             {
                 
                 return Result.Failure<UserAccount>( Status.BadRequest, "Bad Password , try again !" );
             }
-///////////////////////////////////  HELL PASSPORT  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-            if ((user.UserEmail == "vanbutsele@intechinfo.fr") &&  (user.UserPermission == "USER")) 
-            {
-                 _userAccountGateway.UpdateUserPermission(user.UserID, user.UserPermission);
-            }
-///////////////////////////////////  HELL PASSPORT  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-            _userAccountGateway.UpdateUserAccount(userID, userPseudonym, userEmail, _passwordHasher.HashPassword( userPassword ));
+// /////////////////////////////////  HELL PASSPORT  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+                //if ((user.UserEmail == "vanbutsele@intechinfo.fr") &&  (user.UserPermission == "USER")) 
+                //{
+                //    _userAccountGateway.UpdateUserPermission(user.UserID, "ADMIN");
+                //}
+// /////////////////////////////////  HELL PASSPORT  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+            _userAccountGateway.UpdateUserAccount(userID, userPseudonym, userEmail, user.UserPassword);
             user = _userAccountGateway.FindByID( userID );
             return Result.Success( Status.Ok, user );
         }
