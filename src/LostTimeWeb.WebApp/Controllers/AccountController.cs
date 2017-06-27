@@ -50,7 +50,7 @@ namespace LostTimeWeb.WebApp.Controllers
                     ModelState.AddModelError( string.Empty, "Invalid login attempt." );
                     return View( model );
                 }
-                await SignIn( user.UserEmail, user.UserID.ToString() );
+                await SignIn( user.UserEmail, user.UserID.ToString(), user.UserPermission );
                 return RedirectToAction( nameof( Authenticated ) );
             }
             return View( model );
@@ -78,7 +78,7 @@ namespace LostTimeWeb.WebApp.Controllers
                 UserAccount user = _userService.FindUser( model.Email );
                 //ModelPoco poco = new ModelPoco();
                 //UserAccount user = poco.checkModel(model.Email, model.Password);
-                await SignIn( user.UserEmail, user.UserID.ToString() );
+                await SignIn( user.UserEmail, user.UserID.ToString(), user.UserPermission );
                 return RedirectToAction( nameof( Authenticated ) );
             }
 
@@ -130,8 +130,8 @@ namespace LostTimeWeb.WebApp.Controllers
         {
             string userId = User.FindFirst( ClaimTypes.NameIdentifier ).Value;
             string email = User.FindFirst( ClaimTypes.Email ).Value;
-            string role = null;
-            //string role = User.FindFirst(ClaimTypes.Role ).Value;
+
+            string role = User.FindFirst(ClaimTypes.Role ).Value;
             Token token = _tokenService.GenerateToken( userId, email , role);
 
             //IEnumerable<string> providers = _userService.GetAuthenticationProviders( userId );
@@ -140,17 +140,19 @@ namespace LostTimeWeb.WebApp.Controllers
             ViewData[ "Token" ] = token;
             ViewData[ "Email" ] = email;
             ViewData[ "Id" ] = userId;
+            ViewData[ "Role" ] = role;
             ViewData[ "NoLayout" ] = true;
             ViewData["Providers"] = providers;
             Console.WriteLine(userId);
             return View();
         }
-        async Task SignIn( string email, string userId )
+        async Task SignIn( string email, string userId, string permission )
         { 
             List<Claim> claims = new List<Claim>
             {
                 new Claim( ClaimTypes.Email, email, ClaimValueTypes.String ),
-                new Claim( ClaimTypes.NameIdentifier, userId.ToString(), ClaimValueTypes.String )
+                new Claim( ClaimTypes.NameIdentifier, userId.ToString(), ClaimValueTypes.String ),
+                new Claim( ClaimTypes.Role, permission, ClaimValueTypes.String)
             };
             ClaimsIdentity identity = new ClaimsIdentity( claims, CookieAuthentication.AuthenticationType, ClaimTypes.Email, string.Empty );
             ClaimsPrincipal principal = new ClaimsPrincipal( identity );

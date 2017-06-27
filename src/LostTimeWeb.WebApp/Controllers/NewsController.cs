@@ -44,7 +44,7 @@ namespace LostTimeWeb.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create( [FromBody] ArticleViewModel model )
+        public IActionResult Create( [FromBody] ArticleCreateViewModel model )
         {
             Result<News> result  = _newsServices.Create( model.Title, model.Content, DateTime.Now ,model.AuthorId);
         //    Result<News> result  = _newsGateway.CreateNews( model.Title, model.Content, DateTime.Now ,model.AuthorId);
