@@ -98,7 +98,7 @@ const router = new VueRouter({
     { path: '/news/:mode([create|edit]+)/:id?', component: NewsEdit/*, beforeEnter: requireAuth*/ },
 
     { path: '/users', component: UserList, beforeEnter: requireAuth },
-    { path: '/user', component: UserDisplay, beforeEnter: requireAuth },
+    { path: '/user/:id?', component: UserDisplay, beforeEnter: requireAuth },
     { path: '/user/edit/:id?', component: UserEdit, beforeEnter: requireAuth },    
     { path: '/deleteaccount', component: UserDelete, beforeEnter: requireAuth },
 

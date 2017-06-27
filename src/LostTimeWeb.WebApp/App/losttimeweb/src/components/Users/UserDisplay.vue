@@ -33,7 +33,18 @@
             }
         },
         async beforeMount() {
-            this.id = AuthService.id;//get the ID from the auth data
+
+            if(this.$route.params.id != null) 
+            {
+                this.id = this.$route.params.id;
+                console.log("id :"+this.id);
+            }
+            else
+            {
+                this.id = AuthService.id;//get the ID from the auth data
+                console.log("id :"+this.id);
+                
+            }
             try {
                 // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                 // It is useful when we have to know if an error occurred, in order to adapt the user experience.
@@ -41,8 +52,9 @@
             }
             catch(error) {
                 // So if an exception occurred, we redirect the user to the students list.
-                this.$router.replace('/');
+                //this.$router.replace('/');
             }
+            
         },
         methods: {
             goDelete: function () {

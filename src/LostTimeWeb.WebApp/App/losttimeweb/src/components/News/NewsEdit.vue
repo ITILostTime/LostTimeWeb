@@ -30,6 +30,7 @@
 <script>
     import { mapActions } from 'vuex'
     import NewsApiService from '../../services/NewsApiServices'
+    import AuthService from '../../services/AuthService'
     
     export default {
         data () {
@@ -51,7 +52,7 @@
                     this.item = await this.executeAsyncRequest(() => NewsApiService.getNewsAsync(this.id));
                 }
                 catch(error) {
-                    // So if an exception occurred, we redirect the user to the students list.
+                    // So if an exception occurred, we redirect the user to news.
                     this.$router.replace('/news');
                 }
             }
@@ -61,6 +62,8 @@
 
             async onSubmit(e) {
                 e.preventDefault();
+                    console.log(item);
+                
 
                 var errors = [];
 
@@ -70,9 +73,8 @@
                 this.errors = errors;
 
                 if(errors.length == 0) {
-                   //item.authorId = 0
-                    try {
-                        this.item.authorId = 1;                        
+                    item.authorId = 0;//AuthService.id ;
+                    try {                        
                         if(this.mode == 'create') {
                             await this.executeAsyncRequest(() => NewsApiService.createNewsAsync(this.item));
                         }

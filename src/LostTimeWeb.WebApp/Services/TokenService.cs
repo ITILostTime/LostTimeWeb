@@ -15,7 +15,7 @@ namespace LostTimeWeb.WebApp.Services
             _options = options.Value;
         }
 
-        public Token GenerateToken( string userId, string email )
+        public Token GenerateToken( string userId, string email, string role )
         {
             var now = DateTime.UtcNow;
 
@@ -25,6 +25,7 @@ namespace LostTimeWeb.WebApp.Services
             {
                 new Claim( JwtRegisteredClaimNames.Sub, userId ),
                 new Claim( JwtRegisteredClaimNames.Email, email ),
+                //new Claim(JwtRegisteredClaimNames.Role, role),
                 new Claim( JwtRegisteredClaimNames.Iat, ( ( int )( now - new DateTime( 1970, 1, 1 ) ).TotalSeconds).ToString(), ClaimValueTypes.Integer64 )
             };
 

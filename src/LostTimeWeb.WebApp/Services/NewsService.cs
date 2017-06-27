@@ -9,65 +9,84 @@ namespace LostTimeWeb.WebApp.Services
     public class NewsService
     {
         readonly  NewsGateway _newsGateway;
-        public List<News> _pocoArticles; 
 
         public NewsService(NewsGateway newsGateway)
         {
             _newsGateway = newsGateway;
-            _pocoArticles = SetPoco();
         }
-        
-        public List<News> SetPoco()
+
+        public Result<IEnumerable<News>> GetAllNews()
         {
-            List<News> pocoArticles = new List<News>();
-
-            News a1 = new News();
-            a1.NewsID = 0;
-            a1.NewsTitle = "Next gen of title";
-            a1.NewsContent = "**Ex proident** elit ullamco consectetur tempor consectetur id. Sit aliquip deserunt nostrud excepteur occaecat commodo non dolore cupidatat est. Velit id sunt amet duis magna magna amet exercitation consequat sit nisi. Ex consequat elit culpa ullamco adipisicing reprehenderit dolore aliqua nisi proident magna mollit ad.";
-            a1.NewsCreationDate = DateTime.Now;
-            a1.NewsLastUpdate = DateTime.Now;
-            a1.NewsAuthorID = 1;
-            a1.NewsGoodVote = 1;
-            a1.NewsBadVote = 31;
-            a1.NewsEditionNb = 0;
-            pocoArticles.Add(a1);
-
-            News a2 = new News();
-            a2.NewsID = 1;
-            a2.NewsTitle = "Another title";
-            a2.NewsContent = "Cillum esse ea Lorem non veniam voluptate. Culpa velit magna ullamco velit ad anim aliqua incididunt aute veniam ut. Adipisicing do ut fugiat magna ad cupidatat cupidatat qui do. Culpa exercitation veniam esse nulla ut eiusmod sint ad duis minim ipsum deserunt Lorem. Nostrud cillum labore esse ullamco do pariatur ad proident. Anim anim non dolore commodo ad commodo amet.";
-            a2.NewsCreationDate = DateTime.Now;
-            a2.NewsLastUpdate = DateTime.Now;
-            a2.NewsAuthorID = 1;
-            a2.NewsGoodVote = 25;
-            a2.NewsBadVote = 1;
-            a2.NewsEditionNb = 0;
-            pocoArticles.Add(a2);
-
-            return pocoArticles;
+            IEnumerable<News> allNews = _newsGateway.GetAll();
+            return Result.Success( Status.Ok, allNews );
         }
-        public Result<News> Create(string title, int authorId, string content)
+        public Result<News> Create(string title, string content,DateTime time, int authorId)
         {
-            News model = new News();
+            News news = new News();
             if (!IsNameValid(title)) return Result.Failure<News>(Status.BadRequest, "The title is not valid.");
             if (!IsNameValid(content)) return Result.Failure<News>(Status.BadRequest, "The content is not valid.");
-            model.NewsTitle = title;
-            model.NewsAuthorID = authorId;
-            model.NewsContent = content;
-            model.NewsCreationDate = model.NewsLastUpdate = DateTime.Now;
-            model.NewsID = _pocoArticles.Last().NewsID++;
-            _pocoArticles.Add(model);
-            //verifier si le contenue existe deja 
+            if( ( _newsGateway.FindByTitle( title ) != null ) ) return Result.Failure<News>( Status.BadRequest, " this Article already exists.");
 
-            return Result.Success(Status.Created, model);
+            _newsGateway.CreateNews( title, content, time, authorId);
+            news = _newsGateway.FindByTitle( title );
+
+            return Result.Success( Status.Created, news );
         }
-        public Result<IEnumerable<News>> GetAll()
+
+        public Result<News> Update(int Id, string title,  string content, DateTime time, int  authorId)
         {
-            //BIG POCO !!!
-            IEnumerable<News> poco = _pocoArticles;
-            return Result.Success(Status.Ok, poco);
+            if( !IsNameValid( title ) ) return Result.Failure<News>( Status.BadRequest, "The title is not valid." );
+            if( !IsNameValid( content ) ) return Result.Failure<News>( Status.BadRequest, "The content is not valid." );
+            
+            News news = new News();
+            if( ( news = _newsGateway.FindByID( Id ) ) == null )
+            {
+                return Result.Failure<News>( Status.NotFound, "News not found." );
+            }
+            
+            {
+                News s = _newsGateway.FindByTitle( title);
+                if( s != null && s.NewsID != news.NewsID ) return Result.Failure<News>( Status.BadRequest, "this Article already exists." );
+            }
+            _newsGateway.UpdateArticle( Id, title, content, time, authorId );
+            news = _newsGateway.FindByID( Id );
+            return Result.Success( Status.Ok, news );
         }
+
+        public Result<int> Delete( int Id )
+        {
+            News news = new News();
+            if( ( news = _newsGateway.FindByID( Id ) ) == null ) return Result.Failure<int>( Status.NotFound, "News not found." );
+            _newsGateway.DeleteNews( Id );
+            return Result.Success( Status.Ok,  Id);
+        }
+
+        public Result<News> GetById( int id )
+        {
+            News news = new News();
+            if( ( news = _newsGateway.FindByID( id ) ) == null ) return Result.Failure<News>( Status.NotFound, "News not found." );
+            return Result.Success( Status.Ok, news );
+        }
+
+        public Result<News> BadNewsVote(int id)
+        {
+            News news = new News();
+            if( ( news = _newsGateway.FindByID( id ) ) == null ) return Result.Failure<News>( Status.NotFound, "News not found." );
+            _newsGateway.UpdateNewsBadPopularity(id);
+            news = _newsGateway.FindByID( id );
+            return Result.Success( Status.Ok, news );
+        }
+
+        public Result<News> GoodNewsVote(int id)
+        {
+            News news = new News();
+            if( ( news = _newsGateway.FindByID( id ) ) == null ) return Result.Failure<News>( Status.NotFound, "News not found." );
+            _newsGateway.UpdateNewsGoodPopularity( id );
+            news = _newsGateway.FindByID( id );
+            return Result.Success( Status.Ok, news );
+        }
+
         bool IsNameValid( string name ) => !string.IsNullOrWhiteSpace( name );
+
     }
 }
