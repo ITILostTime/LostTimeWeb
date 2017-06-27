@@ -103,7 +103,7 @@
                 {
                     errors.push("les deux mot de passe ne sont pas identiques")
                 } 
-
+                console.log(this.item);
 
                 this.errors = errors;
 
@@ -113,6 +113,7 @@
                             await this.executeAsyncRequest(() => UserApiService.createUserAsync(this.item));
                         }
                         else {
+
                             await this.executeAsyncRequest(() => UserApiService.updateUserAsync(this.item));
                         }
                         this.$router.replace('/students');
