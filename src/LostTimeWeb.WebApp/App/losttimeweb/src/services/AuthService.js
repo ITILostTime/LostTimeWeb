@@ -38,6 +38,11 @@ class AuthService {
 
         return identity ? identity.id : null;
     }
+    get role() {
+        var identity = this.identity;
+
+        return identity ? identity.role : null;
+    }
 
     get boundProviders() {
         var identity = this.identity;

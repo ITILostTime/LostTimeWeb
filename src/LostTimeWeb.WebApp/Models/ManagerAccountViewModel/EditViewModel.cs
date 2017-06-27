@@ -11,7 +11,7 @@ namespace LostTimeWeb.WebApp.Models.ManagerAccountViewModel
         public DateTime UserAccountCreationDate { get; set; }
         public DateTime UserLastConnectionDate { get; set; }
         public string UserGoogleToken { get; set; }
-        public int UserGoogleID { get; set; }
+        public string UserGoogleID { get; set; }
         public string UserPermission { get; set; }
     }
 }

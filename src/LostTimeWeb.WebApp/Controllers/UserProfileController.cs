@@ -32,9 +32,10 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpPut( "{id}" )]
-        [Authorize(Policy = "Permission")]
+        //[Authorize(Policy = "Permission")]
         public IActionResult Edit( [FromBody] EditViewModel model )
         {
+            Console.WriteLine(model);
             Result<UserAccount> result = _userProfileService.Edit(
                 model.UserID, 
                 model.UserPseudonym,
@@ -45,9 +46,8 @@ namespace LostTimeWeb.WebApp.Controllers
                 o.ToViewModel = s => s.ToUserViewModel();
             } );
         }
-
-        [HttpPut("editpassword/{id:int}")]
-        [Authorize(Policy = "Permission")]
+        [HttpPut("editpassword")]
+        //[Authorize(Policy = "Permission")]
         public IActionResult EditPassword( [FromBody] EditPasswordViewModel model )
         {
             Result<UserAccount> result = _userProfileService.EditPassword(
@@ -61,7 +61,7 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpDelete( "{id}" )]
-        [Authorize(Policy = "Permission")]
+        //[Authorize(Policy = "Permission")]
         public IActionResult Delete( int id )
         {
             Result<int> result = _userProfileService.Delete( id );
