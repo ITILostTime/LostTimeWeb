@@ -26,7 +26,7 @@
                 </div>
                 <div class="form-group">
                     <label class="required">Veuillez re-saisir votre mot de passe pour confirmer les changements </label>
-                    <input type="password" v-model="item.userPassword" class="form-control" required>
+                    <input type="password" v-model="item.userControlPassword" class="form-control" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Sauvegarder</button>
             </form>
@@ -52,15 +52,11 @@
             this.id = this.$route.params.id;
             
             try {
-                /*this.item.pseudo = ""
-                this.item.email = AuthService.email
-                this.item.oldpassword = ""
-                this.item.password = ""
-                this.item.passwordComfirm = ""*/
                 // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                 // It is useful when we have to know if an error occurred, in order to adapt the user experience.
                 this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));
-                console.log(this.item)
+                console.log("item recieved :");
+                console.log(this.item);
             }
             catch(error) {
                 //So if an exception occurred, we redirect the user to the students list.
@@ -82,12 +78,14 @@
 
                 if(!this.item.userPseudonym) errors.push("Pseudo")
                 if(!this.item.userEmail) errors.push("email")
-                if(!this.item.userPassword) errors.push("mot de passe")
+                if(!this.item.userControlPassword) errors.push("mot de passe")
 
                 this.errors = errors;
 
                 if(errors.length == 0) {
                     try {
+                        console.log("item that will be send")
+                        console.log(this.item);
                         await this.executeAsyncRequest(() => UserApiService.updateUserAsync(this.item));
                         this.$router.replace('/user');
                     }
