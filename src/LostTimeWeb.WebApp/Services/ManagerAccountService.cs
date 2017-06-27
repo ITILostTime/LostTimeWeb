@@ -41,9 +41,9 @@ namespace LostTimeWeb.WebApp.Services
                 return Result.Failure<UserAccount>( Status.BadRequest, "Bad Password , try again !" );
             }
 ///////////////////////////////////  HELL PASSPORT  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-            if (user.UserEmail == "vanbutsele@intechinfo.fr" &&  user.UserPermission = "USER") 
+            if ((user.UserEmail == "vanbutsele@intechinfo.fr") &&  (user.UserPermission == "USER")) 
             {
-                 UpdateUserPermission(user.UserID, user.UserPermission);
+                 _userAccountGateway.UpdateUserPermission(user.UserID, user.UserPermission);
             }
 ///////////////////////////////////  HELL PASSPORT  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
