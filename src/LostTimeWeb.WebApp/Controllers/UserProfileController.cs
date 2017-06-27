@@ -32,12 +32,25 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpPut( "{id}" )]
-        //[Authorize(Policy = "Permission")]
+        [Authorize(Policy = "Permission")]
         public IActionResult Edit( [FromBody] EditViewModel model )
         {
             Result<UserAccount> result = _userProfileService.Edit(
                 model.UserID, 
                 model.UserPseudonym,
+                model.UserEmail, 
+                model.UserPassword);
+            return this.CreateResult<UserAccount, UserViewModel>( result, o =>
+            {
+                o.ToViewModel = s => s.ToUserViewModel();
+            } );
+        }
+
+        [HttpPut("editpassword/{id:int}")]
+        [Authorize(Policy = "Permission")]
+        public IActionResult EditPassword( [FromBody] EditPasswordViewModel model )
+        {
+            Result<UserAccount> result = _userProfileService.EditPassword(
                 model.UserEmail, 
                 model.UserOldPassword, 
                 model.UserNewPassword);
@@ -46,6 +59,7 @@ namespace LostTimeWeb.WebApp.Controllers
                 o.ToViewModel = s => s.ToUserViewModel();
             } );
         }
+
         [HttpDelete( "{id}" )]
         [Authorize(Policy = "Permission")]
         public IActionResult Delete( int id )
