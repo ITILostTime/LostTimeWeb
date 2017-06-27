@@ -9,10 +9,12 @@ namespace LostTimeWeb.WebApp.Services
     public class NewsService
     {
         readonly  NewsGateway _newsGateway;
+        readonly UserAccountGateway _userAccountGateway;
 
-        public NewsService(NewsGateway newsGateway)
+        public NewsService(NewsGateway newsGateway, UserAccountGateway userAccountGateway)
         {
             _newsGateway = newsGateway;
+            _userAccountGateway = userAccountGateway;
         }
 
         public Result<IEnumerable<News>> GetAllNews()
@@ -27,7 +29,8 @@ namespace LostTimeWeb.WebApp.Services
             if (!IsNameValid(content)) return Result.Failure<News>(Status.BadRequest, "The content is not valid.");
             if( ( _newsGateway.FindByTitle( title ) != null ) ) return Result.Failure<News>( Status.BadRequest, " this Article already exists.");
             _newsGateway.CreateNews( title, content, time, authorId);
-            news = _newsGateway.FindByTitle( title ); 
+            news = _newsGateway.FindByTitle( title );
+
             return Result.Success( Status.Created, news );
         }
 
@@ -83,6 +86,13 @@ namespace LostTimeWeb.WebApp.Services
             news = _newsGateway.FindByID( id );
             return Result.Success( Status.Ok, news );
         }
+
+/*        public string AddAuthorName(int id)
+        {
+            News news = _newsGateway.FindByID( id );
+            UserAccount user = _userAccountGateway.FindByID( news.AuthorID );
+            return user.UserPseudonym;
+        }*/
 
         bool IsNameValid( string name ) => !string.IsNullOrWhiteSpace( name );
 
