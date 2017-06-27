@@ -1,13 +1,14 @@
 <template>
-   <div id="UserEdit" class="row">
+   <div id="UserEditPassword" class="row">
         <div class="col-md-3" id="avatar">
             <img src="../../../dist/img/userSteam.png"/><br/>
-            <router-link :to="`password/${this.id}`" class="btn btn-primary">Changer mon mot de passe</router-link>            
-            <button type="button" @click="goDelete" class="btn btn-danger">Supprimer le compte</button>
+            <router-link class="btn btn-primary" :to="`/user/edit/${this.id}`">
+                <i class="glyphicon glyphicon-chevron-left"></i> Retour
+            </router-link>
         </div>
         <div class="col-md-9">
             <div class="page-header">
-                <h1>Editer son profil</h1>
+                <h1>Editer son mot de passe</h1>
             </div>
             <form @submit="onSubmit($event)">
                 <div class="alert alert-danger" v-if="errors.length > 0">
@@ -17,16 +18,13 @@
                     </ul>
                 </div>
                 <div class="form-group">
-                    <label>Pseudo</label>
-                    <input type="text" v-model="item.userPseudonym" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>E-mail</label>
-                    <input type="text" v-model="item.userEmail" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label class="required">Veuillez re-saisir votre mot de passe pour confirmer les changements </label>
-                    <input type="password" v-model="item.userPassword" class="form-control" required>
+                    <label class="required">Nouveau mot de passe</label>
+                    <input type="password" v-model="item.userNewPassword" class="form-control" required>
+                    <label class="required">Confirmer nouveau mot de passe</label>
+                    <input type="password" v-model="this.passwordComfirm" class="form-control" required>
+                    <h3>Veuillez re-saisir votre mot de passe pour confirmer les changements  </h3>
+                    <label class="required">Ancien mot de passe</label>
+                    <input type="password" v-model="item.userOldPassword" class="form-control" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Sauvegarder</button>
             </form>
@@ -50,49 +48,31 @@
         },
         async beforeMount() {
             this.id = this.$route.params.id;
-            
-            try {
-                /*this.item.pseudo = ""
-                this.item.email = AuthService.email
-                this.item.oldpassword = ""
-                this.item.password = ""
-                this.item.passwordComfirm = ""*/
-                // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
-                // It is useful when we have to know if an error occurred, in order to adapt the user experience.
-                this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));
-                console.log(this.item)
-            }
-            catch(error) {
-                //So if an exception occurred, we redirect the user to the students list.
-                //this.$router.replace('/user/'+ this.id);
-            }
         },
 
         methods: {
-            goDelete: function () {
-                this.$router.replace('/deleteaccount');
-            },
-
             ...mapActions(['executeAsyncRequest']),
 
             async onSubmit(e) {
                 e.preventDefault();
 
                 var errors = [];
+                if(!this.item.userOldPassword) errors.push("mot de passe")
+                
+                if(this.item.userNewPassword != this.passwordComfirm)
+                {
+                    errors.push("les deux mot de passe ne sont pas identiques")
+                } 
 
-                if(!this.item.userPseudonym) errors.push("Pseudo")
-                if(!this.item.userEmail) errors.push("email")
-                if(!this.item.userPassword) errors.push("mot de passe")
-
+                this.item.userEmail=AuthService.email;
                 this.errors = errors;
 
                 if(errors.length == 0) {
                     try {
-                        await this.executeAsyncRequest(() => UserApiService.updateUserAsync(this.item));
+                        await this.executeAsyncRequest(() => UserApiService.updateUserPasswordAsync(this.item));
                         this.$router.replace('/user');
                     }
                     catch(error) {
-                        console.log(error);
                         // Custom error management here.
                         // In our application, errors throwed when executing a request are managed globally via the "executeAsyncRequest" action: errors are added to the 'app.errors' state.
                         // A custom component should react to this state when a new error is added, and make an action, like showing an alert message, or something else.
