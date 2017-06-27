@@ -141,7 +141,8 @@ namespace LostTimeWeb.WebApp.Controllers
             ViewData[ "Email" ] = email;
             ViewData[ "Id" ] = userId;
             ViewData[ "NoLayout" ] = true;
-            ViewData[ "Providers" ] = providers;
+            ViewData["Providers"] = providers;
+            Console.WriteLine(userId);
             return View();
         }
         async Task SignIn( string email, string userId )

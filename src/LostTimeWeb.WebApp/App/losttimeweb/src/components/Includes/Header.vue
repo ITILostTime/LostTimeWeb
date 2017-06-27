@@ -16,7 +16,7 @@
                 </ul>
                 <div class="collapse navbar-collapse"  v-if="auth.isConnected"><!--IF CONNECTED -->
                     <ul class="nav navbar-nav">
-                        <li><router-link :to="`/user/${auth.Id}`">Profil</router-link></li>
+                        <li><router-link :to="`/user/${auth.id}`">Profil</router-link></li>
                         <li><router-link to="/tchat">Tchat</router-link></li>
                         <li><router-link to="/admin">Administration</router-link></li>
                     </ul>
