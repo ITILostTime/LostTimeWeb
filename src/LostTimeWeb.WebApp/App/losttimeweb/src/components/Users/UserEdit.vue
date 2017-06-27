@@ -73,8 +73,8 @@
                 this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));
             }
             catch(error) {
-                // So if an exception occurred, we redirect the user to the students list.
-                this.$router.replace('/user/'+ this.id);
+                //So if an exception occurred, we redirect the user to the students list.
+                //this.$router.replace('/user/'+ this.id);
             }
         },
 
@@ -90,19 +90,18 @@
 
                 var errors = [];
 
-                if(!this.item.pseudo) errors.push("Nom")
-                if(!this.item.email) errors.push("Prénom")
-                if(!this.item.birthDate) errors.push("Date de naissance")
+                if(!this.item.pseudo) errors.push("Pseudo")
+                if(!this.item.email) errors.push("email")
 
                 this.errors = errors;
 
                 if(errors.length == 0) {
                     try {
                         if(this.mode == 'create') {
-                            await this.executeAsyncRequest(() => StudentApiService.createStudentAsync(this.item));
+                            await this.executeAsyncRequest(() => UserApiService.createUserAsync(this.item));
                         }
                         else {
-                            await this.executeAsyncRequest(() => StudentApiService.updateStudentAsync(this.item));
+                            await this.executeAsyncRequest(() => UserApiService.updateUserAsync(this.item));
                         }
 
                         this.$router.replace('/students');
