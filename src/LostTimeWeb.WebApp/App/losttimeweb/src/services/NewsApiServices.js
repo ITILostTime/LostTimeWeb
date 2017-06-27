@@ -15,6 +15,7 @@ class NewsApiService {
         return await getAsync(`${endpoint}/${articleId}`);
     }
 
+
     async createNewsAsync(model) {
         console.log("post")
         console.log(model)
@@ -24,6 +25,11 @@ class NewsApiService {
     async updateNewsAsync(model) {
         return await putAsync(`${endpoint}/${model.articleId }`, model);
     }
+
+    async updateNewsVoteAsync(isGoodVote) {
+        return await putAsync(`${endpoint}/${model.articleId }`, isGoodVote);
+    }
+
 
     async deleteNewsAsync(articleId) {
         return await deleteAsync(`${endpoint}/${articleId}`);

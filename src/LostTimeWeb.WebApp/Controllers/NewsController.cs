@@ -22,10 +22,17 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetAll()
         {
-            //Console.WriteLine("NEWSLIST CALLED");
+            Console.WriteLine("NEWSLIST CALLED");
+            _newsServices.Create(
+               "test2",
+               "Officia consequat laboris nostrud deserunt. Cillum enim minim ex duis. Officia eu excepteur deserunt reprehenderit dolor veniam dolore elit cupidatat. Sit veniam ea quis deserunt in sint ut do incididunt esse. Commodo voluptate id fugiat voluptate consectetur laboris irure do laboris. Anim sint laborum qui ut ut aliquip. Dolore sint elit aute irure dolor irure excepteur.",
+               DateTime.Now,
+               0);
             Result<IEnumerable<News>> result = _newsServices.GetAllNews();
+            Console.WriteLine(result.Content.First());
             return this.CreateResult<IEnumerable<News>, IEnumerable<ArticleViewModel>>( result, o =>
             {
                 o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );
@@ -67,28 +74,16 @@ namespace LostTimeWeb.WebApp.Controllers
                 o.ToViewModel = s => s.ToArticleViewModel();
             } );
         }
-
         [HttpPut( "{id}" )]
-        public IActionResult UpdateNewsBadPopularity(int id)
+        public IActionResult UpdateNewsVote(int id, bool isGoodVote)
         {
-           Result<News> result = _newsServices.BadNewsVote(id);
-            return this.CreateResult<News, ArticleViewModel>( result, o =>
-            {
-                o.ToViewModel = s => s.ToArticleViewModel();
-            } );
-        }
-        
-        [HttpPut( "{id}" )]
-        public IActionResult UpdateNewsGoodPopularity(int id)
-        {
-            Result<News> result = _newsServices.GoodNewsVote(id);
+            Result<News> result = isGoodVote ? _newsServices.GoodNewsVote(id) : _newsServices.BadNewsVote(id);
             return this.CreateResult<News, ArticleViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToArticleViewModel();
             } );
 
         }
-
         [HttpDelete( "{id}" )]
         [Authorize(Roles = "ADMIN")]
         public IActionResult Delete( int id )

@@ -61,7 +61,7 @@
         },
         async beforeMount() {
             this.id = this.$route.params.id;
-            console.log(this.item.pseudo)
+            console.log(this.item)
             try {
                 /*this.item.pseudo = ""
                 this.item.email = AuthService.email
@@ -74,7 +74,7 @@
             }
             catch(error) {
                 // So if an exception occurred, we redirect the user to the students list.
-                this.$router.replace('/usersettings');
+                this.$router.replace('/user/'+ this.id);
             }
         },
 
