@@ -1,5 +1,6 @@
 ﻿using LostTimeDB;
 using LostTimeWeb.WebApp.Models.NewsViewModels;
+using LostTimeWeb.WebApp.Models.ManagerAccountViewModel;
 
 namespace LostTimeWeb.WebApp.Controllers
 {
@@ -18,6 +19,22 @@ namespace LostTimeWeb.WebApp.Controllers
                 UpVote = @this.NewsGoodVote,
                 DownVote = @this.NewsBadVote,
                 Editions = @this.NewsEditionNb
+            };
+        }
+
+        public static UserViewModel ToUserViewModel(this UserAccount @this)
+        {
+            return new UserViewModel
+            {
+                UserID = @this.UserID,
+                UserPseudonym = @this.UserPseudonym,
+                UserEmail = @this.UserEmail,
+                UserPassword = @this.UserPassword,
+                UserAccountCreationDate = @this.UserAccountCreationDate,
+                UserLastConnectionDate = @this.UserLastConnectionDate,
+                UserGoogleToken = @this.UserGoogleToken,
+                UserGoogleID = @this.UserGoogleID,
+                UserPermission = @this.UserPermission
             };
         }
     }

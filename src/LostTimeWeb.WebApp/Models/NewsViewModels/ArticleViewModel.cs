@@ -21,5 +21,7 @@ namespace LostTimeWeb.WebApp.Models.NewsViewModels
         public int DownVote { get; set; }
 
         public int Editions { get; set; }
+
+       // public string AuthorName{ get; set; }
     }
 }
