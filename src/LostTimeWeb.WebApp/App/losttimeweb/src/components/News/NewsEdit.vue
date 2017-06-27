@@ -62,7 +62,7 @@
 
             async onSubmit(e) {
                 e.preventDefault();
-                    console.log(item);
+                console.log(this.item);
                 
 
                 var errors = [];
@@ -73,7 +73,7 @@
                 this.errors = errors;
 
                 if(errors.length == 0) {
-                    item.authorId = 0;//AuthService.id ;
+                    this.item.authorId = AuthService.id ;
                     try {                        
                         if(this.mode == 'create') {
                             await this.executeAsyncRequest(() => NewsApiService.createNewsAsync(this.item));

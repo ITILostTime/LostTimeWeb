@@ -2,7 +2,7 @@
    <div id="UserDisplay" class="row">
         <div class="col-md-3" id="avatar">
             <img src="../../../dist/img/userSteam.png"/><br/>
-            <router-link :to="`user/edit/${this.id}`" class="btn btn-warning">Editer mon compte</router-link>
+            <router-link :to="`/edit/${this.id}`" class="btn btn-warning">Editer mon compte</router-link>
             <button type="button" @click="goDelete" class="btn btn-warning">Supprimer mon compte</button>
         </div>
         <div class="col-md-9">
@@ -34,15 +34,15 @@
         },
         async beforeMount() {
 
-            if(this.$route.params.id != null) 
+            if(this.$route.params.id != undefined) 
             {
                 this.id = this.$route.params.id;
-                console.log("id :"+this.id);
+                console.log("route id :"+this.id);
             }
             else
             {
                 this.id = AuthService.id;//get the ID from the auth data
-                console.log("id :"+this.id);
+                console.log("auth id :"+this.id);
                 
             }
             try {

@@ -2,6 +2,7 @@
 @{
     Token token = ( Token )ViewData[ "Token" ];
     string email = ( string )ViewData[ "Email" ];
+    string Id = (string)ViewData["Id"];
     <!--IEnumerable<string> providers = ( IEnumerable<string> )ViewData[ "Providers" ];
     string providerNames = providers == null ? string.Empty : string.Join( ",", providers.Select( p => string.Format( "'{0}'", p ) ) );-->
     string providerNames = ( string )ViewData[ "Providers" ];
@@ -52,6 +53,7 @@
                         expires_in: @token.ExpiresIn
                     },
                     email: '@email',
+                    id: '@Id',
                     boundProviders: [@Html.Raw( providerNames )]
                 });
             })();
