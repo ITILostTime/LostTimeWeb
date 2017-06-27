@@ -102,18 +102,6 @@ const router = new VueRouter({
     { path: '/user/edit/:id?', component: UserEdit, beforeEnter: requireAuth },    
     { path: '/deleteaccount', component: UserDelete, beforeEnter: requireAuth },
 
-    //{ path: '/classes', component: ClassList/*, beforeEnter: requireAuth*/ },
-    //{ path: '/classes/:mode([create|edit]+)/:id?', component: ClassEdit/*, beforeEnter: requireAuth*/ },
-
-    //{ path: '/students', component: StudentList/*, beforeEnter: requireAuth*/ },
-    //{ path: '/students/:mode([create|edit]+)/:id?', component: StudentEdit/*, beforeEnter: requireAuth*/ },
-
-    //{ path: '/teachers', component: TeacherList/*, beforeEnter: requireAuth*/ },
-    //{ path: '/teachers/:mode([create|edit]+)/:id?', component: TeacherEdit/*, beforeEnter: requireAuth*/ },
-    //{ path: '/teachers/assign/:id', component: TeacherAssign/*, beforeEnter: requireAuth*/ },
-
-    //{ path: '/github/following', component: FollowingList, beforeEnter: requireAuth, meta: { requiredProviders: ['GitHub'] } }, 
-
     { path: '', component: Home }
   ]
 })
