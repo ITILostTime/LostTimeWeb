@@ -43,6 +43,7 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Permission")]
         //[ValidateAntiForgeryToken]
         public IActionResult Create( [FromBody] ArticleCreateViewModel model )
         {
@@ -57,6 +58,7 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpPut( "{id}" )]
+        [Authorize(Policy = "Permission")]
         //[ValidateAntiForgeryToken]
         public IActionResult Update( [FromBody] ArticleViewModel model )
         {
@@ -86,7 +88,7 @@ namespace LostTimeWeb.WebApp.Controllers
             });
         }
         [HttpDelete( "{id}" )]
-        //[Authorize(Roles = "ADMIN")]
+        [Authorize(Policy = "Permission")]
         public IActionResult Delete( int id )
         {
             Result<int> result =  _newsServices.Delete( id );

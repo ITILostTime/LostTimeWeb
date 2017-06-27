@@ -32,6 +32,7 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpPut( "{id}" )]
+        [Authorize(Policy = "Permission")]
         public IActionResult Edit( [FromBody] EditViewModel model )
         {
             Result<UserAccount> result = _managerAccountServices.Edit(model.UserID, model.UserPseudonym,model.UserEmail, model.UserOldPassword, model.UserNewPassword);
@@ -43,7 +44,7 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpDelete( "{id}" )]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Policy = "Permission")]
         public IActionResult Delete( int id )
         {
             Result<int> result =  _managerAccountServices.Delete( id );
