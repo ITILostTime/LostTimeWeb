@@ -59,13 +59,12 @@
                 var errors = [];
                 if(!this.item.userOldPassword) errors.push("mot de passe")
                 
-                if(this.item.userNewPassword == this.passwordComfirm)
+                if(this.item.userNewPassword != this.passwordComfirm)
                 {
                     errors.push("les deux mot de passe ne sont pas identiques")
                 } 
 
-                console.log(this.item);
-
+                this.item.userEmail=AuthService.email;
                 this.errors = errors;
 
                 if(errors.length == 0) {
@@ -74,7 +73,6 @@
                         this.$router.replace('/user');
                     }
                     catch(error) {
-                        console.log(error);
                         // Custom error management here.
                         // In our application, errors throwed when executing a request are managed globally via the "executeAsyncRequest" action: errors are added to the 'app.errors' state.
                         // A custom component should react to this state when a new error is added, and make an action, like showing an alert message, or something else.

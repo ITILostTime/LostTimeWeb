@@ -26,7 +26,7 @@
                 </div>
                 <div class="form-group">
                     <label class="required">Veuillez re-saisir votre mot de passe pour confirmer les changements </label>
-                    <input type="password" v-model="item.userOldPassword" class="form-control" required>
+                    <input type="password" v-model="item.userPassword" class="form-control" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Sauvegarder</button>
             </form>
@@ -82,25 +82,13 @@
 
                 if(!this.item.userPseudonym) errors.push("Pseudo")
                 if(!this.item.userEmail) errors.push("email")
-                if(!this.item.userOldPassword) errors.push("mot de passe")
-                
-                if(this.item.userNewPassword == this.passwordComfirm)
-                {
-                    errors.push("les deux mot de passe ne sont pas identiques")
-                } 
-                console.log(this.item);
+                if(!this.item.userPassword) errors.push("mot de passe")
 
                 this.errors = errors;
 
                 if(errors.length == 0) {
                     try {
-                        if(this.mode == 'create') {
-                            await this.executeAsyncRequest(() => UserApiService.createUserAsync(this.item));
-                        }
-                        else {
-
-                            await this.executeAsyncRequest(() => UserApiService.updateUserAsync(this.item));
-                        }
+                        await this.executeAsyncRequest(() => UserApiService.updateUserAsync(this.item));
                         this.$router.replace('/user');
                     }
                     catch(error) {
