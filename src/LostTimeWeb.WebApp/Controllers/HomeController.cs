@@ -27,15 +27,15 @@ namespace LostTimeWeb.WebApp.Controllers
             {
                 string userId = identity.FindFirst( ClaimTypes.NameIdentifier ).Value;
                 string email = identity.FindFirst( ClaimTypes.Email ).Value;
-                //string role = identity.FindFirst( ClaimTypes.Role ).Value;
+                string role = identity.FindFirst( ClaimTypes.Role ).Value;
                 
-                Token token = _tokenService.GenerateToken( userId, email,null );
+                Token token = _tokenService.GenerateToken( userId, email, role );
                 string providers = "PrimarySchool";
                 //IEnumerable<string> providers = _userService.GetAuthenticationProviders( userId );
                 ViewData[ "Token" ] = token;
                 ViewData[ "Email" ] = email;
                 ViewData[ "Id" ] = userId;
-                //ViewData[ "Role" ] = role;
+                ViewData[ "Role" ] = role;
                 ViewData[ "Providers" ] = providers;
                 Console.WriteLine("Index() : provider = " + providers);
             }

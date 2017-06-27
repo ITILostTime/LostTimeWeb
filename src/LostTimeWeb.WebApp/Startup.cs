@@ -46,7 +46,7 @@ namespace LostTimeWeb.WebApp
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Permission", policy =>
-                          policy.RequireClaim("Role", "ADMIN"));
+                          policy.RequireClaim(ClaimTypes.Role, "ADMIN"));
             });
 
             services.AddSingleton( _ => new UserAccountGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
