@@ -55,6 +55,7 @@ namespace LostTimeWeb.WebApp
             services.AddSingleton<UserService>();
             services.AddSingleton<TokenService>();
             services.AddSingleton<NewsService>();
+            services.AddSingleton<UserProfileService>();
         }
 
         public void Configure( IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory )

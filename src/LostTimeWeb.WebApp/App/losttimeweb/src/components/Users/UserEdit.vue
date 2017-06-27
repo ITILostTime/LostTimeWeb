@@ -17,13 +17,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="required">Pseudo</label>
-                    <input type="text" v-model="item.pseudo" class="form-control" required>
+                    <label>Pseudo</label>
+                    <input type="text" v-model="item.userPseudonym" class="form-control">
                 </div>
 
                 <div class="form-group">
-                    <label class="required">E-mail</label>
-                    <input type="text" v-model="item.email" class="form-control" required>
+                    <label>E-mail</label>
+                    <input type="text" v-model="item.userEmail" class="form-control">
                 </div>
     <!--
                 <div class="form-group">
@@ -32,15 +32,18 @@
                 </div>
     -->
                 <div class="form-group">
-                    <p>Editer son mot de passe</p>
+                    
+                    <h3>Editer son mot de passe</h3>
+                    <label>Nouveau mot de passe</label>
+                    <input type="password" v-model="item.password" class="form-control">
+                    <label>comfirmer nouveau mot de passe</label>
+                    <input type="password" v-model="item.passwordComfirm" class="form-control">
+
+                    <h3>Veuillez re-saisir votre mot de passe pour confirmer les changements  </h3>
                     <label class="required">Ancien mot de passe</label>
                     <input type="password" v-model="item.oldpassword" class="form-control" required>
-                    <label class="required">Nouveau mot de passe</label>
-                    <input type="password" v-model="item.password" class="form-control" required>
-                    <label class="required">comfirmer nouveau mot de passe</label>
-                    <input type="password" v-model="item.passwordComfirm" class="form-control" required>
                 </div>
-                <button type="submit" class="btn btn-primary" disabled>Sauvegarder</button>
+                <button type="submit" class="btn btn-primary">Sauvegarder</button>
             </form>
         </div>
     </div>
@@ -61,7 +64,7 @@
         },
         async beforeMount() {
             this.id = this.$route.params.id;
-            console.log(this.item)
+            
             try {
                 /*this.item.pseudo = ""
                 this.item.email = AuthService.email
@@ -71,6 +74,7 @@
                 // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                 // It is useful when we have to know if an error occurred, in order to adapt the user experience.
                 this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));
+                console.log(this.item)
             }
             catch(error) {
                 //So if an exception occurred, we redirect the user to the students list.
@@ -92,6 +96,13 @@
 
                 if(!this.item.pseudo) errors.push("Pseudo")
                 if(!this.item.email) errors.push("email")
+                if(!this.item.password) errors.push("mot de passe")
+                
+                if(this.item.password == this.item.passwordComfirm)
+                {
+                    errors.push("mot de passe")
+                } 
+
 
                 this.errors = errors;
 

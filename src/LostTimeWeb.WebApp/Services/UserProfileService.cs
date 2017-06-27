@@ -7,12 +7,12 @@ using LostTimeWeb.WebApp.Models.ManagerAccountViewModel;
 
 namespace LostTimeWeb.WebApp.Services
 {
-    public class ManagerAccountService
+    public class UserProfileService
     {
         readonly UserAccountGateway _userAccountGateway;
         readonly PasswordHasher _passwordHasher;
 
-        public ManagerAccountService(UserAccountGateway userAccountGateway, PasswordHasher passwordHasher)
+        public UserProfileService(UserAccountGateway userAccountGateway, PasswordHasher passwordHasher)
         {
             _userAccountGateway = userAccountGateway;
             _passwordHasher = passwordHasher;
