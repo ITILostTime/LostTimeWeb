@@ -7,8 +7,7 @@ namespace LostTimeWeb.WebApp.Models.ManagerAccountViewModel
         public int UserID { get; set; }
         public string UserPseudonym { get; set; }
         public string UserEmail { get; set; }
-        public string UserOldPassword { get; set; }
-        public string UserNewPassword { get; set; }
+        public string UserPassword { get; set; }
         public DateTime UserAccountCreationDate { get; set; }
         public DateTime UserLastConnectionDate { get; set; }
         public string UserGoogleToken { get; set; }

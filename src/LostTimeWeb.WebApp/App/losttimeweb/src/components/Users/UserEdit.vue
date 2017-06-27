@@ -17,13 +17,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="required">Pseudo</label>
-                    <input type="text" v-model="item.pseudo" class="form-control" required>
+                    <label>Pseudo</label>
+                    <input type="text" v-model="item.userPseudonym" class="form-control">
                 </div>
 
                 <div class="form-group">
-                    <label class="required">E-mail</label>
-                    <input type="text" v-model="item.email" class="form-control" required>
+                    <label>E-mail</label>
+                    <input type="text" v-model="item.userEmail" class="form-control">
                 </div>
     <!--
                 <div class="form-group">
@@ -32,15 +32,18 @@
                 </div>
     -->
                 <div class="form-group">
-                    <p>Editer son mot de passe</p>
+                    
+                    <h3>Editer son mot de passe</h3>
+                    <label>Nouveau mot de passe</label>
+                    <input type="password" v-model="item.userNewPassword" class="form-control">
+                    <label>Confirmer nouveau mot de passe</label>
+                    <input type="password" v-model="this.passwordComfirm" class="form-control">
+
+                    <h3>Veuillez re-saisir votre mot de passe pour confirmer les changements  </h3>
                     <label class="required">Ancien mot de passe</label>
-                    <input type="password" v-model="item.oldpassword" class="form-control" required>
-                    <label class="required">Nouveau mot de passe</label>
-                    <input type="password" v-model="item.password" class="form-control" required>
-                    <label class="required">comfirmer nouveau mot de passe</label>
-                    <input type="password" v-model="item.passwordComfirm" class="form-control" required>
+                    <input type="password" v-model="item.userOldPassword" class="form-control" required>
                 </div>
-                <button type="submit" class="btn btn-primary" disabled>Sauvegarder</button>
+                <button type="submit" class="btn btn-primary">Sauvegarder</button>
             </form>
         </div>
     </div>
@@ -56,12 +59,13 @@
             return {
                 item: {},
                 id: null,
+                passwordComfirm: "",
                 errors: []  
             }
         },
         async beforeMount() {
             this.id = this.$route.params.id;
-            console.log(this.item)
+            
             try {
                 /*this.item.pseudo = ""
                 this.item.email = AuthService.email
@@ -71,6 +75,7 @@
                 // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                 // It is useful when we have to know if an error occurred, in order to adapt the user experience.
                 this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));
+                console.log(this.item)
             }
             catch(error) {
                 //So if an exception occurred, we redirect the user to the students list.
@@ -90,8 +95,15 @@
 
                 var errors = [];
 
-                if(!this.item.pseudo) errors.push("Pseudo")
-                if(!this.item.email) errors.push("email")
+                if(!this.item.userPseudonym) errors.push("Pseudo")
+                if(!this.item.userEmail) errors.push("email")
+                if(!this.item.userOldPassword) errors.push("mot de passe")
+                
+                if(this.item.userNewPassword == this.passwordComfirm)
+                {
+                    errors.push("les deux mot de passe ne sont pas identiques")
+                } 
+                console.log(this.item);
 
                 this.errors = errors;
 
@@ -101,12 +113,13 @@
                             await this.executeAsyncRequest(() => UserApiService.createUserAsync(this.item));
                         }
                         else {
+
                             await this.executeAsyncRequest(() => UserApiService.updateUserAsync(this.item));
                         }
-
                         this.$router.replace('/students');
                     }
                     catch(error) {
+                        console.log(error);
                         // Custom error management here.
                         // In our application, errors throwed when executing a request are managed globally via the "executeAsyncRequest" action: errors are added to the 'app.errors' state.
                         // A custom component should react to this state when a new error is added, and make an action, like showing an alert message, or something else.
