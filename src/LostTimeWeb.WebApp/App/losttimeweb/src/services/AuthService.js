@@ -33,6 +33,11 @@ class AuthService {
 
         return identity ? identity.email : null;
     }
+    get id() {
+        var identity = this.identity;
+
+        return identity ? identity.id : null;
+    }
 
     get boundProviders() {
         var identity = this.identity;
@@ -52,9 +57,7 @@ class AuthService {
 
     onMessage(e) {
         if(!e.origin || this.allowedOrigins.indexOf(e.origin) < 0) return;
-
         var data = typeof e.data == 'string' ? JSON.parse(e.data) : e.data;
-
         if(data.type == 'authenticated') this.onAuthenticated(data.payload);
         else if(data.type == 'signedOut') this.onSignedOut();
     }

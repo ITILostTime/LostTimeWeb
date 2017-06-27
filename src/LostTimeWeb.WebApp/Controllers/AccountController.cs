@@ -141,10 +141,10 @@ namespace LostTimeWeb.WebApp.Controllers
             ViewData[ "Email" ] = email;
             ViewData[ "Id" ] = userId;
             ViewData[ "NoLayout" ] = true;
-            ViewData[ "Providers" ] = providers;
+            ViewData["Providers"] = providers;
+            Console.WriteLine(userId);
             return View();
         }
-
         async Task SignIn( string email, string userId )
         { 
             List<Claim> claims = new List<Claim>
@@ -156,7 +156,6 @@ namespace LostTimeWeb.WebApp.Controllers
             ClaimsPrincipal principal = new ClaimsPrincipal( identity );
             await HttpContext.Authentication.SignInAsync( CookieAuthentication.AuthenticationScheme, principal );
         }
-
         string GetBreachPadding()
         {
             byte[] data = new byte[ _random.Next( 64, 256 ) ];

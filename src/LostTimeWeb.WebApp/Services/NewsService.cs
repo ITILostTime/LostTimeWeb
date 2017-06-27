@@ -28,6 +28,7 @@ namespace LostTimeWeb.WebApp.Services
             if (!IsNameValid(title)) return Result.Failure<News>(Status.BadRequest, "The title is not valid.");
             if (!IsNameValid(content)) return Result.Failure<News>(Status.BadRequest, "The content is not valid.");
             if( ( _newsGateway.FindByTitle( title ) != null ) ) return Result.Failure<News>( Status.BadRequest, " this Article already exists.");
+
             _newsGateway.CreateNews( title, content, time, authorId);
             news = _newsGateway.FindByTitle( title );
 

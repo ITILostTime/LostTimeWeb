@@ -32,7 +32,7 @@ namespace LostTimeWeb.WebApp.Controllers
             } );
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             Result<News> result  = _newsServices.GetById(id);
@@ -44,7 +44,6 @@ namespace LostTimeWeb.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "ADMIN")]
         public IActionResult Create( [FromBody] ArticleViewModel model )
         {
             Result<News> result  = _newsServices.Create( model.Title, model.Content, DateTime.Now ,model.AuthorId);

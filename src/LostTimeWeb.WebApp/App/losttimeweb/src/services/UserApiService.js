@@ -1,6 +1,6 @@
 import { getAsync, postAsync, putAsync, deleteAsync } from '../helpers/apiHelper'
 
-const endpoint = "/api/user";
+const endpoint = "/api/manageraccount";
 
 class UserApiService {
     constructor() {
@@ -12,6 +12,9 @@ class UserApiService {
 
     async getUserAsync(UserId) {
         return await getAsync(`${endpoint}/${UserId}`);
+    }
+    async getUserByEmailAsync(UserEmail) {
+        return await getAsync(`${endpoint}/${UserEmail}`);
     }
 
     async createUserAsync(model) {
