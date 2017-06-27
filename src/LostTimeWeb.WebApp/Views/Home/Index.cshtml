@@ -3,6 +3,7 @@
     Token token = ( Token )ViewData[ "Token" ];
     string email = ( string )ViewData[ "Email" ];
     string Id = (string)ViewData["Id"];
+    string role = (string)ViewData["Role"];
     <!--IEnumerable<string> providers = ( IEnumerable<string> )ViewData[ "Providers" ];
     string providerNames = providers == null ? string.Empty : string.Join( ",", providers.Select( p => string.Format( "'{0}'", p ) ) );-->
     string providerNames = ( string )ViewData[ "Providers" ];
@@ -54,6 +55,7 @@
                     },
                     email: '@email',
                     id: '@Id',
+                    role: '@role',
                     boundProviders: [@Html.Raw( providerNames )]
                 });
             })();
