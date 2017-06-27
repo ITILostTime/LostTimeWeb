@@ -2,8 +2,7 @@
    <div id="UserDisplay" class="row">
         <div class="col-md-3" id="avatar">
             <img src="../../../dist/img/userSteam.png"/><br/>
-            <router-link :to="`edit/${this.id}`" class="btn btn-warning">Editer mon compte</router-link>
-            <button type="button" @click="goDelete" class="btn btn-warning">Supprimer mon compte</button>
+            <router-link :to="`edit/${this.id}`" class="btn btn-primary">Editer mon compte</router-link>
         </div>
         <div class="col-md-9">
             <div class="page-header">
@@ -19,7 +18,6 @@
         </div>
     </div>
 </template>
-
 <script>
     import { mapActions } from 'vuex'
     import UserApiService from '../../services/UserApiService'
@@ -44,12 +42,10 @@
             {
                 this.id = AuthService.id;//get the ID from the auth data
                 console.log("auth id :"+this.id);
-                
             }
             try {
                 // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                 // It is useful when we have to know if an error occurred, in order to adapt the user experience.
-                
                 this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));
                 console.log(this.item);
             }
@@ -62,10 +58,6 @@
         },
         methods: {
             ...mapActions(['executeAsyncRequestOrDefault', 'executeAsyncRequest']),
-            
-            goDelete: function () {
-                this.$router.replace('/deleteaccount');
-            },
         }
     }
 </script>
