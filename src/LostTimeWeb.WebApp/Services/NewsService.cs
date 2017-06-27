@@ -15,6 +15,7 @@ namespace LostTimeWeb.WebApp.Services
         {
             _newsGateway = newsGateway;
             _userAccountGateway = userAccountGateway;
+           
         }
 
         public Result<IEnumerable<News>> GetAllNews()

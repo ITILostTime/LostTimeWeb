@@ -22,9 +22,9 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetAll()
         {
-            //Console.WriteLine("NEWSLIST CALLED");
             Result<IEnumerable<News>> result = _newsServices.GetAllNews();
             return this.CreateResult<IEnumerable<News>, IEnumerable<ArticleViewModel>>( result, o =>
             {
@@ -32,7 +32,7 @@ namespace LostTimeWeb.WebApp.Controllers
             } );
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetNews")]
         public IActionResult GetById(int id)
         {
             Result<News> result  = _newsServices.GetById(id);
@@ -43,7 +43,7 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public IActionResult Create( [FromBody] ArticleCreateViewModel model )
         {
             Result<News> result  = _newsServices.Create( model.Title, model.Content, DateTime.Now ,model.AuthorId);
@@ -51,13 +51,13 @@ namespace LostTimeWeb.WebApp.Controllers
             return this.CreateResult<News , ArticleViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToArticleViewModel();
-                o.RouteName = "GetArticle";
+                o.RouteName = "GetNews";
                 o.RouteValues = s => new { id = s.NewsID };
             } );
         }
 
         [HttpPut( "{id}" )]
-        [Authorize(Roles = "ADMIN")]
+        //[ValidateAntiForgeryToken]
         public IActionResult Update( [FromBody] ArticleViewModel model )
         {
             Result<News> result = _newsServices.Update(model.ArticleId, model.Title, model.Content, DateTime.Now, model.AuthorId);
@@ -67,30 +67,26 @@ namespace LostTimeWeb.WebApp.Controllers
                 o.ToViewModel = s => s.ToArticleViewModel();
             } );
         }
-
-        [HttpPut( "{id}" )]
-        public IActionResult UpdateNewsBadPopularity(int id)
+        [HttpPut("upvote/{id:int}")]
+        public IActionResult UpdateNewsUpVote(int id)
         {
-           Result<News> result = _newsServices.BadNewsVote(id);
+            Result<News> result =  _newsServices.GoodNewsVote(id);
             return this.CreateResult<News, ArticleViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToArticleViewModel();
             } );
         }
-        
-        [HttpPut( "{id}" )]
-        public IActionResult UpdateNewsGoodPopularity(int id)
+        [HttpPut("downvote/{id:int}")]
+        public IActionResult UpdateNewsDownVote(int id)
         {
-            Result<News> result = _newsServices.GoodNewsVote(id);
-            return this.CreateResult<News, ArticleViewModel>( result, o =>
+            Result<News> result = _newsServices.BadNewsVote(id);
+            return this.CreateResult<News, ArticleViewModel>(result, o =>
             {
                 o.ToViewModel = s => s.ToArticleViewModel();
-            } );
-
+            });
         }
-
         [HttpDelete( "{id}" )]
-        [Authorize(Roles = "ADMIN")]
+        //[Authorize(Roles = "ADMIN")]
         public IActionResult Delete( int id )
         {
             Result<int> result =  _newsServices.Delete( id );
