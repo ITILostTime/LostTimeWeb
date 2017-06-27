@@ -36,7 +36,6 @@ namespace LostTimeWeb.WebApp.Controllers
         public IActionResult Edit( [FromBody] EditViewModel model )
         {
             Result<UserAccount> result = _managerAccountServices.Edit(model.UserID, model.UserPseudonym,model.UserEmail, model.UserOldPassword, model.UserNewPassword);
-            //Result<News> result = _newsGateway.UpdateArticle(model.rticleId, model.Title, model.Content, DateTime.Now,model.AuthorId);
             return this.CreateResult<UserAccount, UserViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToUserViewModel();

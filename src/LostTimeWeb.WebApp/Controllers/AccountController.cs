@@ -76,8 +76,6 @@ namespace LostTimeWeb.WebApp.Controllers
                     return View( model );
                 }
                 UserAccount user = _userService.FindUser( model.Email );
-                //ModelPoco poco = new ModelPoco();
-                //UserAccount user = poco.checkModel(model.Email, model.Password);
                 await SignIn( user.UserEmail, user.UserID.ToString(), user.UserPermission );
                 return RedirectToAction( nameof( Authenticated ) );
             }
