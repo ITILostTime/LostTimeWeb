@@ -2,7 +2,7 @@
    <div id="UserDisplay" class="row">
         <div class="col-md-3" id="avatar">
             <img src="../../../dist/img/userSteam.png"/><br/>
-            <router-link :to="`/edit/${this.id}`" class="btn btn-warning">Editer mon compte</router-link>
+            <router-link :to="`edit/${this.id}`" class="btn btn-warning">Editer mon compte</router-link>
             <button type="button" @click="goDelete" class="btn btn-warning">Supprimer mon compte</button>
         </div>
         <div class="col-md-9">
