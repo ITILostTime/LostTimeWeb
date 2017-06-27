@@ -32,7 +32,7 @@ namespace LostTimeWeb.WebApp.Controllers
             } );
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetNews")]
         public IActionResult GetById(int id)
         {
             Result<News> result  = _newsServices.GetById(id);
@@ -43,7 +43,7 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public IActionResult Create( [FromBody] ArticleViewModel model )
         {
             Result<News> result  = _newsServices.Create( model.Title, model.Content, DateTime.Now ,model.AuthorId);
@@ -51,13 +51,13 @@ namespace LostTimeWeb.WebApp.Controllers
             return this.CreateResult<News , ArticleViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToArticleViewModel();
-                o.RouteName = "GetArticle";
+                o.RouteName = "GetNews";
                 o.RouteValues = s => new { id = s.NewsID };
             } );
         }
 
         [HttpPut( "{id}" )]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public IActionResult Update( [FromBody] ArticleViewModel model )
         {
             Result<News> result = _newsServices.Update(model.ArticleId, model.Title, model.Content, DateTime.Now, model.AuthorId);
@@ -86,7 +86,7 @@ namespace LostTimeWeb.WebApp.Controllers
             });
         }
         [HttpDelete( "{id}" )]
-        [Authorize(Roles = "ADMIN")]
+        //[Authorize(Roles = "ADMIN")]
         public IActionResult Delete( int id )
         {
             Result<int> result =  _newsServices.Delete( id );

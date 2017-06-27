@@ -17,14 +17,10 @@ class NewsApiService {
 
 
     async createNewsAsync(model) {
-        console.log("post")
-        console.log(model)
         return await postAsync(endpoint, model);
     }
 
     async updateNewsAsync(model) {
-        console.log("put")
-        console.log(model)
         return await putAsync(`${endpoint}/${model.articleId }`, model);
     }
 

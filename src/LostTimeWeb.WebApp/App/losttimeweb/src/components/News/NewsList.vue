@@ -15,6 +15,7 @@
                 <th>Titre</th>
                 <th>Auteur</th>
                 <th>Posté le</th>
+                <th>Editions</th>
                 <th>Popularité</th>
                 <th>Actions</th>
                 </tr>
@@ -25,12 +26,14 @@
                     <td>{{i.title}}</td>
                     <td>{{i.authorId}}</td>
                     <td>{{i.datePost | formatDate}}</td>                    
+                    <td>{{i.editions}}</td>                    
                     <td> 
                         <span> {{i.upVote}} <i class="glyphicon glyphicon-menu-up"></i></span>
                         <span><i class="glyphicon glyphicon-menu-down"></i> {{i.downVote}} </span>  
                     </td>
                     <td>
                         <router-link :to="`news/edit/${i.articleId}`"><i class="glyphicon glyphicon-pencil"></i></router-link>
+                         | 
                         <a href="#" @click="deleteNews(i.articleId)"><i class="glyphicon glyphicon-remove"></i></a>
                     </td>
                 </tr>

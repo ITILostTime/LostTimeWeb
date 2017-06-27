@@ -7,7 +7,8 @@
                 <footer> 
                     <span> {{i.upVote}} <a href="#" @click="NewsUpVote(i.articleId)"><i class="glyphicon glyphicon-menu-up"></i></a></span>
                     <span> {{i.downVote}} <a href="#" @click="NewsDownVote(i.articleId)"><i class="glyphicon glyphicon-menu-down"></i></a></span>  
-                    - Posté le {{i.datePost | formatDate}}
+                    - Posté le {{i.datePost | formatDate}} 
+                    - Edité {{i.editions}} fois
                 </footer>
             </article>
         </div>
