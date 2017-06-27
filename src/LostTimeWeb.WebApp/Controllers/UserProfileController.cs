@@ -33,7 +33,7 @@ namespace LostTimeWeb.WebApp.Controllers
 
         [HttpPut( "{id}" )]
         //[Authorize(Policy = "Permission")]
-        public IActionResult Edit( [FromBody] EditViewModel model )
+        /*public IActionResult Edit( [FromBody] EditViewModel model )
         {
             Result<UserAccount> result = _userProfileService.Edit(
                 model.UserID, 
@@ -45,7 +45,7 @@ namespace LostTimeWeb.WebApp.Controllers
             {
                 o.ToViewModel = s => s.ToUserViewModel();
             } );
-        }
+        }*/
         [HttpDelete( "{id}" )]
         [Authorize(Policy = "Permission")]
         public IActionResult Delete( int id )

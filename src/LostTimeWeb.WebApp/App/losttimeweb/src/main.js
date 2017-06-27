@@ -17,6 +17,7 @@ import About from './components/About.vue'
 import Download from './components/Download.vue'
 
 import UserEdit from './components/Users/UserEdit.vue'
+import UserEditPassword from './components/Users/UserEditPassword.vue'
 import UserDelete from './components/Users/UserDelete.vue'
 import UserList from './components/Users/UserList.vue'
 import UserDisplay from './components/Users/UserDisplay.vue'
@@ -100,6 +101,7 @@ const router = new VueRouter({
     { path: '/users', component: UserList, beforeEnter: requireAuth },
     { path: '/user/:id?', component: UserDisplay, beforeEnter: requireAuth },
     { path: '/user/edit/:id?', component: UserEdit, beforeEnter: requireAuth },    
+    { path: '/user/edit/password/:id?', component: UserEditPassword, beforeEnter: requireAuth },    
     { path: '/deleteaccount', component: UserDelete, beforeEnter: requireAuth },
 
     { path: '', component: Home }
