@@ -37,5 +37,18 @@ namespace LostTimeWeb.WebApp.Controllers
                 UserPermission = @this.UserPermission
             };
         }
+        public static UserForDisplayViewModel ToUserForDisplayViewModel(this UserAccount @this)
+        {
+            return new UserForDisplayViewModel
+            {
+                UserID = @this.UserID,
+                UserPseudonym = @this.UserPseudonym,
+                UserEmail = @this.UserEmail,
+                UserAccountCreationDate = @this.UserAccountCreationDate,
+                UserLastConnectionDate = @this.UserLastConnectionDate,
+                UserGoogleID = @this.UserGoogleID,
+                UserPermission = @this.UserPermission
+            };
+        }
     }
 }

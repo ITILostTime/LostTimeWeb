@@ -22,25 +22,25 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetUserById(int id)
+        public IActionResult GetUserByIdForDisplay(int id)
         {
             Result<UserAccount> result  = _userProfileService.Display(id);
-            return this.CreateResult<UserAccount, UserViewModel>( result, o =>
+            return this.CreateResult<UserAccount, UserForDisplayViewModel>( result, o =>
             {
-                o.ToViewModel = s => s.ToUserViewModel();
+                o.ToViewModel = s => s.ToUserForDisplayViewModel();
             } );
         }
 
         [HttpPut( "{id}" )]
         //[Authorize(Policy = "Permission")]
-        public IActionResult Edit( [FromBody] EditViewModel model )
+        public IActionResult Edit( [FromBody] UserEditViewModel model )
         {
             Console.WriteLine(model);
             Result<UserAccount> result = _userProfileService.Edit(
                 model.UserID, 
                 model.UserPseudonym,
                 model.UserEmail, 
-                model.UserPassword);
+                model.UserControlPassword);
             return this.CreateResult<UserAccount, UserViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToUserViewModel();
