@@ -52,7 +52,7 @@ namespace LostTimeWeb.WebApp.Controllers
         {
             Result<UserAccount> result = _userProfileService.EditPassword(
                 model.UserEmail, 
-                model.UserOldPassword, 
+                model.UserOldPassword,
                 model.UserNewPassword);
             return this.CreateResult<UserAccount, UserViewModel>( result, o =>
             {
