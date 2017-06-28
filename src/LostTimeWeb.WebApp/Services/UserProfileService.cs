@@ -37,9 +37,9 @@ namespace LostTimeWeb.WebApp.Services
             {
                 return Result.Failure<UserAccount>(Status.NotFound, "User not found.");
             }
-            else if (_passwordHasher.VerifyHashedPassword(user.UserPassword, userControlPassword) == PasswordVerificationResult.Success)
+            
+            else if (_passwordHasher.VerifyHashedPassword(user.UserPassword, userControlPassword) != PasswordVerificationResult.Success)
             {
-                
                 return Result.Failure<UserAccount>( Status.BadRequest, "Bad Password , try again !" );
             }
 // /////////////////////////////////  HELL PASSPORT  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
