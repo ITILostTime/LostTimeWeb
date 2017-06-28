@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using LostTimeWeb.DAL;
+using LostTimeDB;
 
 namespace LostTimeWeb.WebApp.Services
 {
     public class UserService
     {
-        readonly UserGateway _userGateway;
+        readonly UserAccountGateway _userGateway;
         readonly PasswordHasher _passwordHasher;
 
-        public UserService( UserGateway userGateway, PasswordHasher passwordHasher )
+        public UserService(UserAccountGateway userGateway, PasswordHasher passwordHasher )
         {
             _userGateway = userGateway;
             _passwordHasher = passwordHasher;
@@ -17,36 +17,21 @@ namespace LostTimeWeb.WebApp.Services
 
         public bool CreatePasswordUser( string email, string password )
         {
-            if( _userGateway.FindByEmail( email ) != null ) return false;
-            _userGateway.CreatePasswordUser( email, _passwordHasher.HashPassword( password ) );
+            if( _userGateway.FindByUserEmail( email ) != null ) return false;
+            _userGateway.CreateNewUserAccount("", email, _passwordHasher.HashPassword( password ),DateTime.Now );
             return true;
         }
 
-        public bool CreateOrUpdateGithubUser( string email, int githubId, string accessToken )
-        {
-            if( _userGateway.FindByGithubId( githubId ) != null )
-            {
-                _userGateway.UpdateGithubToken( githubId, accessToken );
-                return false;
-            }
-            User user = _userGateway.FindByEmail( email );
-            if( user != null )
-            {
-                _userGateway.AddGithubToken( user.UserId, githubId, accessToken );
-                return false;
-            }
-            _userGateway.CreateGithubUser( email, githubId, accessToken );
-            return true;
-        }
-
+        
+        /*
         public bool CreateOrUpdateGoogleUser( string email, string googleId, string refreshToken )
         {
-            if( _userGateway.FindByGoogleId( googleId ) != null )
+            if( _userGateway.FindByGoogleID( googleId ) != null )
             {
                 _userGateway.UpdateGoogleToken( googleId, refreshToken );
                 return false;
             }
-            User user = _userGateway.FindByEmail( email );
+            UserAccount user = _userGateway.FindByUserEmail( email );
             if( user != null )
             {
                 _userGateway.AddGoogleToken( user.UserId, googleId, refreshToken );
@@ -55,11 +40,11 @@ namespace LostTimeWeb.WebApp.Services
             _userGateway.CreateGoogleUser( email, googleId, refreshToken );
             return true;
         }
-
-        public User FindUser( string email, string password )
+        */
+        public UserAccount FindUser( string email, string password )
         {
-            User user = _userGateway.FindByEmail( email );
-            if( user != null && _passwordHasher.VerifyHashedPassword( user.Password, password ) == PasswordVerificationResult.Success )
+            UserAccount user = _userGateway.FindByUserEmail( email );
+            if( user != null && _passwordHasher.VerifyHashedPassword( user.UserPassword, password ) == PasswordVerificationResult.Success )
             {
                 return user;
             }
@@ -67,24 +52,21 @@ namespace LostTimeWeb.WebApp.Services
             return null;
         }
 
-        public User FindUser( string email )
+        public UserAccount FindUser( string email )
         {
-            return _userGateway.FindByEmail( email );
+            return _userGateway.FindByUserEmail( email );
         }
-
-        public User FindGoogleUser( string googleId )
+        /*
+        public UserAccount FindGoogleUser( string googleId )
         {
             return _userGateway.FindByGoogleId( googleId );
         }
-
-        public User FindGithubUser( int githubId )
-        {
-            return _userGateway.FindByGithubId( githubId );
-        }
+        
 
         public IEnumerable<string> GetAuthenticationProviders( string userId )
         {
             return _userGateway.GetAuthenticationProviders( userId );
         }
+        */
     }
 }

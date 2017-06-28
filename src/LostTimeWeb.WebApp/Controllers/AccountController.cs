@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using LostTimeWeb.DAL;
+using LostTimeDB;
 using LostTimeWeb.WebApp.Authentication;
 using LostTimeWeb.WebApp.Models.AccountViewModels;
 using LostTimeWeb.WebApp.Services;
@@ -42,15 +42,15 @@ namespace LostTimeWeb.WebApp.Controllers
         {
             if( ModelState.IsValid )
             {
-                //User user = _userService.FindUser( model.Email, model.Password );
-                ModelPoco poco = new ModelPoco();
-                User user = poco.checkModel(model.Email, model.Password);
+                UserAccount user = _userService.FindUser( model.Email, model.Password );
+                //ModelPoco poco = new ModelPoco();
+                //UserAccount user = poco.checkModel(model.Email, model.Password);
                 if( user == null )
                 {
                     ModelState.AddModelError( string.Empty, "Invalid login attempt." );
                     return View( model );
                 }
-                await SignIn( user.Email, user.UserId.ToString() );
+                await SignIn( user.UserEmail, user.UserID.ToString(), user.UserPermission );
                 return RedirectToAction( nameof( Authenticated ) );
             }
             return View( model );
@@ -75,10 +75,8 @@ namespace LostTimeWeb.WebApp.Controllers
                     ModelState.AddModelError( string.Empty, "An account with this email already exists." );
                     return View( model );
                 }
-                //User user = _userService.FindUser( model.Email );
-                ModelPoco poco = new ModelPoco();
-                User user = poco.checkModel(model.Email, model.Password);
-                await SignIn( user.Email, user.UserId.ToString() );
+                UserAccount user = _userService.FindUser( model.Email );
+                await SignIn( user.UserEmail, user.UserID.ToString(), user.UserPermission );
                 return RedirectToAction( nameof( Authenticated ) );
             }
 
@@ -130,36 +128,34 @@ namespace LostTimeWeb.WebApp.Controllers
         {
             string userId = User.FindFirst( ClaimTypes.NameIdentifier ).Value;
             string email = User.FindFirst( ClaimTypes.Email ).Value;
-            Token token = _tokenService.GenerateToken( userId, email );
-            //
-            /*IEnumerable<string> providers= Enumerable.Empty<string>();
-            providers = providers.Concat(new[] { "PrimarySchool" });*/
-            /*Console.WriteLine(providers);*/
-            //
-            string providers = "PrimarySchool";
+
+            string role = User.FindFirst(ClaimTypes.Role ).Value;
+            Token token = _tokenService.GenerateToken( userId, email , role);
+
             //IEnumerable<string> providers = _userService.GetAuthenticationProviders( userId );
+            string providers = "PrimarySchool";
             ViewData[ "BreachPadding" ] = GetBreachPadding(); // Mitigate BREACH attack. See http://www.breachattack.com/
             ViewData[ "Token" ] = token;
             ViewData[ "Email" ] = email;
+            ViewData[ "Id" ] = userId;
+            ViewData[ "Role" ] = role;
             ViewData[ "NoLayout" ] = true;
-            ViewData[ "Providers" ] = providers;
-            //ViewData[ "Providers" ] = null;
-            Console.WriteLine("Authenticated() : provider = " + providers);
+            ViewData["Providers"] = providers;
+            Console.WriteLine(userId);
             return View();
         }
-
-        async Task SignIn( string email, string userId )
+        async Task SignIn( string email, string userId, string permission )
         { 
             List<Claim> claims = new List<Claim>
             {
                 new Claim( ClaimTypes.Email, email, ClaimValueTypes.String ),
-                new Claim( ClaimTypes.NameIdentifier, userId.ToString(), ClaimValueTypes.String )
+                new Claim( ClaimTypes.NameIdentifier, userId.ToString(), ClaimValueTypes.String ),
+                new Claim( ClaimTypes.Role, permission, ClaimValueTypes.String)
             };
             ClaimsIdentity identity = new ClaimsIdentity( claims, CookieAuthentication.AuthenticationType, ClaimTypes.Email, string.Empty );
             ClaimsPrincipal principal = new ClaimsPrincipal( identity );
             await HttpContext.Authentication.SignInAsync( CookieAuthentication.AuthenticationScheme, principal );
         }
-
         string GetBreachPadding()
         {
             byte[] data = new byte[ _random.Next( 64, 256 ) ];

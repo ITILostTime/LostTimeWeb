@@ -15,13 +15,22 @@ class NewsApiService {
         return await getAsync(`${endpoint}/${articleId}`);
     }
 
+
     async createNewsAsync(model) {
         return await postAsync(endpoint, model);
     }
 
     async updateNewsAsync(model) {
-        return await putAsync(`${endpoint}/${model.newarticleIdsId}`, model);
+        return await putAsync(`${endpoint}/${model.articleId }`, model);
     }
+
+    async updateNewsUpVoteAsync(articleId) {
+        return await putAsync(`${endpoint}/upvote/${articleId }`);
+    }
+    async updateNewsDownVoteAsync(articleId) {
+        return await putAsync(`${endpoint}/downvote/${articleId }`);
+    }
+
 
     async deleteNewsAsync(articleId) {
         return await deleteAsync(`${endpoint}/${articleId}`);

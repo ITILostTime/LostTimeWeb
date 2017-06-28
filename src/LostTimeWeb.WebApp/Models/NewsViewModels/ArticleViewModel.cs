@@ -16,8 +16,12 @@ namespace LostTimeWeb.WebApp.Models.NewsViewModels
 
         public int AuthorId { get; set; }
 
-        public int Popularity { get; set; }
+        public int UpVote { get; set; }
+
+        public int DownVote { get; set; }
 
         public int Editions { get; set; }
+
+       // public string AuthorName{ get; set; }
     }
 }

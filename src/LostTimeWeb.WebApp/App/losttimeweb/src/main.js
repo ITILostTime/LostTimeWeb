@@ -4,6 +4,7 @@ import 'bootstrap/dist/js/bootstrap'
 import Vue from 'vue'
 import store from './vuex/store'
 import VueRouter from 'vue-router'
+import moment from 'moment'
 
 import App from './components/App.vue'
 import Home from './components/Home.vue'
@@ -16,9 +17,17 @@ import About from './components/About.vue'
 import Download from './components/Download.vue'
 
 import UserEdit from './components/Users/UserEdit.vue'
+import UserEditPassword from './components/Users/UserEditPassword.vue'
 import UserDelete from './components/Users/UserDelete.vue'
+import UserList from './components/Users/UserList.vue'
+import UserDisplay from './components/Users/UserDisplay.vue'
 
 import Tchat from './components/Tchat.vue'
+
+import Admin from './components/Admin.vue'
+import NewsList from './components/News/NewsList.vue'
+import NewsEdit from './components/News/NewsEdit.vue'
+
 
 /*
 import ClassList from './components/Classes/ClassList.vue'
@@ -31,13 +40,20 @@ import TeacherList from './components/Teachers/TeacherList.vue'
 import TeacherEdit from './components/Teachers/TeacherEdit.vue'
 import TeacherAssign from './components/Teachers/TeacherAssign.vue'
 */
-import Admin from './components/Admin.vue'
+
 
 //import FollowingList from './components/GitHub/FollowingList.vue'
 
 import AuthService from './services/AuthService'
 
 Vue.use(VueRouter)
+
+moment.locale('fr');
+Vue.filter('formatDate', function(value) {
+  if (value) { 
+    return moment(String(value)).format('lll')
+  }
+})
 
 /**
  * Filter for routes requiring an authenticated user
@@ -78,23 +94,16 @@ const router = new VueRouter({
     { path: '/download', component: Download },
     { path: '/tchat', component: Tchat },
 
-    { path: '/admin', component: Admin/*, beforeEnter: requireAuth */},
+    { path: '/admin', component: Admin, beforeEnter: requireAuth },
+    { path: '/news', component: NewsList, beforeEnter: requireAuth },
+    { path: '/news/:mode([create|edit]+)/:id?', component: NewsEdit/*, beforeEnter: requireAuth*/ },
 
-    { path: '/usersettings', component: UserEdit, beforeEnter: requireAuth },
+    { path: '/users', component: UserList, beforeEnter: requireAuth },
+    { path: '/user/:id?', component: UserDisplay, beforeEnter: requireAuth },
+    { path: '/user/edit/:id?', component: UserEdit, beforeEnter: requireAuth },    
+    { path: '/user/edit/password/:id?', component: UserEditPassword, beforeEnter: requireAuth },    
     { path: '/deleteaccount', component: UserDelete, beforeEnter: requireAuth },
-    
-    //{ path: '/classes', component: ClassList/*, beforeEnter: requireAuth*/ },
-    //{ path: '/classes/:mode([create|edit]+)/:id?', component: ClassEdit/*, beforeEnter: requireAuth*/ },
 
-    //{ path: '/students', component: StudentList/*, beforeEnter: requireAuth*/ },
-    //{ path: '/students/:mode([create|edit]+)/:id?', component: StudentEdit/*, beforeEnter: requireAuth*/ },
-
-    //{ path: '/teachers', component: TeacherList/*, beforeEnter: requireAuth*/ },
-    //{ path: '/teachers/:mode([create|edit]+)/:id?', component: TeacherEdit/*, beforeEnter: requireAuth*/ },
-    //{ path: '/teachers/assign/:id', component: TeacherAssign/*, beforeEnter: requireAuth*/ },
-
-    //{ path: '/github/following', component: FollowingList, beforeEnter: requireAuth, meta: { requiredProviders: ['GitHub'] } }, 
-    
     { path: '', component: Home }
   ]
 })

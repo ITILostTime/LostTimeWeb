@@ -1,77 +1,53 @@
-﻿using LostTimeWeb.DAL;
-using LostTimeWeb.WebApp.Models.ClassViewModels;
-using LostTimeWeb.WebApp.Models.StudentViewModels;
-using LostTimeWeb.WebApp.Models.TeacherViewModels;
+﻿using LostTimeDB;
 using LostTimeWeb.WebApp.Models.NewsViewModels;
+using LostTimeWeb.WebApp.Models.ManagerAccountViewModel;
 
 namespace LostTimeWeb.WebApp.Controllers
 {
     public static class ModelExtensions
     {
-        public static ClassViewModel ToClassViewModel( this Class @this )
-        {
-            return new ClassViewModel
-            {
-                ClassId = @this.ClassId,
-                Name = @this.Name,
-                Level = @this.Level
-            };
-        }
-        
-        public static StudentViewModel ToStudentViewModel( this Student @this )
-        {
-            return new StudentViewModel
-            {
-                StudentId = @this.StudentId,
-                FirstName = @this.FirstName,
-                LastName = @this.LastName,
-                BirthDate = @this.BirthDate,
-                Photo = @this.Photo,
-                GitHubLogin = @this.GitHubLogin
-            };
-        }
-
-        public static FollowedStudentViewModel ToFollowedStudentViewModel( this Student @this )
-        {
-            return new FollowedStudentViewModel
-            {
-                StudentId = @this.StudentId,
-                FirstName = @this.FirstName,
-                LastName = @this.LastName,
-                GitHubLogin = @this.GitHubLogin
-            };
-        }
-
-        public static TeacherViewModel ToTeacherViewModel( this Teacher @this )
-        {
-            return new TeacherViewModel
-            {
-                TeacherId = @this.TeacherId,
-                FirstName = @this.FirstName,
-                LastName = @this.LastName
-            };
-        }
-
-        public static AssignedClassViewModel ToAssignedClassViewModel( this Class @this )
-        {
-            return new AssignedClassViewModel
-            {
-                ClassId = @this.ClassId,
-                Name = @this.Name
-            };
-        }
-        public static ArticleViewModel ToArticleViewModel(this Article @this)
+        public static ArticleViewModel ToArticleViewModel(this News @this)
         {
             return new ArticleViewModel
             {
-                ArticleId = @this.ArticleId,
-                Title = @this.Title,
-                Content = @this.Content,
-                DateLastEdit = @this.DateLastEdit,
-                DatePost = @this.DatePost,
-                AuthorId = @this.AuthorId,
-                Popularity = @this.Popularity,
-                Editions = @this.Editions
+                ArticleId = @this.NewsID,
+                Title = @this.NewsTitle,
+                Content = @this.NewsContent,
+                DateLastEdit = @this.NewsLastUpdate,
+                DatePost = @this.NewsCreationDate,
+                AuthorId = @this.NewsAuthorID,
+                UpVote = @this.NewsGoodVote,
+                DownVote = @this.NewsBadVote,
+                Editions = @this.NewsEditionNb
+            };
+        }
+
+        public static UserViewModel ToUserViewModel(this UserAccount @this)
+        {
+            return new UserViewModel
+            {
+                UserID = @this.UserID,
+                UserPseudonym = @this.UserPseudonym,
+                UserEmail = @this.UserEmail,
+                UserPassword = @this.UserPassword,
+                UserAccountCreationDate = @this.UserAccountCreationDate,
+                UserLastConnectionDate = @this.UserLastConnectionDate,
+                UserGoogleToken = @this.UserGoogleToken,
+                UserGoogleID = @this.UserGoogleID,
+                UserPermission = @this.UserPermission
+            };
+        }
+        public static UserForDisplayViewModel ToUserForDisplayViewModel(this UserAccount @this)
+        {
+            return new UserForDisplayViewModel
+            {
+                UserID = @this.UserID,
+                UserPseudonym = @this.UserPseudonym,
+                UserEmail = @this.UserEmail,
+                UserAccountCreationDate = @this.UserAccountCreationDate,
+                UserLastConnectionDate = @this.UserLastConnectionDate,
+                UserGoogleID = @this.UserGoogleID,
+                UserPermission = @this.UserPermission
             };
         }
     }

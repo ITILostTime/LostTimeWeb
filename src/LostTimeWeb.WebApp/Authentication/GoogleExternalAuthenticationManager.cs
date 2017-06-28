@@ -1,9 +1,10 @@
-﻿using LostTimeWeb.DAL;
+﻿using LostTimeDB;
 using LostTimeWeb.WebApp.Services;
 using Microsoft.AspNetCore.Authentication.OAuth;
 
 namespace LostTimeWeb.WebApp.Authentication
 {
+    /*
     public class GoogleExternalAuthenticationManager : IExternalAuthenticationManager
     {
         readonly UserService _userService;
@@ -21,9 +22,10 @@ namespace LostTimeWeb.WebApp.Authentication
             }
         }
 
-        public User FindUser( OAuthCreatingTicketContext context )
+        public UserAccount FindUser( OAuthCreatingTicketContext context )
         {
             return _userService.FindGoogleUser( context.GetGoogleId() );
         }
     }
+    */
 }

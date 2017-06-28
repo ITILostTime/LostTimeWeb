@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="row">
         <div class="text-center">
             <div class="page-header">
                 <h1>Connectez vous à votre compte.</h1>
@@ -40,6 +40,7 @@
 
             onAuthenticated() {
                  this.$router.replace('/');
+                 location.reload(true);
             }
         }
     }

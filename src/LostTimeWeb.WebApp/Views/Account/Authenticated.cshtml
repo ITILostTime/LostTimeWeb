@@ -4,8 +4,10 @@
     string location = string.Format( "{0}://{1}/", Context.Request.Scheme, Context.Request.Host );
     Token token = ( Token )ViewData[ "Token" ];
     string email = ( string )ViewData[ "Email" ];
+    string Id = ( string )ViewData["Id"];
+    string role = (string)ViewData["Role"];
     string breachPadding = ( string )ViewData[ "BreachPadding" ];
-    <!--//IEnumerable<string> providers = ( IEnumerable<string> )ViewData[ "Providers" ];
+ <!--   //IEnumerable<string> providers = ( IEnumerable<string> )ViewData[ "Providers" ];
     //string providerNames = string.Join( ",", providers.Select( p => string.Format( "'{0}'", p ) ) );-->
     string providerNames = ( string )ViewData[ "Providers" ];
     providerNames = string.Format( "'{0}'", providerNames);
@@ -19,8 +21,10 @@
     <title>Authenticated</title>
 </head>
 <body>
+    <p>connected</p>
     <script>
         (function () {
+            console.log("trying to send the message");
             window.opener.postMessage(JSON.stringify({
                 type: 'authenticated',
                 payload: {
@@ -29,10 +33,11 @@
                         expires_in: @token.ExpiresIn
                     },
                     email: '@email',
+                    id: '@Id',
+                    role: '@role',
                     boundProviders: [@Html.Raw( providerNames )]
                 }
             }), '@location');
-
             window.close();
         })();
     </script>
