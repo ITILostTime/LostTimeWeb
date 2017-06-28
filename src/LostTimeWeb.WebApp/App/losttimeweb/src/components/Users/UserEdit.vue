@@ -87,7 +87,10 @@
                         console.log("item that will be send")
                         console.log(this.item);
                         await this.executeAsyncRequest(() => UserApiService.updateUserAsync(this.item));
-                        this.$router.replace('/user');
+                        
+                        var redirect = '/user/'+ this.id;
+                        console.log("redirect to : " + redirect)
+                        this.$router.replace(redirect);
                     }
                     catch(error) {
                         console.log(error);
