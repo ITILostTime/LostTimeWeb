@@ -25,7 +25,7 @@ import { Slider, SliderItem } from 'vue-easy-slider'
                     { title: 'Incarnez Astrid !', pictureName: 'screen1.png' },
                     { title: 'Résolvez des énigmes !', pictureName: 'screen2.png' },
                     { title: 'Explorez la Ville !', pictureName: 'screen3.png' },
-                    { title: 'Soyez maître de votre destin !', pictureName: 'screen4.png' },
+                    { title: 'Maîtrisez votre destin !', pictureName: 'screen4.png' },
                 ]
             }
         },

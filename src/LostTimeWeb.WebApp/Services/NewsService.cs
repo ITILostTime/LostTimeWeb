@@ -1,101 +1,102 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
-using LostTimeWeb.DAL;
+using LostTimeDB;
+using LostTimeWeb.WebApp.Models.NewsViewModels;
 
 namespace LostTimeWeb.WebApp.Services
 {
     public class NewsService
     {
-        readonly StudentGateway _studentGateway;
+        readonly  NewsGateway _newsGateway;
+        readonly UserAccountGateway _userAccountGateway;
 
-        public NewsService(StudentGateway studentGateway)
+        public NewsService(NewsGateway newsGateway, UserAccountGateway userAccountGateway)
         {
-            _studentGateway = studentGateway;
-        }
-        /*
-        public Result<Student> CreateStudent( string firstName, string lastName, DateTime birthDate, string photo, string gitHubLogin )
-        {
-            if( !IsNameValid( firstName ) ) return Result.Failure<Student>( Status.BadRequest, "The first name is not valid." );
-            if( !IsNameValid( lastName ) ) return Result.Failure<Student>( Status.BadRequest, "The last name is not valid." );
-            if( _studentGateway.FindByName( firstName, lastName ) != null ) return Result.Failure<Student>( Status.BadRequest, "A student with this name already exists." );
-            if( !string.IsNullOrEmpty( gitHubLogin ) && _studentGateway.FindByGitHubLogin( gitHubLogin ) != null ) return Result.Failure<Student>( Status.BadRequest, "A student with GitHub login already exists." );
-            _studentGateway.Create( firstName, lastName, birthDate, photo, gitHubLogin );
-            Student student = _studentGateway.FindByName( firstName, lastName );
-            return Result.Success( Status.Created, student );
+            _newsGateway = newsGateway;
+            _userAccountGateway = userAccountGateway;
+           
         }
 
-        public Result<Student> UpdateStudent( int studentId, string firstName, string lastName, DateTime birthDate, string photo, string gitHubLogin )
+        public Result<IEnumerable<News>> GetAllNews()
         {
-            if( !IsNameValid( firstName ) ) return Result.Failure<Student>( Status.BadRequest, "The first name is not valid." );
-            if( !IsNameValid( lastName ) ) return Result.Failure<Student>( Status.BadRequest, "The last name is not valid." );
-            Student student;
-            if( ( student = _studentGateway.FindById( studentId ) ) == null )
+            IEnumerable<News> allNews = _newsGateway.GetAll();
+            return Result.Success( Status.Ok, allNews );
+        }
+        public Result<News> Create(string title, string content,DateTime time, int authorId)
+        {
+            News news = new News();
+            if (!IsNameValid(title)) return Result.Failure<News>(Status.BadRequest, "The title is not valid.");
+            if (!IsNameValid(content)) return Result.Failure<News>(Status.BadRequest, "The content is not valid.");
+            if( ( _newsGateway.FindByTitle( title ) != null ) ) return Result.Failure<News>( Status.BadRequest, " this Article already exists.");
+
+            _newsGateway.CreateNews( title, content, time, authorId);
+            news = _newsGateway.FindByTitle( title );
+
+            return Result.Success( Status.Created, news );
+        }
+
+        public Result<News> Update(int Id, string title,  string content, DateTime time, int  authorId)
+        {
+            if( !IsNameValid( title ) ) return Result.Failure<News>( Status.BadRequest, "The title is not valid." );
+            if( !IsNameValid( content ) ) return Result.Failure<News>( Status.BadRequest, "The content is not valid." );
+            
+            News news = new News();
+            if( ( news = _newsGateway.FindByID( Id ) ) == null )
             {
-                return Result.Failure<Student>( Status.NotFound, "Student not found." );
+                return Result.Failure<News>( Status.NotFound, "News not found." );
             }
-
+            
             {
-                Student s = _studentGateway.FindByName( firstName, lastName );
-                if( s != null && s.StudentId != student.StudentId ) return Result.Failure<Student>( Status.BadRequest, "A student with this name already exists." );
+                News s = _newsGateway.FindByTitle( title);
+                if( s != null && s.NewsID != news.NewsID ) return Result.Failure<News>( Status.BadRequest, "this Article already exists." );
             }
-
-            if( !string.IsNullOrEmpty( gitHubLogin ) )
-            {
-                Student s = _studentGateway.FindByGitHubLogin( gitHubLogin );
-                if( s != null && s.StudentId != student.StudentId ) return Result.Failure<Student>( Status.BadRequest, "A student with this GitHub login already exists." );
-            }
-
-            _studentGateway.Update( studentId, firstName, lastName, birthDate, photo, gitHubLogin );
-            student = _studentGateway.FindById( studentId );
-            return Result.Success( Status.Ok, student );
+            _newsGateway.UpdateArticle( Id, title, content, time, authorId );
+            news = _newsGateway.FindByID( Id );
+            return Result.Success( Status.Ok, news );
         }
 
-        public Result<Student> GetById( int id )
+        public Result<int> Delete( int Id )
         {
-            Student student;
-            if( ( student = _studentGateway.FindById( id ) ) == null ) return Result.Failure<Student>( Status.NotFound, "Student not found." );
-            return Result.Success( Status.Ok, student );
+            News news = new News();
+            if( ( news = _newsGateway.FindByID( Id ) ) == null ) return Result.Failure<int>( Status.NotFound, "News not found." );
+            _newsGateway.DeleteNews( Id );
+            return Result.Success( Status.Ok,  Id);
         }
 
-        public Result<int> Delete( int classId )
+        public Result<News> GetById( int id )
         {
-            if( _studentGateway.FindById( classId ) == null ) return Result.Failure<int>( Status.NotFound, "Student not found." );
-            _studentGateway.Delete( classId );
-            return Result.Success( Status.Ok, classId );
+            News news = new News();
+            if( ( news = _newsGateway.FindByID( id ) ) == null ) return Result.Failure<News>( Status.NotFound, "News not found." );
+            return Result.Success( Status.Ok, news );
         }
-        */
-        public Result<IEnumerable<Article>> GetAll()
+
+        public Result<News> BadNewsVote(int id)
         {
-            //BIG POCO !!!
-            List<Article> pocoArticle = new List<Article>();
-
-            Article a1 = new Article();
-            a1.ArticleId = 0;
-            a1.Title = "Next gen of title";
-            a1.Content = "Lorem Ipsum";
-            a1.DateLastEdit = DateTime.Now;
-            a1.DatePost = DateTime.Now;
-            a1.AuthorId = 1;
-            a1.Popularity = 0;
-            a1.Editions = 0;
-            pocoArticle.Add(a1);
-
-            Article a2 = new Article();
-            a2.ArticleId = 1;
-            a2.Title = "Another title";
-            a2.Content = "Lorem Ipsum  Again";
-            a2.DateLastEdit = DateTime.Now;
-            a2.DatePost = DateTime.Now;
-            a2.AuthorId = 1;
-            a2.Popularity = 10;
-            a2.Editions = 0;
-            pocoArticle.Add(a2);
-
-            IEnumerable<Article> poco = pocoArticle;
-
-            return Result.Success( Status.Ok, poco);
+            News news = new News();
+            if( ( news = _newsGateway.FindByID( id ) ) == null ) return Result.Failure<News>( Status.NotFound, "News not found." );
+            _newsGateway.UpdateNewsBadPopularity(id);
+            news = _newsGateway.FindByID( id );
+            return Result.Success( Status.Ok, news );
         }
+
+        public Result<News> GoodNewsVote(int id)
+        {
+            News news = new News();
+            if( ( news = _newsGateway.FindByID( id ) ) == null ) return Result.Failure<News>( Status.NotFound, "News not found." );
+            _newsGateway.UpdateNewsGoodPopularity( id );
+            news = _newsGateway.FindByID( id );
+            return Result.Success( Status.Ok, news );
+        }
+
+/*        public string AddAuthorName(int id)
+        {
+            News news = _newsGateway.FindByID( id );
+            UserAccount user = _userAccountGateway.FindByID( news.AuthorID );
+            return user.UserPseudonym;
+        }*/
 
         bool IsNameValid( string name ) => !string.IsNullOrWhiteSpace( name );
+
     }
 }

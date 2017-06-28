@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using LostTimeWeb.DAL;
+using LostTimeDB;
 using LostTimeWeb.WebApp.Authentication;
 using LostTimeWeb.WebApp.Models.NewsViewModels;
 using LostTimeWeb.WebApp.Services;
@@ -11,9 +11,9 @@ using System;
 namespace LostTimeWeb.WebApp.Controllers
 {
     [Route( "api/[controller]" )]
-    //[Authorize( ActiveAuthenticationSchemes = JwtBearerAuthentication.AuthenticationScheme )]
+    [Authorize( ActiveAuthenticationSchemes = JwtBearerAuthentication.AuthenticationScheme )]
     public class NewsController : Controller
-    {
+    {     
         readonly NewsService _newsServices;
 
         public NewsController(NewsService newsServices)
@@ -22,54 +22,75 @@ namespace LostTimeWeb.WebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetNewsList()
+        [AllowAnonymous]
+        public IActionResult GetAll()
         {
-            Console.WriteLine("NEWSLIST CALLED");
-            Result<IEnumerable<Article>> result = _newsServices.GetAll();
-            return this.CreateResult<IEnumerable<Article>, IEnumerable<ArticleViewModel>>( result, o =>
+            Result<IEnumerable<News>> result = _newsServices.GetAllNews();
+            return this.CreateResult<IEnumerable<News>, IEnumerable<ArticleViewModel>>( result, o =>
             {
                 o.ToViewModel = x => x.Select( s => s.ToArticleViewModel() );
             } );
         }
-        /*
-        [HttpGet( "{id}", Name = "GetStudent" )]
-        public IActionResult GetStudentById( int id )
+
+        [HttpGet("{id}", Name = "GetNews")]
+        public IActionResult GetById(int id)
         {
-            Result<Student> result = _studentService.GetById( id );
-            return this.CreateResult<Student, StudentViewModel>( result, o =>
+            Result<News> result  = _newsServices.GetById(id);
+            return this.CreateResult<News, ArticleViewModel>( result, o =>
             {
-                o.ToViewModel = s => s.ToStudentViewModel();
+                o.ToViewModel = s => s.ToArticleViewModel();
             } );
         }
 
         [HttpPost]
-        public IActionResult CreateStudent( [FromBody] StudentViewModel model )
+        [Authorize(Policy = "Permission")]
+        //[ValidateAntiForgeryToken]
+        public IActionResult Create( [FromBody] ArticleCreateViewModel model )
         {
-            Result<Student> result = _studentService.CreateStudent( model.FirstName, model.LastName, model.BirthDate, model.Photo, model.GitHubLogin );
-            return this.CreateResult<Student, StudentViewModel>( result, o =>
+            Result<News> result  = _newsServices.Create( model.Title, model.Content, DateTime.Now ,model.AuthorId);
+            return this.CreateResult<News , ArticleViewModel>( result, o =>
             {
-                o.ToViewModel = s => s.ToStudentViewModel();
-                o.RouteName = "GetStudent";
-                o.RouteValues = s => new { id = s.StudentId };
+                o.ToViewModel = s => s.ToArticleViewModel();
+                o.RouteName = "GetNews";
+                o.RouteValues = s => new { id = s.NewsID };
             } );
         }
 
         [HttpPut( "{id}" )]
-        public IActionResult UpdateStudent( int id, [FromBody] StudentViewModel model )
+        [Authorize(Policy = "Permission")]
+        //[ValidateAntiForgeryToken]
+        public IActionResult Update( [FromBody] ArticleViewModel model )
         {
-            Result<Student> result = _studentService.UpdateStudent( id, model.FirstName, model.LastName, model.BirthDate, model.Photo, model.GitHubLogin );
-            return this.CreateResult<Student, StudentViewModel>( result, o =>
+            Result<News> result = _newsServices.Update(model.ArticleId, model.Title, model.Content, DateTime.Now, model.AuthorId);
+            return this.CreateResult<News, ArticleViewModel>( result, o =>
             {
-                o.ToViewModel = s => s.ToStudentViewModel();
+                o.ToViewModel = s => s.ToArticleViewModel();
             } );
         }
-
-        [HttpDelete( "{id}" )]
-        public IActionResult DeleteStudent( int id )
+        [HttpPut("upvote/{id:int}")]
+        public IActionResult UpdateNewsUpVote(int id)
         {
-            Result<int> result = _studentService.Delete( id );
+            Result<News> result =  _newsServices.GoodNewsVote(id);
+            return this.CreateResult<News, ArticleViewModel>( result, o =>
+            {
+                o.ToViewModel = s => s.ToArticleViewModel();
+            } );
+        }
+        [HttpPut("downvote/{id:int}")]
+        public IActionResult UpdateNewsDownVote(int id)
+        {
+            Result<News> result = _newsServices.BadNewsVote(id);
+            return this.CreateResult<News, ArticleViewModel>(result, o =>
+            {
+                o.ToViewModel = s => s.ToArticleViewModel();
+            });
+        }
+        [HttpDelete( "{id}" )]
+        [Authorize(Policy = "Permission")]
+        public IActionResult Delete( int id )
+        {
+            Result<int> result =  _newsServices.Delete( id );
             return this.CreateResult( result );
         }
-        */
     }
 }
