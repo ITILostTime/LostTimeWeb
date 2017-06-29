@@ -57,10 +57,6 @@
 
                 var errors = [];
                 if(!this.item.userOldPassword) errors.push("mot de passe")
-
-                console.log(this.item.userNewPassword);
-                console.log(this.item.passwordComfirm);
-
                 if(this.item.userNewPassword != this.item.passwordComfirm)
                 {
                     errors.push("les deux mot de passe ne sont pas identiques")
@@ -73,7 +69,6 @@
                     try {
                         await this.executeAsyncRequest(() => UserApiService.updateUserPasswordAsync(this.item));
                         var redirect = '/user/'+ this.id;
-                        console.log("redirect to : " + redirect)
                         this.$router.replace(redirect);
                     }
                     catch(error) {

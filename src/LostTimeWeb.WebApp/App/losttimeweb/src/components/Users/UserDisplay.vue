@@ -38,18 +38,15 @@
             if(this.$route.params.id != undefined) 
             {
                 this.id = this.$route.params.id;
-                console.log("route id : "+this.id);
             }
             else
             {
                 this.id = auth.id;//get the ID from the auth data
-                console.log("auth id : "+this.id);
             }
             try {
                 // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                 // It is useful when we have to know if an error occurred, in order to adapt the user experience.
                 this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));
-                console.log(this.item);
             }
             catch(error) {
                 console.log(error);

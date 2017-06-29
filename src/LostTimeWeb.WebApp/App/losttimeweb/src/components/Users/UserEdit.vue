@@ -55,8 +55,6 @@
                 // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                 // It is useful when we have to know if an error occurred, in order to adapt the user experience.
                 this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));
-                console.log("item recieved :");
-                console.log(this.item);
             }
             catch(error) {
                 //So if an exception occurred, we redirect the user to the students list.
@@ -81,12 +79,8 @@
 
                 if(errors.length == 0) {
                     try {
-                        console.log("item that will be send")
-                        console.log(this.item);
                         await this.executeAsyncRequest(() => UserApiService.updateUserAsync(this.item));
-                        
                         var redirect = '/user/'+ this.id;
-                        console.log("redirect to : " + redirect)
                         this.$router.replace(redirect);
                     }
                     catch(error) {

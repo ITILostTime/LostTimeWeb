@@ -12,7 +12,7 @@
                     </ul>
                 </div>
                 <div class="form-group">
-                     <p>Veuillez re-saisir votre mot de passe pour confirmer la suppression de votre compte.</p>
+                     <p>Cette action est irréversible. Veuillez re-saisir votre mot de passe pour confirmer la suppression de votre compte.</p>
                     <label class="required">Mot de passe</label>
                     <input type="password" v-model="item.userConfirmPassword" class="form-control" required>
                 </div>
@@ -49,13 +49,9 @@
 
                 var errors = [];
                 if(!this.item.userConfirmPassword) errors.push("mot de passe")
-
                 this.item.userID = AuthService.id;
                 this.item.userEmail = AuthService.email;
-                console.log(this.item);
-
                 this.errors = errors;
-
                 if(errors.length == 0) {
                     try {
                         //delete

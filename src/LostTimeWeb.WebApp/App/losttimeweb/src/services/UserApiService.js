@@ -4,14 +4,12 @@ const endpoint = "/api/userprofile";
 
 class UserApiService {
     constructor() {
-
     }
     async getUserListAsync() {
         return await getAsync(endpoint);
     }
 
     async getUserAsync(UserId) {
-        console.log("send get");
         return await getAsync(`${endpoint}/${UserId}`);
     }
     async getUserByEmailAsync(UserEmail) {
