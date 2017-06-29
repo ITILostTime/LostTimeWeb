@@ -62,9 +62,6 @@
 
             async onSubmit(e) {
                 e.preventDefault();
-                console.log(this.item);
-                
-
                 var errors = [];
 
                 if(!this.item.title) errors.push("Titre")
