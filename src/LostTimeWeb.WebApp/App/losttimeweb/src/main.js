@@ -102,7 +102,7 @@ const router = new VueRouter({
     { path: '/user/:id?', component: UserDisplay, beforeEnter: requireAuth },
     { path: '/user/edit/:id?', component: UserEdit, beforeEnter: requireAuth },    
     { path: '/user/edit/password/:id?', component: UserEditPassword, beforeEnter: requireAuth },    
-    { path: '/deleteaccount', component: UserDelete, beforeEnter: requireAuth },
+    { path: '/userdelete', component: UserDelete, beforeEnter: requireAuth },
 
     { path: '', component: Home }
   ]

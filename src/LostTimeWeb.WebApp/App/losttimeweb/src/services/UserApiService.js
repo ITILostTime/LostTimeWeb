@@ -29,8 +29,8 @@ class UserApiService {
         return await putAsync(`${endpoint}/editpassword`, model);
     }
 
-    async deleteUserAsync(UserId) {
-        return await deleteAsync(`${endpoint}/${UserId}`);
+    async deleteUserAsync(model) {
+        return await postAsync(`${endpoint}/delete`, model);
     }
 }
 

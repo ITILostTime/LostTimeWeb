@@ -73,11 +73,18 @@ namespace LostTimeWeb.WebApp.Services
             return Result.Success( Status.Ok, user );
         }
 
-        public Result<int> Delete( int Id )
+        public Result<int> Delete( int Id, string userEmail, string userPassword)
         {
             UserAccount user = new UserAccount();
-            if( ( user = _userAccountGateway.FindByID( Id ) ) == null ) return Result.Failure<int>( Status.NotFound, "User not found." );
-            _userAccountGateway.DeleteUserAccountByUserID( Id );
+            if ((user = _userAccountGateway.FindByUserEmail(userEmail)) == null)
+            {
+                return Result.Failure<int>(Status.NotFound, "User not found.");
+            }
+            else if (_passwordHasher.VerifyHashedPassword(user.UserPassword, userPassword) != PasswordVerificationResult.Success)
+            {
+                return Result.Failure<int>(Status.BadRequest, "Bad Password !");
+            }
+            _userAccountGateway.DeleteUserAccountByUserID(user.UserID);
             return Result.Success( Status.Ok, Id);
         }
 

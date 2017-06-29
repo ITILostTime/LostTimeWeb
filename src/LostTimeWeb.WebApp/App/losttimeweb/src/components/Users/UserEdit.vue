@@ -3,7 +3,7 @@
         <div class="col-md-3" id="avatar">
             <img src="../../../dist/img/userSteam.png"/><br/>
             <router-link :to="`password/${this.id}`" class="btn btn-primary">Changer mon mot de passe</router-link>            
-            <button type="button" @click="goDelete" class="btn btn-danger">Supprimer le compte</button>
+            <router-link to="/userdelete/" class="btn btn-danger">Supprimer le compte</router-link>     
         </div>
         <div class="col-md-9">
             <div class="page-header">
@@ -65,9 +65,6 @@
         },
 
         methods: {
-            goDelete: function () {
-                this.$router.replace('/deleteaccount');
-            },
 
             ...mapActions(['executeAsyncRequest']),
 
