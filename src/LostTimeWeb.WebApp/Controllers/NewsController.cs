@@ -47,7 +47,7 @@ namespace LostTimeWeb.WebApp.Controllers
         //[ValidateAntiForgeryToken]
         public IActionResult Create( [FromBody] ArticleCreateViewModel model )
         {
-            Result<News> result  = _newsServices.Create( model.Title, model.Content, DateTime.Now ,model.AuthorId);
+            Result<News> result  = _newsServices.Create( model.Title, model.Content, model.AuthorId);
             return this.CreateResult<News , ArticleViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToArticleViewModel();
@@ -61,7 +61,7 @@ namespace LostTimeWeb.WebApp.Controllers
         //[ValidateAntiForgeryToken]
         public IActionResult Update( [FromBody] ArticleViewModel model )
         {
-            Result<News> result = _newsServices.Update(model.ArticleId, model.Title, model.Content, DateTime.Now, model.AuthorId);
+            Result<News> result = _newsServices.Update(model.ArticleId, model.Title, model.Content, model.AuthorId);
             return this.CreateResult<News, ArticleViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToArticleViewModel();

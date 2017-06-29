@@ -23,20 +23,20 @@ namespace LostTimeWeb.WebApp.Services
             IEnumerable<News> allNews = _newsGateway.GetAll();
             return Result.Success( Status.Ok, allNews );
         }
-        public Result<News> Create(string title, string content,DateTime time, int authorId)
+        public Result<News> Create(string title, string content, int authorId)
         {
             News news = new News();
             if (!IsNameValid(title)) return Result.Failure<News>(Status.BadRequest, "The title is not valid.");
             if (!IsNameValid(content)) return Result.Failure<News>(Status.BadRequest, "The content is not valid.");
             if( ( _newsGateway.FindByTitle( title ) != null ) ) return Result.Failure<News>( Status.BadRequest, " this Article already exists.");
 
-            _newsGateway.CreateNews( title, content, time, authorId);
+            _newsGateway.CreateNews( title, content, DateTime.Now, authorId);
             news = _newsGateway.FindByTitle( title );
 
             return Result.Success( Status.Created, news );
         }
 
-        public Result<News> Update(int Id, string title,  string content, DateTime time, int  authorId)
+        public Result<News> Update(int Id, string title,  string content, int  authorId)
         {
             if( !IsNameValid( title ) ) return Result.Failure<News>( Status.BadRequest, "The title is not valid." );
             if( !IsNameValid( content ) ) return Result.Failure<News>( Status.BadRequest, "The content is not valid." );
@@ -51,7 +51,7 @@ namespace LostTimeWeb.WebApp.Services
                 News s = _newsGateway.FindByTitle( title);
                 if( s != null && s.NewsID != news.NewsID ) return Result.Failure<News>( Status.BadRequest, "this Article already exists." );
             }
-            _newsGateway.UpdateArticle( Id, title, content, time, authorId );
+            _newsGateway.UpdateArticle( Id, title, content, DateTime.Now, authorId );
             news = _newsGateway.FindByID( Id );
             return Result.Success( Status.Ok, news );
         }

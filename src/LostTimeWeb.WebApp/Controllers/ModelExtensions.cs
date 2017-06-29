@@ -50,5 +50,17 @@ namespace LostTimeWeb.WebApp.Controllers
                 UserPermission = @this.UserPermission
             };
         }
+
+        public static QuestViewModel ToQuestViewModel(this Quest @this)
+        {
+            return new UserForDisplayViewModel
+            {
+                QuestID = @this.QuestID,
+                QuestTitle  = @this.QuestTitle,
+                QuestData = @this.QuestData,
+                QuestLastEdit = @this.QuestLastEdit,
+                QuestAuthorID = @this.QuestAuthorID
+            };
+        }
     }
 }
