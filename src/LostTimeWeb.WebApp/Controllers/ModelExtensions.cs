@@ -1,6 +1,7 @@
 ﻿using LostTimeDB;
 using LostTimeWeb.WebApp.Models.NewsViewModels;
 using LostTimeWeb.WebApp.Models.ManagerAccountViewModel;
+using LostTimeWeb.WebApp.Models.QuestManagerViewModel;
 
 namespace LostTimeWeb.WebApp.Controllers
 {

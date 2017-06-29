@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using LostTimeDB;
-//using LostTimeWeb.WebApp.Models.NewsViewModels;
+using LostTimeWeb.WebApp.Models.QuestManagerViewModel;
 
 namespace LostTimeWeb.WebApp.Services
 {

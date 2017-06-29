@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LostTimeDB;
 using LostTimeWeb.WebApp.Authentication;
-//using LostTimeWeb.WebApp.Models.NewsViewModels;
+using LostTimeWeb.WebApp.Models.QuestManagerViewModel;
 using LostTimeWeb.WebApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +16,7 @@ namespace LostTimeWeb.WebApp.Controllers
     {
         readonly NewsService _questService;
 
-        public NewsController(NewsService questService)
+        public QuestController(NewsService questService)
         {
             _questService = questService;
         }

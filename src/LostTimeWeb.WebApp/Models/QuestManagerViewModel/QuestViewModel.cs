@@ -1,3 +1,5 @@
+using System;
+
 namespace LostTimeWeb.WebApp.Models.QuestManagerViewModel
 {
     public class QuestViewModel
