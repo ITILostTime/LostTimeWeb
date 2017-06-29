@@ -60,11 +60,11 @@ namespace LostTimeWeb.WebApp.Services
             {
                 return Result.Failure<UserAccount>( Status.NotFound, "User not found." );
             }
-            else if (!user.UserPassword.SequenceEqual( _passwordHasher.HashPassword( userOldPassword ) ))
+            else if (_passwordHasher.VerifyHashedPassword(user.UserPassword, userOldPassword) != PasswordVerificationResult.Success )
             {
                 return Result.Failure<UserAccount>( Status.BadRequest, "Bad Password !" );
             }
-            else if (user.UserPassword.SequenceEqual( _passwordHasher.HashPassword( userNewPassword ) ))
+            else if (_passwordHasher.VerifyHashedPassword(user.UserPassword, userNewPassword) == PasswordVerificationResult.Success )
             {
                 return Result.Failure<UserAccount>( Status.BadRequest, "Password not change !" );
             }
