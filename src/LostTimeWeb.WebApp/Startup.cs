@@ -51,10 +51,14 @@ namespace LostTimeWeb.WebApp
 
             services.AddSingleton( _ => new UserAccountGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
             services.AddSingleton( _ => new NewsGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
+            services.AddSingleton( _ => new QuestGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
+            services.AddSingleton( _ => new QuestPatternGateway( Configuration[ "ConnectionStrings:LostTimeDB" ] ) );
             services.AddSingleton<PasswordHasher>();
             services.AddSingleton<UserService>();
             services.AddSingleton<TokenService>();
             services.AddSingleton<NewsService>();
+            services.AddSingleton<QuestService>();
+            services.AddSingleton<QuestPatternService>();
             services.AddSingleton<UserProfileService>();
         }
 

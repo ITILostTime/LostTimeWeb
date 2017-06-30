@@ -54,13 +54,23 @@ namespace LostTimeWeb.WebApp.Controllers
 
         public static QuestViewModel ToQuestViewModel(this Quest @this)
         {
-            return new UserForDisplayViewModel
+            return new QuestViewModel
             {
                 QuestID = @this.QuestID,
                 QuestTitle  = @this.QuestTitle,
                 QuestData = @this.QuestData,
                 QuestLastEdit = @this.QuestLastEdit,
                 QuestAuthorID = @this.QuestAuthorID
+            };
+        }
+
+        public static QuestPatternViewModel ToQuestPatternViewModel(this QuestPattern @this)
+        {
+            return new QuestPatternViewModel
+            {
+                QuestID = @this.QuestID,
+                QuestTitle  = @this.QuestTitle,
+                QuestData = @this.QuestData
             };
         }
     }
