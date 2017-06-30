@@ -11,27 +11,22 @@
                 <ul class="nav navbar-nav navbar-center ">
                     <li><router-link to="/">Accueil</router-link></li>
                     <li><router-link to="/download">Téléchargement</router-link></li>                    
-                    <li><router-link to="/support">Support technique</router-link></li>
-                    <!--<li><router-link to="/forum">Forum</router-link></li>-->
+                    <li><router-link to="/support">Support</router-link></li>
+                    <li  v-if="auth.isConnected" ><router-link :to="`/user/${auth.id}`">Profil</router-link></li>
+                    <!--<li><router-link to="/forum">Forum</router-link></li>-->                    
+                    <!--<li><router-link to="/tchat">Tchat</router-link></li>-->
+                    <li  v-if="auth.isConnected"><router-link to="/quest">Quètes</router-link></li>
+                    <li ><router-link to="/admin" v-if="auth.role== 'ADMIN' && auth.isConnected">Administration</router-link></li>
+                    <li  v-if="!auth.isConnected"><router-link to="/login">Se connecter</router-link></li>
                 </ul>
-                <div class="collapse navbar-collapse"  v-if="auth.isConnected"><!--IF CONNECTED -->
-                    <ul class="nav navbar-nav">
-                        <li><router-link :to="`/user/${auth.id}`">Profil</router-link></li>
-                        <li><router-link to="/tchat">Tchat</router-link></li>
-                        <li><router-link to="/admin" v-if="auth.role== 'ADMIN'">Administration</router-link></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
+                <div class="collapse navbar-collapse" ><!--IF CONNECTED -->
+                    <ul class="nav navbar-nav navbar-right"  v-if="auth.isConnected">
                         <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth.email }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><router-link to="/logout">Se déconnecter</router-link></li>
                         </ul>
                         </li>
-                    </ul>
-                </div>
-                <div class="collapse navbar-collapse"  v-else><!-- IF NOT CONNECTED -->
-                    <ul class="nav navbar-nav">
-                        <li><router-link to="/login">Se connecter</router-link></li>
                     </ul>
                 </div>
             </div> <!--div contaier fluid-->

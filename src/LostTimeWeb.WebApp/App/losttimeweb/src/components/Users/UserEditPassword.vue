@@ -21,7 +21,7 @@
                     <label class="required">Nouveau mot de passe</label>
                     <input type="password" v-model="item.userNewPassword" class="form-control" required>
                     <label class="required">Confirmer nouveau mot de passe</label>
-                    <input type="password" v-model="this.passwordComfirm" class="form-control" required>
+                    <input type="password" v-model="item.passwordComfirm" class="form-control" required>
                     <h3>Veuillez re-saisir votre mot de passe pour confirmer les changements  </h3>
                     <label class="required">Ancien mot de passe</label>
                     <input type="password" v-model="item.userOldPassword" class="form-control" required>
@@ -42,7 +42,6 @@
             return {
                 item: {},
                 id: null,
-                passwordComfirm: "",
                 errors: []  
             }
         },
@@ -58,8 +57,7 @@
 
                 var errors = [];
                 if(!this.item.userOldPassword) errors.push("mot de passe")
-                
-                if(this.item.userNewPassword != this.passwordComfirm)
+                if(this.item.userNewPassword != this.item.passwordComfirm)
                 {
                     errors.push("les deux mot de passe ne sont pas identiques")
                 } 
@@ -70,7 +68,8 @@
                 if(errors.length == 0) {
                     try {
                         await this.executeAsyncRequest(() => UserApiService.updateUserPasswordAsync(this.item));
-                        this.$router.replace('/user');
+                        var redirect = '/user/'+ this.id;
+                        this.$router.replace(redirect);
                     }
                     catch(error) {
                         // Custom error management here.

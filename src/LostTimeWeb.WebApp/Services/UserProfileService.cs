@@ -60,11 +60,11 @@ namespace LostTimeWeb.WebApp.Services
             {
                 return Result.Failure<UserAccount>( Status.NotFound, "User not found." );
             }
-            else if (!user.UserPassword.SequenceEqual( _passwordHasher.HashPassword( userOldPassword ) ))
+            else if (_passwordHasher.VerifyHashedPassword(user.UserPassword, userOldPassword) != PasswordVerificationResult.Success )
             {
                 return Result.Failure<UserAccount>( Status.BadRequest, "Bad Password !" );
             }
-            else if (user.UserPassword.SequenceEqual( _passwordHasher.HashPassword( userNewPassword ) ))
+            else if (_passwordHasher.VerifyHashedPassword(user.UserPassword, userNewPassword) == PasswordVerificationResult.Success )
             {
                 return Result.Failure<UserAccount>( Status.BadRequest, "Password not change !" );
             }
@@ -73,11 +73,18 @@ namespace LostTimeWeb.WebApp.Services
             return Result.Success( Status.Ok, user );
         }
 
-        public Result<int> Delete( int Id )
+        public Result<int> Delete( int Id, string userEmail, string userPassword)
         {
             UserAccount user = new UserAccount();
-            if( ( user = _userAccountGateway.FindByID( Id ) ) == null ) return Result.Failure<int>( Status.NotFound, "User not found." );
-            _userAccountGateway.DeleteUserAccountByUserID( Id );
+            if ((user = _userAccountGateway.FindByUserEmail(userEmail)) == null)
+            {
+                return Result.Failure<int>(Status.NotFound, "User not found.");
+            }
+            else if (_passwordHasher.VerifyHashedPassword(user.UserPassword, userPassword) != PasswordVerificationResult.Success)
+            {
+                return Result.Failure<int>(Status.BadRequest, "Bad Password !");
+            }
+            _userAccountGateway.DeleteUserAccountByUserID(user.UserID);
             return Result.Success( Status.Ok, Id);
         }
 

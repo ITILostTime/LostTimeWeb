@@ -3,7 +3,7 @@
         <div class="col-md-3" id="avatar">
             <img src="../../../dist/img/userSteam.png"/><br/>
             <router-link :to="`password/${this.id}`" class="btn btn-primary">Changer mon mot de passe</router-link>            
-            <button type="button" @click="goDelete" class="btn btn-danger">Supprimer le compte</button>
+            <router-link to="/userdelete/" class="btn btn-danger">Supprimer le compte</router-link>     
         </div>
         <div class="col-md-9">
             <div class="page-header">
@@ -55,8 +55,6 @@
                 // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                 // It is useful when we have to know if an error occurred, in order to adapt the user experience.
                 this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));
-                console.log("item recieved :");
-                console.log(this.item);
             }
             catch(error) {
                 //So if an exception occurred, we redirect the user to the students list.
@@ -65,9 +63,6 @@
         },
 
         methods: {
-            goDelete: function () {
-                this.$router.replace('/deleteaccount');
-            },
 
             ...mapActions(['executeAsyncRequest']),
 
@@ -84,10 +79,9 @@
 
                 if(errors.length == 0) {
                     try {
-                        console.log("item that will be send")
-                        console.log(this.item);
                         await this.executeAsyncRequest(() => UserApiService.updateUserAsync(this.item));
-                        this.$router.replace('/user');
+                        var redirect = '/user/'+ this.id;
+                        this.$router.replace(redirect);
                     }
                     catch(error) {
                         console.log(error);

@@ -15,7 +15,7 @@ namespace LostTimeWeb.WebApp.Services
             _questGateway = questGateway;
         }
 
-        public Result<IEnumerable<Quest>> GetAllNews()
+        public Result<IEnumerable<Quest>> GetAllQuest()
         {
             IEnumerable<Quest> allNews = _questGateway.GetAll();
             return Result.Success( Status.Ok, allNews );
@@ -39,7 +39,7 @@ namespace LostTimeWeb.WebApp.Services
             Quest quest = new Quest();
             if (!IsNameValid(title)) return Result.Failure<Quest>(Status.BadRequest, "The Title is not valid.");
             if (!IsNameValid(data)) return Result.Failure<Quest>(Status.BadRequest, "The Data is not valid.");
-            if( ( _questGateway.FindByTitle( title ) != null ) ) return Result.FailureQuest>( Status.BadRequest, " this Quest already exists.");
+            if( ( _questGateway.FindByTitle( title ) != null ) ) return Result.Failure<Quest>( Status.BadRequest, " this Quest already exists.");
 
             _questGateway.CreateQuest( title, data, DateTime.Now, authorId);
             quest = _newsGateway.FindByTitle( title );
@@ -50,7 +50,7 @@ namespace LostTimeWeb.WebApp.Services
         public Result<News> Update(int Id, string title,  string data, int  authorId)
         {
             if( !IsNameValid( title ) ) return Result.Failure<Quest>( Status.BadRequest, "The title is not valid." );
-            if( !IsNameValid( content ) ) return Result.Failure<Quest>( Status.BadRequest, "The content is not valid." );
+            if( !IsNameValid( data ) ) return Result.Failure<Quest>( Status.BadRequest, "The content is not valid." );
             
             Quest quest = new Quest();
             if( ( quest = _questGateway.FindByID( Id ) ) == null )

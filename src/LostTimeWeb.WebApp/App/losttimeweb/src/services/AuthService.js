@@ -59,7 +59,6 @@ class AuthService {
 
         return isBound;
     }
-
     onMessage(e) {
         if(!e.origin || this.allowedOrigins.indexOf(e.origin) < 0) return;
         var data = typeof e.data == 'string' ? JSON.parse(e.data) : e.data;

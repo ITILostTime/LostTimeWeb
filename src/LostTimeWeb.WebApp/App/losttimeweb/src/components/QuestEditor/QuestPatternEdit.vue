@@ -1,8 +1,8 @@
 <template>
-    <div id="News" class="row">
+    <div id="QuestPatternEditor" class="row">
         <div class="col-md-5 col-md-offset-3">
-            <h1 v-if="mode == 'create'">Rédiger un news</h1>
-            <h1 v-else>Editer une news</h1>
+            <h1 v-if="mode == 'create'">Ajouter un pattern de Quète</h1>
+            <h1 v-else>Editer un pattern de Quète</h1>
         </div>
         <div class="col-md-9 col-md-offset-3">
             <form @submit="onSubmit($event)">
@@ -13,23 +13,23 @@
                     </ul>
                 </div>
                 <div class="form-group">
-                    <label class="required">Titre</label>
+                    <label class="required">Titre de la quète</label>
                     <input type="text" v-model="item.title" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label>Contenu</label>  <!--ADD THE MARKDOWN EDITOR HERE-->
                     <textarea v-model="item.content" placeholder="Rédiger la news" class="form-control"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Poster</button>
-                <router-link class="btn btn-primary" :to="`/news`"> Annuler </router-link>
-                <a class="btn btn-default" href="https://simplemde.com/markdown-guide" target="_blank">Aide Markdown <i class="glyphicon glyphicon-question-sign"></i></a>
+                <button type="submit" class="btn btn-primary">Ajouter le pattern</button>
+                <router-link class="btn btn-primary" :to="`/quest/pattern`"> Annuler </router-link>
+                <a class="btn btn-default" href="" target="_blank">Aide JSON<i class="glyphicon glyphicon-question-sign"></i></a>
             </form>
         </div>
     </div>
 </template>
 <script>
     import { mapActions } from 'vuex'
-    import NewsApiService from '../../services/NewsApiServices'
+    import QuestApiService from '../../services/QuestApiService'
     import AuthService from '../../services/AuthService'
     
     export default {
@@ -49,11 +49,11 @@
                 try {
                     // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                     // It is useful when we have to know if an error occurred, in order to adapt the user experience.
-                    this.item = await this.executeAsyncRequest(() => NewsApiService.getNewsAsync(this.id));
+                    this.item = await this.executeAsyncRequest(() => QuestApiService.getQuestPatternAsync(this.id));
                 }
                 catch(error) {
                     // So if an exception occurred, we redirect the user to news.
-                    this.$router.replace('/news');
+                    this.$router.replace('/quest/pattern');
                 }
             }
         },
