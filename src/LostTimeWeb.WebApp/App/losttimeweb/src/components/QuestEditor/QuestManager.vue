@@ -1,15 +1,29 @@
 <template>
-    <div id="QuestManager">
-    {{ message }}
+    <div id="QuestManager" class="row">
+        <div class="col-md-5 col-md-offset-3">
+            <h1>Gestion des quètes</h1>
+            <router-link class="btn btn-primary" to="/quest/pattern" v-if="auth.role == 'ADMIN'">Gestion des Pattern</router-link>
+        </div>
+        <questlist></questlist>
     </div>
 </template>
 
 <script>
-    export default {
-        data () {
-            return {
-                message: 'I am the quest manager page !'
-            }
+import AuthService from '../../services/AuthService'
+import QuestList from './QuestList.vue'
+
+export default {
+    data () {
+        return {
+
         }
-    }
+    },
+    components: {
+      'questlist': QuestList,
+    },
+    computed: {
+        auth: () => AuthService,
+        
+    },
+}
 </script>

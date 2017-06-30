@@ -1,5 +1,5 @@
 <template>
-    <div id="News" class="row">
+    <div id="QuestList" class="row">
         <div class="col-md-5 col-md-offset-3">
             <h1>Quêtes Disponibles</h1>
             <p>Choissisez d'éditer ou d'ajouter une quète à votre jeu.</p>
@@ -7,7 +7,6 @@
         <div class="panel-body text-right">
             <router-link class="btn btn-primary" :to="`quest/create`"><i class="glyphicon glyphicon-plus"></i> Créer une quète</router-link>
             <button type="button" @click="showSelf" class="btn btn-lg btn-block btn-default">Afficher mes créations</button>
-            <router-link class="btn btn-primary" :to="`quest`"><i class="glyphicon glyphicon-chevron-left"></i> Retour</router-link>
         </div>
         <table class="table table-striped">
             <thead>
@@ -53,7 +52,7 @@
         methods: {
             showSelf: function() {
                 alert("nope")
-            }
+            },
             ...mapActions(['executeAsyncRequestOrDefault', 'executeAsyncRequest']),
             async refreshList() {
                 this.questsList = await this.executeAsyncRequestOrDefault(() => QuestApiService.getQuestListAsync());
