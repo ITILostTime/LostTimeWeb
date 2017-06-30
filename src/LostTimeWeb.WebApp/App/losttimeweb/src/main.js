@@ -15,6 +15,7 @@ import Support from './components/Support.vue'
 import Forum from './components/Forum.vue'
 import About from './components/About.vue'
 import Download from './components/Download.vue'
+import Tchat from './components/Tchat.vue'
 
 import UserEdit from './components/Users/UserEdit.vue'
 import UserEditPassword from './components/Users/UserEditPassword.vue'
@@ -22,27 +23,14 @@ import UserDelete from './components/Users/UserDelete.vue'
 import UserList from './components/Users/UserList.vue'
 import UserDisplay from './components/Users/UserDisplay.vue'
 
-import Tchat from './components/Tchat.vue'
-
 import Admin from './components/Admin.vue'
 import NewsList from './components/News/NewsList.vue'
 import NewsEdit from './components/News/NewsEdit.vue'
 
-
-/*
-import ClassList from './components/Classes/ClassList.vue'
-import ClassEdit from './components/Classes/ClassEdit.vue'
-
-import StudentList from './components/Students/StudentList.vue'
-import StudentEdit from './components/Students/StudentEdit.vue'
-
-import TeacherList from './components/Teachers/TeacherList.vue'
-import TeacherEdit from './components/Teachers/TeacherEdit.vue'
-import TeacherAssign from './components/Teachers/TeacherAssign.vue'
-*/
-
-
-//import FollowingList from './components/GitHub/FollowingList.vue'
+import QuestManager from './components/QuestEditor/QuestManager.vue'
+import QuestList from './components/QuestEditor/QuestList.vue'
+import QuestPatternEdit from './components/QuestEditor/QuestPatternEdit.vue'
+import QuestPatternList from './components/QuestEditor/QuestPatternList.vue'
 
 import AuthService from './services/AuthService'
 
@@ -103,6 +91,12 @@ const router = new VueRouter({
     { path: '/user/edit/:id?', component: UserEdit, beforeEnter: requireAuth },    
     { path: '/user/edit/password/:id?', component: UserEditPassword, beforeEnter: requireAuth },    
     { path: '/userdelete', component: UserDelete, beforeEnter: requireAuth },
+
+    { path: '/quest', component: QuestManager, beforeEnter: requireAuth },
+    //{ path: '/quest/edit/:id?', component: QuestEditor, beforeEnter: requireAuth },
+    { path: '/quest/pattern/', component: QuestPatternList, beforeEnter: requireAuth },    
+    { path: '/quest/pattern/:mode([create|edit]+)/:id?', component: QuestPatternEdit, beforeEnter: requireAuth },    
+    //{ path: '/userdelete', component: UserDelete, beforeEnter: requireAuth },
 
     { path: '', component: Home }
   ]
