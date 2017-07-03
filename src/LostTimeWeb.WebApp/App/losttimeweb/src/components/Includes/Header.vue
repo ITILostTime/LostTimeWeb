@@ -4,11 +4,11 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <router-link to="/">
-                        <img src="../../../dist/img/logo_noParticle.png" alt="brand"/> 
-                        LostTime
+                        <img src="../../../dist/img/logo_noParticle_shadow.png" alt="brand"/> 
                     </router-link>
                 </div>
                 <ul class="nav navbar-nav navbar-center ">
+                    <li class="brand-title"><router-link to="/" >LostTime</router-link></li>
                     <li><router-link to="/">Accueil</router-link></li>
                     <li><router-link to="/download">Téléchargement</router-link></li>                    
                     <li><router-link to="/support">Support</router-link></li>
@@ -62,32 +62,43 @@ export default {
 #head img
 {
      max-height:150px;
-
+     transform:scale(1.5) translateY(10px);
 }
 #head .navbar-header
 {
     position:absolute;
     z-index:2000;
-    background-color:#9f9080;
-    width:300px; 
+    //background-color:#9f9080;
+    background-color:none;
+    max-width:180px; 
     //border: 2px solid;
-    border-bottom-left-radius: 2em;
-    border-bottom-right-radius: 2em;
-    padding:10px;
-    box-shadow:2px 2px 6px black;
+    //border-bottom-left-radius: 2em;
+    //border-bottom-right-radius: 2em;
+    padding:5px;
+    //box-shadow:2px 2px 6px black;
 }
-#head .navbar-header a
+#head .brand-title
+{
+    margin-top:-5px;
+    padding-left:30px;
+    padding-top:8px;
+    height:80px;
+    width:220px;
+    background:brown;
+}
+#head .brand-title a
 {
     font-family:"The Goldsmith Vintage", "Impact", serif;
-    font-size:3em;
+    font-size:4em;
     text-decoration:none;
     color:#493836;
     background: -webkit-linear-gradient(#c6823c, #483e2f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    padding-bottom:20px;
 }
 .navbar-center
 {
-    margin-left:310px;
+    margin-left:130px;
 }
 </style>

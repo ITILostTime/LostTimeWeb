@@ -1,6 +1,6 @@
 <template>
     <div id="QuestPatternList" class="row">
-        <div class="col-md-5 col-md-offset-3">
+        <div class="col-md-5 col-md-offset-2">
             <h1>Pattern Quêtes</h1>
             <p>Gestion des patterns de quètes utilisables.</p>
         </div>

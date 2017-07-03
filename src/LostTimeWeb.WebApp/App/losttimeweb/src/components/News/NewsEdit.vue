@@ -1,10 +1,10 @@
 <template>
-    <div id="News" class="row">
-        <div class="col-md-5 col-md-offset-3">
+    <div id="NewsEdit" class="row">
+        <div class="col-md-5 col-md-offset-2">
             <h1 v-if="mode == 'create'">Rédiger un news</h1>
             <h1 v-else>Editer une news</h1>
         </div>
-        <div class="col-md-9 col-md-offset-3">
+        <div class="col-md-7 col-md-offset-2">
             <form @submit="onSubmit($event)">
                 <div class="alert alert-danger" v-if="errors.length > 0">
                     <b>Les champs suivants semblent invalides : </b>
@@ -18,7 +18,7 @@
                 </div>
                 <div class="form-group">
                     <label>Contenu</label>  <!--ADD THE MARKDOWN EDITOR HERE-->
-                    <textarea v-model="item.content" placeholder="Rédiger la news" class="form-control"></textarea>
+                    <textarea rows="8" cols="50" v-model="item.content" placeholder="Rédiger la news" class="form-control"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Poster</button>
                 <router-link class="btn btn-primary" :to="`/news`"> Annuler </router-link>
@@ -94,5 +94,9 @@
 </script>
 
 <style lang="less">
-
+#NewsEdit textarea
+{
+    overflow: auto;
+    min-height:200px;
+}
 </style>
