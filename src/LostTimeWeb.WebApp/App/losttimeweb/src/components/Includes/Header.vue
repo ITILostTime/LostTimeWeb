@@ -5,7 +5,6 @@
                 <div class="navbar-header">
                     <router-link to="/">
                         <img src="../../../dist/img/logo_noParticle.png" alt="brand"/> 
-                        LostTime
                     </router-link>
                 </div>
                 <ul class="nav navbar-nav navbar-center ">
@@ -69,7 +68,7 @@ export default {
     position:absolute;
     z-index:2000;
     background-color:#9f9080;
-    width:300px; 
+    max-width:300px; 
     //border: 2px solid;
     border-bottom-left-radius: 2em;
     border-bottom-right-radius: 2em;
