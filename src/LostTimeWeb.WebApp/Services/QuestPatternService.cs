@@ -15,10 +15,10 @@ namespace LostTimeWeb.WebApp.Services
             _questPatternGateway = questPatternGateway;
         }
 
-        public Result<IEnumerable<QuestPattern>> GetAllNews()
+        public Result<IEnumerable<QuestPattern>> GetAllQuest()
         {
-            IEnumerable<QuestPattern> allNews = _questPatternGateway.GetAll();
-            return Result.Success( Status.Ok, allNews );
+            IEnumerable<QuestPattern> allQuests = _questPatternGateway.GetAll();
+            return Result.Success( Status.Ok, allQuests );
         }
 
         public Result<QuestPattern> GetById( int id )
@@ -30,8 +30,8 @@ namespace LostTimeWeb.WebApp.Services
 
         public Result<IEnumerable<QuestPattern>> GetAllQuestPatternByAuthor(int id)
         {
-            IEnumerable<QuestPattern> allNews = _questPatternGateway.GetAllByAuthorID(id);
-            return Result.Success( Status.Ok, allNews );
+            IEnumerable<QuestPattern> allQuests = _questPatternGateway.GetAllByAuthorID(id);
+            return Result.Success( Status.Ok, allQuests );
         }
 
         public Result<QuestPattern> Create(string title, string data, int authorId)
@@ -42,12 +42,12 @@ namespace LostTimeWeb.WebApp.Services
             if( ( _questPatternGateway.FindByTitle( title ) != null ) ) return Result.FailureQuest>( Status.BadRequest, " this QuestPattern already exists.");
 
             _questPatternGateway.CreateQuestPattern( title, data);
-            questPattern = _newsGateway.FindByTitle( title );
+            questPattern = _questGateway.FindByTitle( title );
 
             return Result.Success( Status.Created, questPattern );
         }
 
-        public Result<News> Update(int Id, string title,  string data, int  authorId)
+        public Result<Quest> Update(int Id, string title,  string data, int  authorId)
         {
             if( !IsNameValid( title ) ) return Result.Failure<QuestPattern>( Status.BadRequest, "The title is not valid." );
             if( !IsNameValid( content ) ) return Result.Failure<QuestPattern>( Status.BadRequest, "The content is not valid." );
@@ -55,11 +55,11 @@ namespace LostTimeWeb.WebApp.Services
             QuestPattern questPattern = new QuestPattern();
             if( ( questPattern = _questPatternGateway.FindByID( Id ) ) == null )
             {
-                return Result.Failure<News>( Status.NotFound, "QuestPattern not found." );
+                return Result.Failure<Quest>( Status.NotFound, "QuestPattern not found." );
             }
             
             {
-                News s = _questPatternGateway.FindByTitle( title);
+                Quest s = _questPatternGateway.FindByTitle( title);
                 if( s != null && s.QuestPatternID != questPattern.QuestPatternID ) return Result.Failure<QuestPattern>( Status.BadRequest, "this Article already exists." );
             }
             _questPatternGateway.UpdateQuestPattern( Id, title, data);
@@ -71,8 +71,10 @@ namespace LostTimeWeb.WebApp.Services
         {
             QuestPattern questPattern = new QuestPattern();
             if( ( questPattern = _questPatternGateway.FindByID( Id ) ) == null ) return Result.Failure<int>( Status.NotFound, "QuestPattern not found." );
-            _questPatternGateway.DeleteNews( Id );
+            _questPatternGateway.DeleteQuest( Id );
             return Result.Success( Status.Ok,  Id);
         }
+
+        bool IsNameValid( string name ) => !string.IsNullOrWhiteSpace( name );
     }
 }

@@ -14,9 +14,9 @@ namespace LostTimeWeb.WebApp.Controllers
     [Authorize( ActiveAuthenticationSchemes = JwtBearerAuthentication.AuthenticationScheme )]
     public class QuestController : Controller
     {
-        readonly NewsService _questService;
+        readonly QuestService _questService;
 
-        public QuestController(NewsService questService)
+        public QuestController(QuestService questService)
         {
             _questService = questService;
         }

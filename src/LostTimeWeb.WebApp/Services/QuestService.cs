@@ -17,8 +17,8 @@ namespace LostTimeWeb.WebApp.Services
 
         public Result<IEnumerable<Quest>> GetAllQuest()
         {
-            IEnumerable<Quest> allNews = _questGateway.GetAll();
-            return Result.Success( Status.Ok, allNews );
+            IEnumerable<Quest> allQuests = _questGateway.GetAll();
+            return Result.Success( Status.Ok, allQuests );
         }
 
         public Result<Quest> GetById( int id )
@@ -30,8 +30,8 @@ namespace LostTimeWeb.WebApp.Services
 
         public Result<IEnumerable<Quest>> GetAllQuestByAuthor(int id)
         {
-            IEnumerable<Quest> allNews = _questGateway.GetAllByAuthorID(id);
-            return Result.Success( Status.Ok, allNews );
+            IEnumerable<Quest> allQuests = _questGateway.GetAllByAuthorID(id);
+            return Result.Success( Status.Ok, allQuests );
         }
 
         public Result<Quest> Create(string title, string data, int authorId)
@@ -42,12 +42,12 @@ namespace LostTimeWeb.WebApp.Services
             if( ( _questGateway.FindByTitle( title ) != null ) ) return Result.Failure<Quest>( Status.BadRequest, " this Quest already exists.");
 
             _questGateway.CreateQuest( title, data, DateTime.Now, authorId);
-            quest = _newsGateway.FindByTitle( title );
+            quest = _questGateway.FindByTitle( title );
 
             return Result.Success( Status.Created, quest );
         }
 
-        public Result<News> Update(int Id, string title,  string data, int  authorId)
+        public Result<Quest> Update(int Id, string title,  string data, int  authorId)
         {
             if( !IsNameValid( title ) ) return Result.Failure<Quest>( Status.BadRequest, "The title is not valid." );
             if( !IsNameValid( data ) ) return Result.Failure<Quest>( Status.BadRequest, "The content is not valid." );
@@ -55,11 +55,11 @@ namespace LostTimeWeb.WebApp.Services
             Quest quest = new Quest();
             if( ( quest = _questGateway.FindByID( Id ) ) == null )
             {
-                return Result.Failure<News>( Status.NotFound, "Quest not found." );
+                return Result.Failure<Quest>( Status.NotFound, "Quest not found." );
             }
             
             {
-                News s = _questGateway.FindByTitle( title);
+                Quest s = _questGateway.FindByTitle( title);
                 if( s != null && s.QuestID != quest.QuestID ) return Result.Failure<Quest>( Status.BadRequest, "this Article already exists." );
             }
             _questGateway.UpdateQuest( Id, title, data, DateTime.Now, authorId );
@@ -71,8 +71,10 @@ namespace LostTimeWeb.WebApp.Services
         {
             Quest quest = new Quest();
             if( ( quest = _questGateway.FindByID( Id ) ) == null ) return Result.Failure<int>( Status.NotFound, "Quest not found." );
-            _questGateway.DeleteNews( Id );
+            _questGateway.DeleteQuest( Id );
             return Result.Success( Status.Ok,  Id);
         }
+
+        bool IsNameValid( string name ) => !string.IsNullOrWhiteSpace( name );
     }
 }
