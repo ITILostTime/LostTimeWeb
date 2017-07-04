@@ -47,11 +47,12 @@ body{
   background-image:url('../../dist/img/wood-diff.jpg');
   color:black;
 }
-.row
+#app .row
 {
-  background-color:brown;
-  
+  background-color:rgba(165, 42, 42, 0.3);
+  //background:url('../../dist/img/wood-diff-lighten.jpg');
 }
+
 a
 {
   color:darkgrey;
