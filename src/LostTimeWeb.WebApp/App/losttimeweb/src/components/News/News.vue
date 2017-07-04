@@ -75,18 +75,18 @@
 }
 .newsArticle h3
 {
-    background:url('../../../dist/img/metal-barre.png') top left no-repeat;
+    //background:url('../../../dist/img/metal-barre.png') top left no-repeat;
     size:1.1em;
     padding:3px;
-    text-shadow: 1px 1px 0 rgba(140,140,140,0.6) , -1px -1px 1px rgba(0,0,0,0.67) ;
+    //text-shadow: 1px 1px 0 rgba(140,140,140,0.6) , -1px -1px 1px rgba(0,0,0,0.67) ;
     margin-top:0px;
     padding-left:10px;
-    color:lightgrey;
+    //color:lightgrey;
 }
 .newsArticle
 {
     padding:0px 0px 20px 16px;
-    background:rgba(165, 42, 42, 0.5) url('../../../dist/img/barre_laterale_mini.png') top left repeat-y;
+    //background:rgba(165, 42, 42, 0.5) url('../../../dist/img/barre_laterale_mini.png') top left repeat-y;
     text-align:justify;
 }
 .newsArticle div,footer
@@ -95,6 +95,6 @@
 }
 .newsArticle h3 small
 {
-    color:darkgrey;
+    //color:darkgrey;
 }
 </style>

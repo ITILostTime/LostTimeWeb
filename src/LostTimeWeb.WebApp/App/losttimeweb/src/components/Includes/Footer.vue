@@ -17,6 +17,5 @@
     margin: 10px 0px 0px 0px;//top right bottom left
     padding :10px;
     text-align:center;
-    background:brown;
 }
 </style>
