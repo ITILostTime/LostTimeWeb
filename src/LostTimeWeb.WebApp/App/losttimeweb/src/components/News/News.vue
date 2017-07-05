@@ -107,10 +107,9 @@
 {
     //background:url('../../../dist/img/metal-barre.png') top left no-repeat;
     size:1.1em;
-    padding:3px;
+    //padding:3px;
     //text-shadow: 1px 1px 0 rgba(140,140,140,0.6) , -1px -1px 1px rgba(0,0,0,0.67) ;
     padding-top:10px;
-    padding-left:10px;
     //color:lightgrey;
 }
 .newsArticle
