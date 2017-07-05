@@ -60,7 +60,12 @@
     }
 </script>
 <style lang="less">
-
+.transform-origin (@x:center, @y:center) {
+        -webkit-transform-origin: @x @y;
+        -moz-transform-origin:    @x @y;
+        -ms-transform-origin:     @x @y;
+        -o-transform-origin:      @x @y;
+    }
 .glyphicon-menu-down
 {
     color:red;
@@ -68,6 +73,24 @@
 .glyphicon-menu-up
 {
     color:green;
+}
+.news
+{
+    //background:pink;
+    padding-right:0px;
+    padding-left:30px;
+    position:relative;
+}
+.news:before
+{
+    background:blue;
+    position:absolute;
+    content:" ";
+    top:-4%;
+    left:-8px;
+    width:40px;
+    height:105%;
+    background:url('../../../dist/img/poutrelle.png') top left repeat-y;
 }
 .newsArticle a:hover
 {
@@ -79,19 +102,53 @@
     size:1.1em;
     padding:3px;
     //text-shadow: 1px 1px 0 rgba(140,140,140,0.6) , -1px -1px 1px rgba(0,0,0,0.67) ;
-    margin-top:0px;
+    padding-top:10px;
     padding-left:10px;
     //color:lightgrey;
 }
 .newsArticle
 {
-    padding:0px 0px 20px 16px;
-    //background:rgba(165, 42, 42, 0.5) url('../../../dist/img/barre_laterale_mini.png') top left repeat-y;
+    margin:10px 0px 10px 0px;;
+    padding:0px 30px 20px 20px;
+    min-height:140px;
+    //background:url('../../../dist/img/barre_laterale_mini.png') top left repeat-y;
     text-align:justify;
+    position:relative;
+    background:rgba(128,128,128,0.6);
+    box-shadow:black 2px 2px 8px;
+    border:black ridge 2px;
+}
+.newsArticle:before
+{
+    background:url('../../../dist/img/chevron.png') top right no-repeat;
+    position:absolute;
+    content:" ";
+    top:0px;
+    right:0px;
+    transform:rotate(180deg) translateY(1px) scale(0.9);
+    .transform-origin((175px/2)*1.1,(175px/2)*0.9);
+    width:175px;
+    height:175px;
+}
+.newsArticle:after
+{
+    background:url('../../../dist/img/chevron.png') top right no-repeat;
+    position:absolute;
+    content:" ";
+    bottom:0px;
+    left:0px;
+    transform: translateY(1px) scale(0.9);
+    .transform-origin((175px/2)*-0.9,(175px/2)*2.9);
+    width:175px;
+    height:175px;
 }
 .newsArticle div,footer
 {
     padding:0px 10px 0px 15px;
+}
+.newsArticle footer
+{
+    text-align:right;
 }
 .newsArticle h3 small
 {

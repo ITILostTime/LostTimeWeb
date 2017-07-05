@@ -58,6 +58,7 @@ import { Slider, SliderItem } from 'vue-easy-slider'
 #carrousel
 {
     max-width:562px;
+    margin-right:0px;
 }
 #carrousel article
 {

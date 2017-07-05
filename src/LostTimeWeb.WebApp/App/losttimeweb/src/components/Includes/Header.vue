@@ -53,7 +53,11 @@ export default {
 }
 </script>
 <style lang="less">
-
+#head
+{
+    position:relative;
+    z-index:800;
+}
 .navbar
 {
     //background-color:grey;
