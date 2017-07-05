@@ -8,9 +8,9 @@ namespace LostTimeWeb.WebApp.Services
 {
     public class QuestPatternService
     {
-        readonly  QuestPatternGateway _questPatternGateway;
+//        readonly  QuestPatternGateway _questPatternGateway;
 
-        public QuestPatternService(QuestPatternGateway questPatternGateway)
+        /*public QuestPatternService(QuestPatternGateway questPatternGateway)
         {
             _questPatternGateway = questPatternGateway;
         }
@@ -75,6 +75,6 @@ namespace LostTimeWeb.WebApp.Services
             return Result.Success( Status.Ok,  Id);
         }
 
-        bool IsNameValid( string name ) => !string.IsNullOrWhiteSpace( name );
+        bool IsNameValid( string name ) => !string.IsNullOrWhiteSpace( name );*/
     }
 }

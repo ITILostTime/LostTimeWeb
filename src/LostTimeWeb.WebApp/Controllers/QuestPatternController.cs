@@ -14,7 +14,7 @@ namespace LostTimeWeb.WebApp.Controllers
     [Authorize( ActiveAuthenticationSchemes = JwtBearerAuthentication.AuthenticationScheme )]
     public class QuestPatternController
     {
-        readonly QuestPatternService _questPatternService;
+        /*readonly QuestPatternService _questPatternService;
 
         public QuestPatternController(QuestPatternService questPatternService)
         {
@@ -85,7 +85,7 @@ namespace LostTimeWeb.WebApp.Controllers
         {
             Result<int> result =  _questPatternServices.Delete( id );
             return this.CreateResult( result );
-        }
+        }*/
 
     }
 }

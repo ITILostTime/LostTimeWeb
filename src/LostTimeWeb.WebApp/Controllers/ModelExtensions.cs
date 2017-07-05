@@ -60,11 +60,11 @@ namespace LostTimeWeb.WebApp.Controllers
                 QuestTitle  = @this.QuestTitle,
                 QuestData = @this.QuestData,
                 QuestLastEdit = @this.QuestLastEdit,
-                QuestAuthorID = @this.QuestAuthorID
+                QuestAuthorID = @this.AuthorID
             };
         }
 
-        public static QuestPatternViewModel ToQuestPatternViewModel(this QuestPattern @this)
+ /*       public static QuestPatternViewModel ToQuestPatternViewModel(this QuestPattern @this)
         {
             return new QuestPatternViewModel
             {
@@ -72,6 +72,6 @@ namespace LostTimeWeb.WebApp.Controllers
                 QuestTitle  = @this.QuestTitle,
                 QuestData = @this.QuestData
             };
-        }
+        }*/
     }
 }

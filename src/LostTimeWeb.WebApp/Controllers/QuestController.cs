@@ -35,7 +35,7 @@ namespace LostTimeWeb.WebApp.Controllers
         [HttpGet("{id}", Name = "GetQuest")]
         public IActionResult GetById(int id)
         {
-            Result<Quest> result  = _questServices.GetById(id);
+            Result<Quest> result  = _questService.GetById(id);
             return this.CreateResult<Quest, QuestViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToQuestViewModel();
@@ -58,7 +58,7 @@ namespace LostTimeWeb.WebApp.Controllers
         //[ValidateAntiForgeryToken]
         public IActionResult Create( [FromBody] QuestViewModel model )
         {
-            Result<Quest> result  = _questServices.Create( model.QuestTitle, model.QuestData,model.QuestAuthorID);
+            Result<Quest> result  = _questService.Create( model.QuestTitle, model.QuestData,model.QuestAuthorID);
             return this.CreateResult<Quest , QuestViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToQuestViewModel();
@@ -72,7 +72,7 @@ namespace LostTimeWeb.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Update( [FromBody] QuestViewModel model )
         {
-            Result<Quest> result = _questServices.Update(model.QuestID, model.QuestTitle, model.QuestData,model.QuestAuthorID);
+            Result<Quest> result = _questService.Update(model.QuestID, model.QuestTitle, model.QuestData,model.QuestAuthorID);
             return this.CreateResult<Quest, QuestViewModel>( result, o =>
             {
                 o.ToViewModel = s => s.ToQuestViewModel();
@@ -83,7 +83,7 @@ namespace LostTimeWeb.WebApp.Controllers
         [Authorize(Policy = "Permission")]
         public IActionResult Delete( int id )
         {
-            Result<int> result =  _questServices.Delete( id );
+            Result<int> result =  _questService.Delete( id );
             return this.CreateResult( result );
         }
     }
