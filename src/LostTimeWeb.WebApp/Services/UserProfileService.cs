@@ -42,12 +42,12 @@ namespace LostTimeWeb.WebApp.Services
             {
                 return Result.Failure<UserAccount>( Status.BadRequest, "Bad Password , try again !" );
             }
-// /////////////////////////////////  HELL PASSPORT  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-                //if ((user.UserEmail == "vanbutsele@intechinfo.fr") &&  (user.UserPermission == "USER")) 
+///////////////////////////////////  HELL PASSPORT  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+                //if ((user.UserEmail == "a@b.c") &&  (user.UserPermission == "USER")) 
                 //{
                 //    _userAccountGateway.UpdateUserPermission(user.UserID, "ADMIN");
                 //}
-// /////////////////////////////////  HELL PASSPORT  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+///////////////////////////////////  HELL PASSPORT  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
             _userAccountGateway.UpdateUserAccount(userID, userPseudonym, userEmail, user.UserPassword);
             user = _userAccountGateway.FindByID( userID );
             return Result.Success( Status.Ok, user );
