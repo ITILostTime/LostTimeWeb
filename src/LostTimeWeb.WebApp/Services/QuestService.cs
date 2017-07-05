@@ -17,21 +17,21 @@ namespace LostTimeWeb.WebApp.Services
 
         public Result<IEnumerable<Quest>> GetAllQuest()
         {
-            IEnumerable<Quest> allNews = _questGateway.GetAll();
-            return Result.Success( Status.Ok, allNews );
+            IEnumerable<Quest> allQuests = _questGateway.GetAll();
+            return Result.Success( Status.Ok, allQuests );
         }
 
         public Result<Quest> GetById( int id )
         {
             Quest quest = new Quest();
-            if( ( quest = _questGateway.FindByID( id ) ) == null ) return Result.Failure<Quest>( Status.NotFound, "Quest not found." );
+            if( ( quest = _questGateway.FindQuestBYQuestID( id ) ) == null ) return Result.Failure<Quest>( Status.NotFound, "Quest not found." );
             return Result.Success( Status.Ok, quest );
         }
 
         public Result<IEnumerable<Quest>> GetAllQuestByAuthor(int id)
         {
-            IEnumerable<Quest> allNews = _questGateway.GetAllByAuthorID(id);
-            return Result.Success( Status.Ok, allNews );
+            IEnumerable<Quest> allQuests = _questGateway.GetAllByAuthorID(id);
+            return Result.Success( Status.Ok, allQuests );
         }
 
         public Result<Quest> Create(string title, string data, int authorId)
@@ -39,40 +39,42 @@ namespace LostTimeWeb.WebApp.Services
             Quest quest = new Quest();
             if (!IsNameValid(title)) return Result.Failure<Quest>(Status.BadRequest, "The Title is not valid.");
             if (!IsNameValid(data)) return Result.Failure<Quest>(Status.BadRequest, "The Data is not valid.");
-            if( ( _questGateway.FindByTitle( title ) != null ) ) return Result.Failure<Quest>( Status.BadRequest, " this Quest already exists.");
+            if( ( _questGateway.FindQuestBYQuestTitle( title ) != null ) ) return Result.Failure<Quest>( Status.BadRequest, " this Quest already exists.");
 
-            _questGateway.CreateQuest( title, data, DateTime.Now, authorId);
-            quest = _newsGateway.FindByTitle( title );
+            _questGateway.CreateQuest( title, data, authorId);
+            quest = _questGateway.FindQuestBYQuestTitle( title );
 
             return Result.Success( Status.Created, quest );
         }
 
-        public Result<News> Update(int Id, string title,  string data, int  authorId)
+        public Result<Quest> Update(int Id, string title,  string data, int  authorId)
         {
             if( !IsNameValid( title ) ) return Result.Failure<Quest>( Status.BadRequest, "The title is not valid." );
             if( !IsNameValid( data ) ) return Result.Failure<Quest>( Status.BadRequest, "The content is not valid." );
             
             Quest quest = new Quest();
-            if( ( quest = _questGateway.FindByID( Id ) ) == null )
+            if( ( quest = _questGateway.FindQuestBYQuestID( Id ) ) == null )
             {
-                return Result.Failure<News>( Status.NotFound, "Quest not found." );
+                return Result.Failure<Quest>( Status.NotFound, "Quest not found." );
             }
             
             {
-                News s = _questGateway.FindByTitle( title);
+                Quest s = _questGateway.FindQuestBYQuestTitle( title);
                 if( s != null && s.QuestID != quest.QuestID ) return Result.Failure<Quest>( Status.BadRequest, "this Article already exists." );
             }
-            _questGateway.UpdateQuest( Id, title, data, DateTime.Now, authorId );
-            quest = _questGateway.FindByID( Id );
+            _questGateway.UpdateQuest( Id, title, data, authorId );
+            quest = _questGateway.FindQuestBYQuestID( Id );
             return Result.Success( Status.Ok, quest );
         }
 
         public Result<int> Delete( int Id )
         {
             Quest quest = new Quest();
-            if( ( quest = _questGateway.FindByID( Id ) ) == null ) return Result.Failure<int>( Status.NotFound, "Quest not found." );
-            _questGateway.DeleteNews( Id );
+            if( ( quest = _questGateway.FindQuestBYQuestID( Id ) ) == null ) return Result.Failure<int>( Status.NotFound, "Quest not found." );
+            _questGateway.DeleteQuestByQuestID( Id );
             return Result.Success( Status.Ok,  Id);
         }
+
+        bool IsNameValid( string name ) => !string.IsNullOrWhiteSpace( name );
     }
 }
