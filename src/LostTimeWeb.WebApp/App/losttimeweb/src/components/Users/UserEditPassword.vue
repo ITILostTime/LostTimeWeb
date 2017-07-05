@@ -1,5 +1,5 @@
 <template>
-   <div id="UserEditPassword" class="row">
+   <div id="UserEditPassword" class="row backgrey">
         <div class="col-md-3" id="avatar">
             <img src="../../../dist/img/userSteam.png"/><br/>
             <router-link class="btn btn-primary" :to="`/user/edit/${this.id}`">

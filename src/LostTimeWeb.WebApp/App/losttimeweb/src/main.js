@@ -12,7 +12,6 @@ import Login from './components/Login.vue'
 import Logout from './components/Logout.vue'
 
 import Support from './components/Support.vue'
-import Forum from './components/Forum.vue'
 import About from './components/About.vue'
 import Download from './components/Download.vue'
 import Tchat from './components/Tchat.vue'
@@ -77,7 +76,6 @@ const router = new VueRouter({
     { path: '/login' , component: Login },
     { path: '/logout', component: Logout, beforeEnter: requireAuth },
     { path: '/support', component: Support },
-    { path: '/forum', component: Forum },
     { path: '/about', component: About },
     { path: '/download', component: Download },
     { path: '/tchat', component: Tchat },

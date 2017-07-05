@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="text-center row">
+        <div class="text-center row backgrey">
             <div class="page-header">
                 <h1>SUPPRESSION DU COMPTE</h1>
             </div>

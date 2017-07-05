@@ -8,6 +8,9 @@ class QuestApiService {
     async getQuestListAsync() {
         return await getAsync(endpoint);
     }
+    async getQuestListByAuthorAsync(AuthorId) {
+        return await getAsync(`${endpoint}/${AuthorId}`);
+    }
     async getQuestAsync(QuestId) {
         return await getAsync(`${endpoint}/${QuestId}`);
     }
@@ -17,7 +20,6 @@ class QuestApiService {
     async updateQuestAsync(model) {
         return await putAsync(`${endpoint}/${model.questId}`, model);
     }
-
     async deleteQuestAsync(model) {
         return await postAsync(`${endpoint}/delete`, model);
     }
