@@ -1,6 +1,6 @@
 <template>
     <header id="head">
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -11,7 +11,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <router-link to="/" class="navbar-brand">
-                        <img src="../../../dist/img/logo_noParticle_shadow.png" alt="brand"/> 
+                        <img src="../../../dist/img/logo_noParticle_light.png" alt="brand"/> 
                     </router-link>
                     <span class="brand-title"><router-link to="/" >LostTime</router-link></span>
                 </div>
@@ -23,7 +23,6 @@
                         <li  v-if="auth.isConnected" ><router-link :to="`/user/${auth.id}`">Profil</router-link></li>
                         <li  v-if="auth.isConnected"><router-link to="/quest">Quètes</router-link></li>
                         <li ><router-link to="/admin" v-if="auth.role== 'ADMIN' && auth.isConnected">Administration</router-link></li>
-                    
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li v-if="!auth.isConnected"><router-link to="/login">Se connecter</router-link></li>
@@ -57,14 +56,15 @@ export default {
 
 .navbar
 {
-    background-color:grey;
+    //background-color:grey;
     border:darkgrey;
     max-height:50px;
-    font-color:black;
+    //font-color:black;
+    box-shadow:black 2px 2px 8px;
 }
 #head a
 {
-  color:white;
+  //color:white;
 }
 #head img
 {
@@ -110,7 +110,6 @@ export default {
     top:50px;
 
 }
-
 #head .brand-title a
 {
     //display:inline-block;
@@ -123,7 +122,19 @@ export default {
     -webkit-text-fill-color: transparent;
     //padding-bottom:20px;
 }
-@media (max-width: 420px) 
+@media (max-width: 768px) 
+{
+    #head .navbar-brand img
+    {
+        transform:scale(1.0) translate(-20px, -20px);
+    }
+    #head .brand-title
+    {
+        padding-left:20px;
+        margin-left:120px;
+    }
+}
+@media (max-width:  420px) 
 {
     #head .navbar-brand
     {
