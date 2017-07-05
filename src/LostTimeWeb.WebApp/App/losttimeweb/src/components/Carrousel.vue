@@ -58,7 +58,36 @@ import { Slider, SliderItem } from 'vue-easy-slider'
 #carrousel
 {
     max-width:562px;
+    margin-right:0px;
+    margin-bottom:50px;
 }
+
+#carrousel:before
+{
+    background:blue;
+    position:absolute;
+    content:" ";
+    bottom:-45px;
+    right:0px;
+    width:120%;
+    height:40px;
+    background:url('../../dist/img/poutrelle_h.png') top left repeat-x;
+    z-index:800;
+}
+@media (max-width: 1200px) 
+{
+    #carrousel
+    {
+        margin-left:18px;
+        
+    }
+    #carrousel:before
+    {
+        left:5px;
+        width:100%;
+    }
+}
+
 #carrousel article
 {
     position:relative;

@@ -43,15 +43,15 @@ export default {
 <style lang="less">
   @import "../styles/global.less";
 body{
-  background:#382f24;
+  //background:#382f24;
   background-image:url('../../dist/img/wood-diff.jpg');
   color:black;
 }
-.row
+#app .backgrey
 {
-  background-color:brown;
-  
+    background:#544545;
 }
+
 a
 {
   color:darkgrey;

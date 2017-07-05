@@ -1,5 +1,5 @@
 <template>
-    <div class="text-center row">
+    <div class="text-center row backgrey">
         <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
         <br />
         <h1>Déconnexion en cours...</h1>
