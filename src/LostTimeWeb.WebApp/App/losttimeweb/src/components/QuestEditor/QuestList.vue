@@ -1,5 +1,5 @@
 <template>
-    <div id="QuestList" class="row">
+    <div id="QuestList" class="row backgrey">
         <div class="col-md-5 col-md-offset-2">
             <h1>Quêtes Disponibles</h1>
             <p>Choissisez d'éditer ou d'ajouter une quète à votre jeu.</p>

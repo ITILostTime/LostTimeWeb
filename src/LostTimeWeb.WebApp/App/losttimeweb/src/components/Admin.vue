@@ -1,5 +1,5 @@
 <template>
-    <div id="admin" class="row">
+    <div id="admin" class="row backgrey">
         <div class="col-md-5 col-md-offset-2">
             <h1>Page d'administration</h1>
             <router-link class="btn btn-primary" to="/news">Gestion des News</router-link>

@@ -86,11 +86,18 @@
     background:blue;
     position:absolute;
     content:" ";
-    top:-4%;
+    bottom:-7px;
     left:-8px;
     width:40px;
     height:105%;
     background:url('../../../dist/img/poutrelle.png') top left repeat-y;
+}
+@media (max-width: 1200px) 
+{
+    .news:before
+    {
+        height:150%;
+    }
 }
 .newsArticle a:hover
 {
@@ -114,7 +121,7 @@
     //background:url('../../../dist/img/barre_laterale_mini.png') top left repeat-y;
     text-align:justify;
     position:relative;
-    background:rgba(128,128,128,0.6);
+    background:#544545;
     box-shadow:black 2px 2px 8px;
     border:black ridge 2px;
 }

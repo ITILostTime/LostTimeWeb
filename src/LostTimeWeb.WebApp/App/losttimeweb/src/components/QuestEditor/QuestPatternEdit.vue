@@ -1,5 +1,5 @@
 <template>
-    <div id="QuestPatternEditor" class="row">
+    <div id="QuestPatternEditor" class="row backgrey">
         <div class="col-md-5 col-md-offset-2">
             <h1 v-if="mode == 'create'">Ajouter un pattern de Quète</h1>
             <h1 v-else>Editer un pattern de Quète</h1>

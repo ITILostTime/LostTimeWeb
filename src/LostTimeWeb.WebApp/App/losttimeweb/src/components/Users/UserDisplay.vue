@@ -1,5 +1,5 @@
 <template>
-   <div id="UserDisplay" class="row">
+   <div id="UserDisplay" class="row backgrey">
         <div class="col-md-3" id="avatar">
             <img src="../../../dist/img/userSteam.png"/><br/>
             <router-link :to="`edit/${this.id}`" class="btn btn-primary" v-if="authId == id">Editer mon compte</router-link>

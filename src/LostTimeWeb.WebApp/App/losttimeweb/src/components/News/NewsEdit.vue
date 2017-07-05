@@ -1,5 +1,5 @@
 <template>
-    <div id="NewsEdit" class="row">
+    <div id="NewsEdit" class="row backgrey">
         <div class="col-md-5 col-md-offset-2">
             <h1 v-if="mode == 'create'">Rédiger un news</h1>
             <h1 v-else>Editer une news</h1>

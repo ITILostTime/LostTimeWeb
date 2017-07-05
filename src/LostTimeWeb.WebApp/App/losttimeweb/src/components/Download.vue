@@ -1,5 +1,5 @@
 <template>
-  <div id="download" class="row">
+  <div id="download" class="row backgrey">
         <div class="col-md-5 col-md-offset-2">
             <h1>Télécharger la dernière version</h1>
             <p><a href="#"><img src="../../dist/img/en_badge_web_generic.png"/></a></p>

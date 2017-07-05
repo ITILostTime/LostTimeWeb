@@ -47,9 +47,9 @@ body{
   background-image:url('../../dist/img/wood-diff.jpg');
   color:black;
 }
-#app .row
+#app .backgrey
 {
- 
+    background:#544545;
 }
 
 a
