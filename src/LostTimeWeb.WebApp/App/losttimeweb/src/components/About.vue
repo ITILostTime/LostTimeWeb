@@ -1,5 +1,5 @@
 <template>
-    <div id="about" class="row">
+    <div id="about" class="row backgrey">
         <div class="col-md-5 col-md-offset-3">
             <h1>A-Propos du projet</h1>
             <p>Lost Time est un jeu vidéo dans lequel vous suivez Astrid à travers diverses péripéties et l’aider à sauver le temps. Venez en aide aux habitants en explorant les différents quartiers de la ville : du quartier de la machine au zeppelin surplombant la cité. </p>

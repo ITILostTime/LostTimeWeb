@@ -20,6 +20,6 @@ import News from './News/News.vue'
 <style lang="less">
 #home
 {
-    background-color:brown;
+    //background-color:brown;
 }
 </style>

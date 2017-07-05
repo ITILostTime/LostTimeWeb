@@ -1,5 +1,5 @@
 <template>
-    <div id="News" class="row">
+    <div id="News" class="row backgrey">
         <div class="col-md-5 col-md-offset-3">
             <h1>Articles postés</h1>
             <p>Rappel : tout les articles postés seront publics ! N'hésitez pas à relire les règles de rédaction.</p>

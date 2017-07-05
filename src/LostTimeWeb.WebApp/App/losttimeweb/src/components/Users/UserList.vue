@@ -1,5 +1,5 @@
 <template>
-    <div id="UserList" class="row">
+    <div id="UserList" class="row backgrey">
         <div class="col-md-5 col-md-offset-3">
             <h1>Listes des joueurs</h1>
             <p>Rappel : Cette page est réservé aux admin du site</p>

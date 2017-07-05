@@ -14,9 +14,20 @@
 .footer
 {
     //width:90%;
-    margin: 10px 0px 0px 0px;//top right bottom left
-    padding :10px;
+    margin: 0px 0px 0px 0px;//top right bottom left
+    padding: 45px 0px 10px 0px;//top right bottom left
     text-align:center;
-    background:brown;
+    position:relative;
+    
+}
+.footer:before
+{
+    background:blue;
+    position:absolute;
+    content:" ";
+    top:0px;
+    width:100%;
+    height:40px;
+    background:url('../../../dist/img/poutrelle_h.png') top left repeat-x;
 }
 </style>
