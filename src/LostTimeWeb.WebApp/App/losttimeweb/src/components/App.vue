@@ -54,7 +54,10 @@ body{
 {
     background:#544545;
 }
-
+#app .row
+{
+    padding-bottom:10px;
+}
 a
 {
   color:darkgrey;

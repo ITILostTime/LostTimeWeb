@@ -1,8 +1,9 @@
 <template>
 <div id="support" class="row backgrey">
         <div class="col-md-5 col-md-offset-3">
-            <h1>
-                <button class="like-button" :class="{ 'active': active }" @click="liked">{{ active ? likedText : buttonText }}</button>
+            <h1>Un soucis sur le jeu ?<br />
+             Contactez nous !<br />
+                <a class="btn btn-default" href="mailto:losttime@intechinfo.fr">Cliquez ici</a>
             </h1>
         </div>
 </div>
@@ -24,3 +25,10 @@ export default {
     }
 }
 </script>
+<style lang="less">
+#support h1
+{
+    text-align:center;
+    margin:10px auto 10px auto;
+}
+</style>

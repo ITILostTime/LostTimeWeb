@@ -20,6 +20,7 @@
                         <li><router-link to="/">Accueil</router-link></li>
                         <li><router-link to="/download">Téléchargement</router-link></li>                    
                         <li><router-link to="/support">Support</router-link></li>
+                        <li><router-link to="/about">Developpement</router-link></li>
                         <li  v-if="auth.isConnected" ><router-link :to="`/user/${auth.id}`">Profil</router-link></li>
                         <li  v-if="auth.isConnected"><router-link to="/quest">Quètes</router-link></li>
                         <li ><router-link to="/admin" v-if="auth.role== 'ADMIN' && auth.isConnected">Administration</router-link></li>
