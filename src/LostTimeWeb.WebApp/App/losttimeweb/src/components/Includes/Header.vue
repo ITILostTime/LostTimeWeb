@@ -11,7 +11,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <router-link to="/" class="navbar-brand">
-                        <img src="../../../dist/img/logo_noParticle_light.png" alt="brand"/> 
+                        <img src="../../../dist/img/logo_noParticle_shadow.png" alt="brand"/> 
                     </router-link>
                     <span class="brand-title"><router-link to="/" >LostTime</router-link></span>
                 </div>
@@ -20,6 +20,7 @@
                         <li><router-link to="/">Accueil</router-link></li>
                         <li><router-link to="/download">Téléchargement</router-link></li>                    
                         <li><router-link to="/support">Support</router-link></li>
+                        <li><router-link to="/about">Developpement</router-link></li>
                         <li  v-if="auth.isConnected" ><router-link :to="`/user/${auth.id}`">Profil</router-link></li>
                         <li  v-if="auth.isConnected"><router-link to="/quest">Quètes</router-link></li>
                         <li ><router-link to="/admin" v-if="auth.role== 'ADMIN' && auth.isConnected">Administration</router-link></li>
@@ -90,7 +91,8 @@ export default {
 #head .brand-title
 {
     display:inline-block;
-    margin-top:-15px;
+    margin-top:-20px;
+    padding-top:10px;
     padding-left:25px;
     //padding-top:8px;
     height:80px;
@@ -99,7 +101,7 @@ export default {
     //background:brown;
     //z-index:1000;
     
-    background-color:#9f9080;
+    background-color:#27221f;
     border-bottom-left-radius: 2em;
     border-bottom-right-radius: 2em;
 }
@@ -117,7 +119,7 @@ export default {
 #head .brand-title a
 {
     //display:inline-block;
-    font-family:"The Goldsmith Vintage", "Impact", serif;
+    font-family:"the_goldsmith_vintagevintage", "Impact", serif;
     font-size:4em;
     text-decoration:none;
     color:#493836;
