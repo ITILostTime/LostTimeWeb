@@ -6,7 +6,7 @@
                 <vue-markdown>{{i.content}}</vue-markdown>
                 <footer> 
                     <span> {{i.upVote}} <a href="#" @click="NewsUpVote(i.articleId)"><i class="glyphicon glyphicon-menu-up"></i></a></span>
-                    <span> {{i.downVote}} <a href="#" @click="NewsDownVote(i.articleId)"><i class="glyphicon glyphicon-menu-down"></i></a></span>  
+                    <span> {{Math.abs(i.downVote)}} <a href="#" @click="NewsDownVote(i.articleId)"><i class="glyphicon glyphicon-menu-down"></i></a></span>  
                     - Posté le {{i.datePost | formatDate}} 
                     - Edité {{i.editions}} fois
                 </footer>
@@ -159,5 +159,11 @@
 .newsArticle h3 small
 {
     //color:darkgrey;
+}
+.news img
+{
+    margin:5px;
+    width:70%;
+    height:auto;
 }
 </style>
