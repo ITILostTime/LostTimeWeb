@@ -45,7 +45,10 @@ export default {
 body{
   //background:#382f24;
   background-image:url('../../dist/img/wood-diff.jpg');
-  color:black;
+    color:black;
+    font-family:"Sylfaen", serif;
+
+  
 }
 #app .backgrey
 {
