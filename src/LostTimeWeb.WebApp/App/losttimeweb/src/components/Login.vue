@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row backgrey">
         <div class="text-center">
             <div class="page-header">
                 <h1>Connectez vous à votre compte.</h1>
