@@ -1,6 +1,6 @@
 <template>
-  <div id="download" class="row backgrey">
-        <div class="col-md-5 col-md-offset-2">
+  <div id="questeditor" class="row backgrey">
+        <div class="col-md-5 col-md-offset-1">
             <h1>Télécharger la dernière version</h1>
             <p><a href="#"><img src="../../dist/img/en_badge_web_generic.png"/></a></p>
         </div>
@@ -12,24 +12,10 @@
         </div>
 </div>
 </template>
-<script>
-    export default {
-        data () {
-            return {
-                versionLog:{version: 'X.X.X', changelog: ['Things changed','Other things changed','You get the point','Srlsy ?']}
-            }
-        }
-    }
-</script>
 <style lang="less">
 #download img
 {
     max-width:200px;
     height:auto;
-    cursor:not-allowed;
-}
-#download img:hover
-{
-    opacity:0.5;
 }
 </style>
