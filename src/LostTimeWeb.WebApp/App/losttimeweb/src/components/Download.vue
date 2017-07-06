@@ -26,5 +26,10 @@
 {
     max-width:200px;
     height:auto;
+    cursor:not-allowed;
+}
+#download img:hover
+{
+    opacity:0.5;
 }
 </style>
