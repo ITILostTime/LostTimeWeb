@@ -1,12 +1,12 @@
 <template>
-   <div id="UserDisplay" class="row">
+   <div id="UserDisplay" class="row backgrey">
         <div class="col-md-3" id="avatar">
             <img src="../../../dist/img/userSteam.png"/><br/>
-            <router-link :to="`edit/${this.id}`" class="btn btn-primary">Editer mon compte</router-link>
+            <router-link :to="`edit/${this.id}`" class="btn btn-primary" v-if="authId == id">Editer mon compte</router-link>
         </div>
         <div class="col-md-9">
             <div class="page-header">
-                <h1>Profil personnel</h1>
+                <h1>Affichage du profil</h1>
             </div>
             <dl class="dl-horizontal">
                 <dt>pseudo :</dt><dd>{{item.userPseudonym}}</dd>
@@ -28,26 +28,25 @@
             return {
                 item: {},
                 id: null,
-                errors: []  
+                errors: [],
+                authId: 0
             }
         },
         async mounted() {
+            this.authId = AuthService.id;
 
             if(this.$route.params.id != undefined) 
             {
                 this.id = this.$route.params.id;
-                console.log("route id :"+this.id);
             }
             else
             {
-                this.id = AuthService.id;//get the ID from the auth data
-                console.log("auth id :"+this.id);
+                this.id = auth.id;//get the ID from the auth data
             }
             try {
                 // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                 // It is useful when we have to know if an error occurred, in order to adapt the user experience.
                 this.item = await this.executeAsyncRequest(() => UserApiService.getUserAsync(this.id));
-                console.log(this.item);
             }
             catch(error) {
                 console.log(error);

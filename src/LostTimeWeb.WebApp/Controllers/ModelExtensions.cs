@@ -1,6 +1,7 @@
 ﻿using LostTimeDB;
 using LostTimeWeb.WebApp.Models.NewsViewModels;
 using LostTimeWeb.WebApp.Models.ManagerAccountViewModel;
+using LostTimeWeb.WebApp.Models.QuestManagerViewModel;
 
 namespace LostTimeWeb.WebApp.Controllers
 {
@@ -50,5 +51,27 @@ namespace LostTimeWeb.WebApp.Controllers
                 UserPermission = @this.UserPermission
             };
         }
+
+        public static QuestViewModel ToQuestViewModel(this Quest @this)
+        {
+            return new QuestViewModel
+            {
+                QuestID = @this.QuestID,
+                QuestTitle  = @this.QuestTitle,
+                QuestData = @this.QuestData,
+                QuestLastEdit = @this.QuestLastEdit,
+                QuestAuthorID = @this.AuthorID
+            };
+        }
+
+ /*       public static QuestPatternViewModel ToQuestPatternViewModel(this QuestPattern @this)
+        {
+            return new QuestPatternViewModel
+            {
+                QuestID = @this.QuestID,
+                QuestTitle  = @this.QuestTitle,
+                QuestData = @this.QuestData
+            };
+        }*/
     }
 }

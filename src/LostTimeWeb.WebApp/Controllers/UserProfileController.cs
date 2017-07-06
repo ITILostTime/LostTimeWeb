@@ -60,11 +60,14 @@ namespace LostTimeWeb.WebApp.Controllers
             } );
         }
 
-        [HttpDelete( "{id}" )]
+        [HttpPost("delete")]
         //[Authorize(Policy = "Permission")]
-        public IActionResult Delete( int id )
+        public IActionResult Delete( [FromBody] UserDeleteViewModel model  )
         {
-            Result<int> result = _userProfileService.Delete( id );
+            Result<int> result = _userProfileService.Delete( 
+                model.UserID, 
+                model.UserEmail, 
+                model.UserConfirmPassword );
             return this.CreateResult( result );
         }
     }

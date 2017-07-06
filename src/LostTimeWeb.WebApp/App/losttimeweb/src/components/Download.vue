@@ -1,17 +1,13 @@
 <template>
-  <div id="download" class="row">
-        <div class="col-md-5 col-md-offset-3">
+  <div id="download" class="row backgrey">
+        <div class="col-md-5 col-md-offset-2">
             <h1>Télécharger la dernière version</h1>
             <p><a href="#"><img src="../../dist/img/en_badge_web_generic.png"/></a></p>
         </div>
         <div class="col-md-4">
-            <h2>Changelog V{{version}}</h2>
-            <ul>
-                <li>Things changed</li>
-                <li>Other things changed</li>
-                <li>You get the point</li>
-                <li>Srlsy ?</li>
-                <li>...</li>
+            <h2>Changelog V{{versionLog.version}}</h2>
+            <ul v-for="i of versionLog.changelog">
+                <li>{{i}}</li>
             </ul>
         </div>
 </div>
@@ -20,7 +16,7 @@
     export default {
         data () {
             return {
-                version: 'X.X.X'
+                versionLog:{version: 'X.X.X', changelog: ['Things changed','Other things changed','You get the point','Srlsy ?']}
             }
         }
     }
@@ -30,5 +26,10 @@
 {
     max-width:200px;
     height:auto;
+    cursor:not-allowed;
+}
+#download img:hover
+{
+    opacity:0.5;
 }
 </style>

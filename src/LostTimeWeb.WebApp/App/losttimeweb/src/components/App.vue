@@ -43,14 +43,20 @@ export default {
 <style lang="less">
   @import "../styles/global.less";
 body{
-  background:#382f24;
+  //background:#382f24;
   background-image:url('../../dist/img/wood-diff.jpg');
-  color:black;
-}
-.row
-{
-  background-color:brown;
+    color:black;
+    font-family:"Sylfaen", serif;
+
   
+}
+#app .backgrey
+{
+    background:#544545;
+}
+#app .row
+{
+    padding-bottom:10px;
 }
 a
 {
