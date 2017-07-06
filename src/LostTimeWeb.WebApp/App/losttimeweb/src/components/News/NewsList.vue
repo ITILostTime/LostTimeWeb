@@ -29,7 +29,7 @@
                     <td>{{i.editions}}</td>                    
                     <td> 
                         <span> {{i.upVote}} <i class="glyphicon glyphicon-menu-up"></i></span>
-                        <span><i class="glyphicon glyphicon-menu-down"></i> {{i.downVote}} </span>  
+                        <span><i class="glyphicon glyphicon-menu-down"></i> {{Math.abs(i.downVote)}} </span>  
                     </td>
                     <td>
                         <router-link :to="`news/edit/${i.articleId}`"><i class="glyphicon glyphicon-pencil"></i></router-link>
